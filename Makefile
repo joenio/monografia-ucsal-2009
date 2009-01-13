@@ -3,9 +3,8 @@
 CONVERT=markdown2pdf
 
 all: anteprojeto.pdc
-	$(CONVERT) anteprojeto.pdc
+	$(CONVERT) -C anteprojeto-header.tex --toc anteprojeto.pdc
 
 clean:
 	rm -f *~
 	rm -f *.pdf
-	rm -f *.tex
