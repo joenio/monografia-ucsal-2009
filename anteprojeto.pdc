@@ -5,22 +5,44 @@
 Tema
 ----
 
+
+
 Justificativa
 -------------
+
+O Egypt, uma ferramenta para análise de dependência de módulos em programas C/C++ utiliza
+como base a saída dos dados gerados pelo GCC, dificultando analisar códigos que por algum
+motivo não compilem mais (seja por dependencias antigas ou por pequenas falhas no código fonte).
 
 Objetivos
 ---------
 
+Construir uma ferramenta para análide de dependência entre módulos de programas C/C++
+utilizando como base o software [Egypt](http://www.gson.org/egypt/) modificada por
+Antonio Terceiro [Egypt modificado](http://github.com/terceiro/egypt/) sem a necessidade
+de compilar o código do software a ser analisado.
+
+Para este fim, pretende-se implementar no Egypt um mecanismo de análise de código fonte
+usando gramáticas prontas do [antlr](http://www.antlr.org/)
+
 Metodologia
 -----------
+
+
 
 Referências Bibliográficas
 --------------------------
 
 Statistical hypothesis testing - http://en.wikipedia.org/wiki/Statistical_hypothesis_testing
 
+Verificando as Leis de Crescimento Contínuo e Complexidade Crescente em um projeto de software livre de pequeno porte - https://disciplinas.dcc.ufba.br/pub/MATA26/TrabalhoTerceiro/mata26-terceiro-projeto-piloto.pdf - Acessado em: 15 Jan 2009
+
+Estudos Primários e Secundários apoiando a busca por Evidência em Engenharia de Software - http://www.cos.ufrj.br/uploadfiles/1149103120.pdf - Acessado em: 18 Jan 2009
+
+### Falta ler
+
 Experimental software engineering - http://en.wikipedia.org/wiki/Experimental_Software_Engineering
 
-Verificando as Leis de Crescimento Contínuo e Complexidade Crescente em um projeto de software livre de pequeno porte - https://disciplinas.dcc.ufba.br/pub/MATA26/TrabalhoTerceiro/mata26-terceiro-projeto-piloto.pdf
-
 http://www.amazon.com/Experimentation-Software-Engineering-Introduction-International/dp/0792386825
+
+Introdução à Engenharia de Software Experimental - http://sergio.dsc.upe.br/es/IntroducaoExperimentacao.pdf - Acessado em: 18 Jan 2009
