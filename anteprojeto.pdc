@@ -25,6 +25,25 @@ de compilar o código do software a ser analisado.
 Para este fim, pretende-se implementar no Egypt um mecanismo de análise de código fonte
 usando gramáticas prontas do [antlr](http://www.antlr.org/)
 
+### Notas de terceiro (remover depois)
+
+Desenvolver um extrator de informações de dependência entre módulos para
+programas escritos em C/C++ que use apenas o código-fonte (i.e.  não dependa de
+compilar o código) e, se possível, suporte código mal-formado até um
+determinado nível (i.e. código que não compilaria, mas que não esteja quebrado
+demais).  Esse extrator poderia ser baseado em uma ou mais das seguintes
+ferramentas:
+
+ - ctags-exuberant
+ - antlr (existe uma gramática pronta para C/C++ no site)
+ - doxygen
+
+se der tempo, ou como parte de outro projeto, comparar esse extrator
+com o extrator atual do egypt (baseado no gcc), em termos de
+informações que um consegue extrair e o outro não.
+
+se for necessário, pode suportar apenas C e deixar C++ pra depois
+
 Metodologia
 -----------
 
