@@ -5,7 +5,8 @@
 Tema
 ----
 
-
+Ferramenta para Extração de Informações de Dependência entre Módulos de
+Programas C/C++.
 
 Justificativa
 -------------
@@ -17,32 +18,22 @@ motivo não compilem mais (seja por dependencias antigas ou por pequenas falhas 
 Objetivos
 ---------
 
-Construir uma ferramenta para análide de dependência entre módulos de programas C/C++
-utilizando como base o software [Egypt](http://www.gson.org/egypt/) modificada por
-Antonio Terceiro [Egypt modificado](http://github.com/terceiro/egypt/) sem a necessidade
-de compilar o código do software a ser analisado.
+Construir uma ferramenta para análide de dependência entre módulos de programas
+escritos em C/C++ utilizando como base apenas o código-fonte (i.e.  não dependa
+de compilar o código). Esta ferramente será implementada como uma extensão do
+software [Egypt](http://www.gson.org/egypt/) modificada por Antonio Terceiro
+[Egypt modificado](http://github.com/terceiro/egypt/).
 
-Para este fim, pretende-se implementar no Egypt um mecanismo de análise de código fonte
-usando gramáticas prontas do [antlr](http://www.antlr.org/)
+Para este fim, pretende-se utilizar como base a ferramenta
+[antlr](http://www.antlr.org/) que já possui uma gramática pronta para C/C++ no
+site do projeto.
 
-### Notas de terceiro (remover depois)
-
-Desenvolver um extrator de informações de dependência entre módulos para
-programas escritos em C/C++ que use apenas o código-fonte (i.e.  não dependa de
-compilar o código) e, se possível, suporte código mal-formado até um
-determinado nível (i.e. código que não compilaria, mas que não esteja quebrado
-demais).  Esse extrator poderia ser baseado em uma ou mais das seguintes
-ferramentas:
-
- - ctags-exuberant
- - antlr (existe uma gramática pronta para C/C++ no site)
- - doxygen
-
-se der tempo, ou como parte de outro projeto, comparar esse extrator
-com o extrator atual do egypt (baseado no gcc), em termos de
+Se for possível será feito um estudo comparativo entre a ferramenta
+desenvolvida com o extrator atual do Egypt (baseado no gcc), em termos de
 informações que um consegue extrair e o outro não.
 
-se for necessário, pode suportar apenas C e deixar C++ pra depois
+É possível que seja necessário suportar apenas C e deixar C++ para trabalho
+futuros.
 
 Metodologia
 -----------
