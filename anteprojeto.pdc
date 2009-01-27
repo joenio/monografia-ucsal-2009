@@ -37,7 +37,35 @@ futuros.
 Metodologia
 ===========
 
+Primeiramente será feito um estudo sobre Engenharia de Software Experimental e
+sobre as ferramentas antlr e Egypt, a partir deste estudo será implementado
+no Egypt um módulo, plugin ou  extensão que permita analisar códigos C/C++.
 
+Etapas
+======
+
+1. Revisar bibliografia
+2. Revisar anteprojeto com orientador e co-orientados
+3. Estudar Egypt e antlr e selecionar gramáticas
+4. Iniciar implementação e monografia
+5. Iniciar testes com projetos de softwarelivres
+6. Avaliar testes e documentar na monografia
+7. Revisar monografia com orientador e co-orientador
+
+Cronograma
+==========
+
+Etapa      Fev     Mar     Abr     Mai     Jun   
+------   -----   -----   -----   -----   -----   
+1         xxxx
+2         xxxx
+3           xx       x
+4                 xxxx    xxxx
+5                          xxx    xxxx
+6                            x    xxxx       x
+7                            x       x    xxxx
+
+Table: Etapas do projeto.
 
 Referências Bibliográficas
 ==========================
@@ -48,7 +76,8 @@ Verificando as Leis de Crescimento Contínuo e Complexidade Crescente em um proj
 
 Estudos Primários e Secundários apoiando a busca por Evidência em Engenharia de Software - http://www.cos.ufrj.br/uploadfiles/1149103120.pdf - Acessado em: 18 Jan 2009
 
-### Falta ler
+Falta ler
+--------
 
 Experimental software engineering - http://en.wikipedia.org/wiki/Experimental_Software_Engineering
 
