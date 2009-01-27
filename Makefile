@@ -5,7 +5,7 @@ HAVE_ANTEPROJETO_TEX=$(wildcard anteprojeto.tex)
 auto: pdf
 
 tex:
-	pandoc -s -r markdown -w latex -C anteprojeto-header.tex -B anteprojeto-before-body.tex anteprojeto.pdc -o anteprojeto.tex
+	pandoc -s -r markdown -w latex -C anteprojeto-header.tex -B anteprojeto-before-body.tex -A anteprojeto-after-body.tex anteprojeto.pdc -o anteprojeto.tex
 
 bib: tex
 	latex anteprojeto > /dev/null
