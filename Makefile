@@ -1,10 +1,23 @@
 # Makefile for Markdown + Make demonstration
 
-CONVERT=markdown2pdf
+HAVE_ANTEPROJETO_TEX=$(wildcard anteprojeto.tex)
 
-all: anteprojeto.pdc
-	$(CONVERT) -C anteprojeto-header.tex --toc anteprojeto.pdc
+auto: pdf
+
+tex:
+	pandoc -s -r markdown -w latex -C anteprojeto-header.tex -B anteprojeto-before-body.tex anteprojeto.pdc -o anteprojeto.tex
+
+pdf: tex
+	pdflatex anteprojeto.tex >> /dev/null
+	pdflatex anteprojeto.tex >> /dev/null
+
+show: pdf
+	evince anteprojeto.pdf
 
 clean:
 	rm -f *~
 	rm -f *.pdf
+	rm -f *.log *.toc *.aux
+ifneq ($(strip $(HAVE_ANTEPROJETO_TEX)),)
+	rm anteprojeto.tex
+endif

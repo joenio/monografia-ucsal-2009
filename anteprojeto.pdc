@@ -1,22 +1,21 @@
 % Extração de Informações de Dependência entre Módulos de Programas C/C++
 % Joenio Marques da Costa
-% Janeiro 12, 2009
 
 Tema
-----
+====
 
 Ferramenta para Extração de Informações de Dependência entre Módulos de
 Programas C/C++.
 
 Justificativa
--------------
+=============
 
 O Egypt, uma ferramenta para análise de dependência de módulos em programas C/C++ utiliza
 como base a saída dos dados gerados pelo GCC, dificultando analisar códigos que por algum
 motivo não compilem mais (seja por dependencias antigas ou por pequenas falhas no código fonte).
 
 Objetivos
----------
+=========
 
 Construir uma ferramenta para análide de dependência entre módulos de programas
 escritos em C/C++ utilizando como base apenas o código-fonte (i.e.  não dependa
@@ -36,12 +35,12 @@ informações que um consegue extrair e o outro não.
 futuros.
 
 Metodologia
------------
+===========
 
 
 
 Referências Bibliográficas
---------------------------
+==========================
 
 Statistical hypothesis testing - http://en.wikipedia.org/wiki/Statistical_hypothesis_testing
 
