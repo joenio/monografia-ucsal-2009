@@ -40,6 +40,7 @@ Metodologia
 Primeiramente será feito um estudo sobre Engenharia de Software Experimental e
 sobre as ferramentas antlr e Egypt, a partir deste estudo será implementado
 no Egypt um módulo, plugin ou  extensão que permita analisar códigos C/C++.
+\cite{mata26-terceiro-projeto-piloto}
 
 Etapas
 ======
@@ -67,14 +68,15 @@ Etapa      Fev     Mar     Abr     Mai     Jun
 
 Table: Etapas do projeto.
 
+Bibliografia
+============
+
 Referências Bibliográficas
 ==========================
 
 Statistical hypothesis testing - http://en.wikipedia.org/wiki/Statistical_hypothesis_testing
 
-Verificando as Leis de Crescimento Contínuo e Complexidade Crescente em um projeto de software livre de pequeno porte - https://disciplinas.dcc.ufba.br/pub/MATA26/TrabalhoTerceiro/mata26-terceiro-projeto-piloto.pdf - Acessado em: 15 Jan 2009
-
-Estudos Primários e Secundários apoiando a busca por Evidência em Engenharia de Software - http://www.cos.ufrj.br/uploadfiles/1149103120.pdf - Acessado em: 18 Jan 2009
+Verificando as Leis de Crescimento Contínuo e Complexidade Crescente em um projeto de software livre de pequeno porte -  - Acessado em: 15 Jan 2009
 
 Falta ler
 --------
@@ -84,3 +86,6 @@ Experimental software engineering - http://en.wikipedia.org/wiki/Experimental_So
 http://www.amazon.com/Experimentation-Software-Engineering-Introduction-International/dp/0792386825
 
 Introdução à Engenharia de Software Experimental - http://sergio.dsc.upe.br/es/IntroducaoExperimentacao.pdf - Acessado em: 18 Jan 2009
+
+\bibliography{anteprojeto}{}
+\bibliographystyle{plain}
