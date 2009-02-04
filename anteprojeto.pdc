@@ -1,21 +1,10 @@
-% Extração de Informações de Dependência entre Módulos de Programas C/C++
-% Joenio Marques da Costa
-
-Tema
-====
-
-Ferramenta para Extração de Informações de Dependência entre Módulos de
-Programas C/C++.
-
-Justificativa
-=============
+\chapter{Justificativa}
 
 O Egypt, uma ferramenta para análise de dependência de módulos em programas C/C++ utiliza
 como base a saída dos dados gerados pelo GCC, dificultando analisar códigos que por algum
 motivo não compilem mais (seja por dependencias antigas ou por pequenas falhas no código fonte).
 
-Objetivos
-=========
+\chapter{Objetivo}
 
 Construir uma ferramenta para análide de dependência entre módulos de programas
 escritos em C/C++ utilizando como base apenas o código-fonte (i.e.  não dependa
@@ -34,16 +23,14 @@ informações que um consegue extrair e o outro não.
 É possível que seja necessário suportar apenas C e deixar C++ para trabalho
 futuros.
 
-Metodologia
-===========
+\chapter{Metodologia}
 
 Primeiramente será feito um estudo sobre Engenharia de Software Experimental e
 sobre as ferramentas antlr e Egypt, a partir deste estudo será implementado
 no Egypt um módulo, plugin ou  extensão que permita analisar códigos C/C++.
 \cite{mata26-terceiro-projeto-piloto}
 
-Etapas
-======
+\chapter{Etapas}
 
 1. Revisar bibliografia
 2. Revisar anteprojeto com orientador e co-orientados
@@ -53,8 +40,7 @@ Etapas
 6. Avaliar testes e documentar na monografia
 7. Revisar monografia com orientador e co-orientador
 
-Cronograma
-==========
+\chapter{Cronograma}
 
 Etapa      Fev     Mar     Abr     Mai     Jun   
 ------   -----   -----   -----   -----   -----   
@@ -68,16 +54,12 @@ Etapa      Fev     Mar     Abr     Mai     Jun
 
 Table: Etapas do projeto.
 
-Bibliografia
-============
-
-Referências Bibliográficas
-==========================
+\chapter{Bibliografia}
 
 Statistical hypothesis testing - http://en.wikipedia.org/wiki/Statistical_hypothesis_testing
 
 Falta ler
---------
+=========
 
 Experimental software engineering - http://en.wikipedia.org/wiki/Experimental_Software_Engineering
 
