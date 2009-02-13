@@ -9,8 +9,8 @@ motivo não compilem mais (seja por dependencias antigas ou por pequenas falhas 
 Construir uma ferramenta para análide de dependência entre módulos de programas
 escritos em C/C++ utilizando como base apenas o código-fonte (i.e.  não dependa
 de compilar o código). Esta ferramente será implementada como uma extensão do
-software Egypt^[http://www.gson.org/egypt/] modificada por Antonio Terceiro
-Egypt modificado^[http://github.com/terceiro/egypt/].
+software Egypt^[http://www.gson.org/egypt/] modificado^[http://github.com/terceiro/egypt/]
+por Antonio Terceiro.
 
 Para este fim, pretende-se utilizar como base a ferramenta
 antlr^[http://www.antlr.org/] que já possui uma gramática pronta para C/C++ no
