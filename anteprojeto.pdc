@@ -30,7 +30,8 @@ sobre as ferramentas antlr e Egypt, a partir deste estudo será implementado
 no Egypt um módulo, plugin ou  extensão que permita analisar códigos C/C++.
 \cite{mata26-terceiro-projeto-piloto}
 
-\chapter{Etapas}
+Etapas
+======
 
 1. Revisar bibliografia
 2. Revisar anteprojeto com orientador e co-orientados
@@ -40,7 +41,8 @@ no Egypt um módulo, plugin ou  extensão que permita analisar códigos C/C++.
 6. Avaliar testes e documentar na monografia
 7. Revisar monografia com orientador e co-orientador
 
-\chapter{Cronograma}
+Cronograma
+==========
 
 Etapa      Fev     Mar     Abr     Mai     Jun   
 ------   -----   -----   -----   -----   -----   
@@ -53,14 +55,3 @@ Etapa      Fev     Mar     Abr     Mai     Jun
 7                            x       x    xxxx
 
 Table: Etapas do projeto.
-
-\chapter{Bibliografia}
-
-Statistical hypothesis testing - http://en.wikipedia.org/wiki/Statistical_hypothesis_testing
-
-Falta ler
-=========
-
-Experimental software engineering - http://en.wikipedia.org/wiki/Experimental_Software_Engineering
-
-http://www.amazon.com/Experimentation-Software-Engineering-Introduction-International/dp/0792386825
