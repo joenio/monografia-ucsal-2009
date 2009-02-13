@@ -4,6 +4,17 @@ O Egypt, uma ferramenta para análise de dependência de módulos em programas C
 como base a saída dos dados gerados pelo GCC, dificultando analisar códigos que por algum
 motivo não compilem mais (seja por dependencias antigas ou por pequenas falhas no código fonte).
 
+Além disso extrair informações do código objeto pode levar a perda de alguma informação que
+só é vista em tempo de design pelo desenvolvedor, como por exemplo: macros c/c++ que são substituidas
+pelo preprocessador e não é encontrado no código objeto, o proprocessador também gera algumas otimizações
+fazendo com que o resultado final não seja exatamente o encontrado no código fonte\cite{SourceVersusObjectCodeExtraction}.
+
+A arquitetura de muitos grandes projetos de software não é documentado ou está desatualizado
+\cite{SourceVersusObjectCodeExtraction}, um sistema extrator de informações serviria para
+obter esta documentação.
+
+
+
 \chapter{Objetivo}
 
 Construir uma ferramenta para análide de dependência entre módulos de programas
