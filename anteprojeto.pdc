@@ -1,68 +1,82 @@
 \chapter{Justificativa}
 
-O Egypt, uma ferramenta para análise de dependência de módulos em programas C/C++ utiliza
-como base a saída dos dados gerados pelo GCC, dificultando analisar códigos que por algum
-motivo não compilem mais (seja por dependencias antigas ou por pequenas falhas no código fonte).
+A arquitetura de muitos grandes projetos de software não é documentada ou está
+desatualizada \cite{SourceVersusObjectCodeExtraction}, entre as informações que
+podem estar nesta documentação temos o grau de acoplamento e coesão entre os
+módulos do projeto. Esta informação pode ser útil para estudar por exemplo o
+impacto de possíveis alterações (rastreabilidade) no projeto
+\cite{mata26-terceiro-projeto-piloto}.
 
-Além disso extrair informações do código objeto pode levar a perda de alguma informação que
-só é vista em tempo de design pelo desenvolvedor, como por exemplo: macros c/c++ que são substituidas
-pelo preprocessador e não é encontrado no código objeto, o proprocessador também gera algumas otimizações
-fazendo com que o resultado final não seja exatamente o encontrado no código fonte\cite{SourceVersusObjectCodeExtraction}.
+Um sistema extrator de informações de dependências nos ajudaria a obter esta
+informação nos dizendo por exemplo que o Módulo A depende do Módulo B e
+portanto alterações no Módulo B pode trazer alguma consequencia para o Módulo
+A. Existem ferramentas capaz de realizar esta tarefa, mas entre as opções
+encontradas\cite{SourceVersusObjectCodeExtraction} a maioria delas faz uso do
+código objeto como dados de entrada da análise.
 
-A arquitetura de muitos grandes projetos de software não é documentado ou está desatualizado
-\cite{SourceVersusObjectCodeExtraction}, um sistema extrator de informações serviria para
-obter esta documentação.
+Um problema em extrair estas informações do código objeto é que algumas
+informações conhecidas pelos desenvolvedores do projeto não estão presentes no
+código objeto, como por exemplo macros em projetos C/C++ que são substituidas pelo
+preprocessador\cite{SourceVersusObjectCodeExtraction} em tempo de compilação.
 
+Este problema pode ser solucionado analisando diretamente o código fonte do
+projeto ao invés do código objeto, a análise feita diretamente no código fonte
+traria uma informação mais próxima da arquitetura do projeto conhecida pelos
+desenvolvedores.
 
+Uma vantagem adicional em se utilizar do código fonte diretamente é a
+possibilidade de analisar projetos que por algum motivo não compilem mais, seja
+por dependencias antigas ou por pequenas falhas no código fonte.
 
 \chapter{Objetivo}
 
 Construir uma ferramenta para análide de dependência entre módulos de programas
-escritos em C/C++ utilizando como base apenas o código-fonte (i.e.  não dependa
-de compilar o código). Esta ferramente será implementada como uma extensão do
-software Egypt^[http://www.gson.org/egypt/] modificado^[http://github.com/terceiro/egypt/]
-por Antonio Terceiro.
+escritos em C/C++ utilizando como base apenas o código fonte (i.e.  não dependa
+de compilar o código).
 
-Para este fim, pretende-se utilizar como base a ferramenta
-antlr^[http://www.antlr.org/] que já possui uma gramática pronta para C/C++ no
-site do projeto.
+A construção desta ferramenta terá como base o software
+Egypt^[http://www.gson.org/egypt/], um software desenvolvido por Andreas
+Gustafsson para análise de dependência de módulos em programas C/C++ que
+utiliza como base o código objeto gerado pelo GCC. O Egypt é software livre e
+em Janeiro de 2009 foi completamente restruturado por Antonio Terceiro o qual
+tem mantido em^[http://github.com/terceiro/egypt/]. Esta versão modificada será
+o alvo deste trabalho.
 
-Se for possível será feito um estudo comparativo entre a ferramenta
-desenvolvida com o extrator atual do Egypt (baseado no gcc), em termos de
+Para fazer a análise do código fonte pretende-se utilizar o gerador de parser
+antlr^[http://www.antlr.org/] que já possui uma gramática pronta para C/C++ em
+seu site.
+
+Por fim será feito um estudo comparativo entre a ferramenta desenvolvida por
+este trabalho com o extrator atual do Egypt (baseado no GCC), em termos de
 informações que um consegue extrair e o outro não.
-
-É possível que seja necessário suportar apenas C e deixar C++ para trabalho
-futuros.
 
 \chapter{Metodologia}
 
-Primeiramente será feito um estudo sobre Engenharia de Software Experimental e
-sobre as ferramentas antlr e Egypt, a partir deste estudo será implementado
-no Egypt um módulo, plugin ou  extensão que permita analisar códigos C/C++.
-\cite{mata26-terceiro-projeto-piloto}
+Primeiramente será feito um estudo sobre Arquitetura e Engenharia de Software,
+Engenharia de Software Experimental e as ferramentas antlr e Egypt, a partir
+deste estudo será implementado no Egypt um módulo, plugin ou extensão que
+permita analisar e extrair informações de softwares escritos em C/C++.
 
 Etapas
 ======
 
-1. Revisar bibliografia
-2. Revisar anteprojeto com orientador e co-orientados
-3. Estudar Egypt e antlr e selecionar gramáticas
-4. Iniciar implementação e monografia
-5. Iniciar testes com projetos de softwarelivres
-6. Avaliar testes e documentar na monografia
-7. Revisar monografia com orientador e co-orientador
+1. Revisar e finalizar anteprojeto com orientador.
+2. Estudar Egypt, antlr e selecionar gramática para o antlr.
+3. Iniciar implementação do projeto e a escrita da monografia.
+4. Iniciar testes de extração de informação de dependências em projetos de softwarelivre.
+5. Avaliar testes da etapa anterior e documentar resultados.
+6. Revisar e finalizar monografia com orientador.
 
 Cronograma
 ==========
 
-Etapa      Fev     Mar     Abr     Mai     Jun   
-------   -----   -----   -----   -----   -----   
-1         xxxx
-2         xxxx
-3           xx       x
-4                 xxxx    xxxx
-5                          xxx    xxxx
-6                            x    xxxx       x
-7                            x       x    xxxx
+Etapa    Fev    Mar    Abr    Mai    Jun   
+------   ----   ----   ----   ----   ----   
+1        xxxx
+2        oxxx   xooo
+3               xxxx   xxxx
+4                      oxxx   xxxx
+5                      ooox   xxxx   xooo
+6                      ooox   xxxx   xxxx
 
 Table: Etapas do projeto.
