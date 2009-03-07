@@ -1,4 +1,3 @@
-
 \chapter{Justificativa}
 
 A arquitetura de muitos grandes projetos de software não é documentada ou está
@@ -31,20 +30,20 @@ por dependencias antigas ou por pequenas falhas no código fonte.
 
 \chapter{Objetivo}
 
-Construir uma ferramenta para análide de dependência entre módulos de programas
+Construir uma ferramenta para análise de dependência entre módulos de programas
 escritos em C/C++ utilizando como base apenas o código fonte (i.e.  não dependa
 de compilar o código).
 
 A construção desta ferramenta terá como base o software
-Egypt^[http://www.gson.org/egypt/], um software desenvolvido por Andreas
+Egypt\footnote{http://www.gson.org/egypt}, um software desenvolvido por Andreas
 Gustafsson para análise de dependência de módulos em programas C/C++ que
 utiliza como base o código objeto gerado pelo GCC. O Egypt é software livre e
 em Janeiro de 2009 foi completamente restruturado por Antonio Terceiro o qual
-tem mantido em^[http://github.com/terceiro/egypt/]. Esta versão modificada será
+tem mantido em\footnote{http://github.com/terceiro/egypt}. Esta versão modificada será
 o alvo deste trabalho.
 
 Para fazer a análise do código fonte pretende-se utilizar o gerador de parser
-antlr^[http://www.antlr.org/] que já possui uma gramática pronta para C/C++ em
+antlr\footnote{http://www.antlr.org} que já possui uma gramática pronta para C/C++ em
 seu site.
 
 Por fim será feito um estudo comparativo entre a ferramenta desenvolvida por
@@ -58,26 +57,31 @@ Engenharia de Software Experimental e as ferramentas antlr e Egypt, a partir
 deste estudo será implementado no Egypt um módulo, plugin ou extensão que
 permita analisar e extrair informações de softwares escritos em C/C++.
 
-Etapas
-======
+\section{Etapas}
 
-1. Revisar e finalizar anteprojeto com orientador.
-2. Estudar Egypt, antlr e selecionar gramática para o antlr.
-3. Iniciar implementação do projeto e a escrita da monografia.
-4. Iniciar testes de extração de informação de dependências em projetos de softwarelivre.
-5. Avaliar testes da etapa anterior e documentar resultados.
-6. Revisar e finalizar monografia com orientador.
+\begin{enumerate}
+\item Revisar e finalizar anteprojeto com orientador.
+\item Estudar Egypt, antlr e selecionar gramática para o antlr.
+\item Iniciar implementação do projeto e a escrita da monografia.
+\item Iniciar testes de extração de informação de dependências em projetos de softwarelivre.
+\item Avaliar testes da etapa anterior e documentar resultados.
+\item Revisar e finalizar monografia com orientador.
+\end{enumerate}
 
-Cronograma
-==========
+\section{Cronograma}
 
-Etapa    Fev    Mar    Abr    Mai    Jun   
-------   ----   ----   ----   ----   ----   
-1        xxxx
-2        oxxx   ooox
-3               xxxx   xxxx
-4                      xxx    xxxx
-5                      x      xxxx   x
-6                      x      x      xxxx
-
-Table: Etapas do projeto.
+\begin{table}
+\caption{Etapas do projeto}
+\centering
+\begin{tabular}{c c c c c c}
+Etapa & Fev & Mar & Abr & Mai & Jun \\
+\hline
+1 & xxxx & & & & \\
+2 & oxxx & ooox & & & \\
+3 & & xxxx & xxxx & & \\
+4 & && oxxx & xxxx & \\
+5 & & & ooox & xxxx & xooo \\
+6 & & & ooox & xxxx & xxxx \\
+\hline
+\end{tabular}
+\end{table}
