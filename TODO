@@ -1,8 +1,17 @@
-Pegar livro sobre compiladores na UCSAL
+Encontrar um lugar na monografia para colocar: https://wiki.dcc.ufba.br/Aside/ProjetoFinalJoenioCosta
+
 Ler http://en.wikipedia.org/wiki/Statistical_hypothesis_testing
 Definir projetos a analisar (shells, emuladores, video players, jogos)
+
  warsow, nexuiz, tremulous, sauerbraten, action cube, open quake, ioquake
  The Battle for Wesnoth, Freeciv , LinCity-NG, (boa opção usar jogos de varias categorias, existem muitos projetos)
+
+   svn checkout svn://svn.berlios.de/lincity-ng/trunk lincity-ng
+   svn co http://svn.gna.org/svn/wesnoth/trunk wesnoth  (281 MB)
+   svn co https://widelands.svn.sourceforge.net/svnroot/widelands/trunk widelands
+   svn checkout svn://svn.berlios.de/dreamchess/trunk
+   http://opensvn.csie.org/SMC/SMC/
+
  vlc, mplayer, xine, totem, kafeine, kmplayer
  bash, fish, zsh, csh, ...
  zsnes, snes9x, mupen64plus, stella, ... (muitos escrito em assembly - zsnes 100%)
