@@ -20,6 +20,3 @@ clean:
 	rm -f *.pdf *.dvi
 	rm -f *.log *.toc *.aux
 	rm -f *.bbl *.blg
-#ifneq ($(strip $(HAVE_ANTEPROJETO_TEX)),)
-#	rm anteprojeto.tex
-#endif
