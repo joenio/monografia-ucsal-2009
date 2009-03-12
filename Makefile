@@ -15,6 +15,9 @@ pdf: bib
 show: pdf
 	evince anteprojeto.pdf
 
+pkg: pdf
+	tar -zcvf anteprojeto.tgz anteprojeto.pdf anteprojeto.tex anteprojeto-body.tex anteprojeto.bib Makefile
+
 clean:
 	rm -f *~
 	rm -f *.pdf *.dvi
