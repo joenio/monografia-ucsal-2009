@@ -2,21 +2,21 @@
 
 A arquiterura de software define o relacionamento entre os grandes componentes
 estruturais de um projeto\cite{EngenhariaDeSoftwarePressman}. Esta arquitetura
-é tradicionalmente desenhada durante o projeto arquiterural, uma etapa do projeto
-de software, etapa que ocorre antes de se iniciar a implementação.
+é tradicionalmente desenhada durante o projeto arquiterural e é útil por
+exemplo para estudar o impacto de possíveis alterações (rastreabilidade) no
+projeto \cite{mata26-terceiro-projeto-piloto}, o projeto arquiterural é uma das
+etapas do projeto de software e ocorre antes de se iniciar a sua implementação.
 
 A maioria dos projetos de software livre nascem a partir da implementação e
 [carece de fonte] dificilmente terão uma fase de projeto, assim não possuirão
-documentação sobre sua arquitetura. Esta informação pode ser útil para estudar
-por exemplo o impacto de possíveis alterações (rastreabilidade) no projeto
-\cite{mata26-terceiro-projeto-piloto}.
+documentação sobre sua arquitetura. 
 
-Uma ferramente de extração de informações de dependências entre módulos seria útil
-para gerar documentação sobre a arquitetura de software a partir da implementação
-do projeto. Existem ferramentas capazes de realizar esta tarefa, mas entre as opções
-pesquisadas\cite{SourceVersusObjectCodeExtraction} a maioria delas faz uso do
-código objeto como dados de entrada da análise, ou seja, faz uso de dados resultado
-da compilação do software.
+Neste contexto uma ferramente de extração de informações de dependências entre
+módulos se torna útil para gerar documentação sobre a arquitetura de software a
+partir do código fonte do projeto. Existem ferramentas capazes de realizar esta
+tarefa, mas entre as opções pesquisadas\cite{SourceVersusObjectCodeExtraction}
+a maioria delas faz uso do código objeto como dados de entrada da análise, ou
+seja, faz uso de dados resultante da compilação do código fonte.
 
 Um problema em extrair estas informações do código objeto é que algumas
 informações conhecidas pelos desenvolvedores do projeto não estão presentes,
@@ -25,9 +25,9 @@ preprocessador\cite{SourceVersusObjectCodeExtraction} durante a compilação.
 
 Este problema pode ser solucionado analisando diretamente o código fonte do
 projeto. Esta análise traria uma informação mais próxima da arquitetura do
-projeto conhecida pelos desenvolvedores. E como vantagem adicional daria a
-possibilidade de analisar projetos que por algum motivo não compilem mais, seja
-por dependencias antigas ou por pequenas falhas no código fonte.
+projeto conhecida pelos desenvolvedores e adicionalmente possibilitaria
+analisar projetos que por algum motivo não compilem mais, seja por dependências
+antigas ou por pequenas falhas no código fonte.
 
 \chapter{Objetivo}
 
@@ -44,9 +44,9 @@ mantido em\footnote{http://github.com/terceiro/egypt}. Esta versão modificada
 será o alvo deste trabalho.
 
 Para fazer a análise do código fonte pretende-se utilizar uma ferramenta como
-antlr\footnote{http://www.antlr.org} ou Doxygen
-\footnote{http://www.doxygen.org} que ofereça a capacidade de analisar códigos
-C/C++ sem necessidade de compilação.
+antlr\footnote{http://www.antlr.org} ou Doxygen\footnote{http://www.doxygen.org}
+que ofereça a capacidade de analisar projetos C/C++ sem necessidade de compilar
+o código fonte.
 
 Por fim será feito um estudo comparativo entre a ferramenta desenvolvida por
 este trabalho com o extrator atual do Egypt (baseado no GCC), em termos de
@@ -57,15 +57,16 @@ informações que um consegue extrair e o outro não.
 Primeiramente será feito um estudo sobre Arquitetura e Engenharia de Software,
 Engenharia de Software Experimental e as ferramentas antlr, Doxygen e Egypt, a
 partir deste estudo será implementado no Egypt um módulo, plugin ou extensão
-que permita analisar e extrair informações de softwares escritos em C/C++.
+que permita analisar e extrair informações de dependência entre módulos de
+softwares escritos em C/C++.
 
 \section{Etapas}
 
 \begin{enumerate}
 \item Revisar e finalizar anteprojeto com orientador.
-\item Estudar Egypt, antlr e selecionar gramática para o antlr.
+\item Estudar Egypt, antlr e Doxygen e escolher entre antlr ou Doxygen.
 \item Iniciar implementação do projeto e a escrita da monografia.
-\item Iniciar testes de extração de informação de dependências em projetos de softwarelivre.
+\item Iniciar testes de extração de informação de dependências em projetos de software livre.
 \item Avaliar testes da etapa anterior e documentar resultados.
 \item Revisar e finalizar monografia com orientador.
 \end{enumerate}
