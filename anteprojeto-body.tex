@@ -1,22 +1,17 @@
 \chapter{Justificativa}
 
 A arquiterura de software define o relacionamento entre os grandes componentes
-estruturais de um projeto\cite{EngenhariaDeSoftwarePressman}. Esta arquitetura
-é tradicionalmente desenhada durante o projeto arquiterural e é útil por
-exemplo para estudar o impacto de possíveis alterações (rastreabilidade) no
-projeto \cite{mata26-terceiro-projeto-piloto}, o projeto arquiterural é uma das
-etapas do projeto de software e ocorre antes de se iniciar a sua implementação.
+estruturais de um projeto\cite{EngenhariaDeSoftwarePressman}. A documentação
+sobre esta arquitetura é útil por exemplo para extrair métricas como coesão e
+acoplamento ou para estudar o impacto de possíveis alterações (rastreabilidade)
+de um projeto\cite{mata26-terceiro-projeto-piloto}.
 
-A maioria dos projetos de software livre nascem a partir da implementação e
-[carece de fonte] dificilmente terão uma fase de projeto, assim não possuirão
-documentação sobre sua arquitetura. 
-
-Neste contexto uma ferramente de extração de informações de dependências entre
-módulos se torna útil para gerar documentação sobre a arquitetura de software a
-partir do código fonte do projeto. Existem ferramentas capazes de realizar esta
-tarefa, mas entre as opções pesquisadas\cite{SourceVersusObjectCodeExtraction}
-a maioria delas faz uso do código objeto como dados de entrada da análise, ou
-seja, faz uso de dados resultante da compilação do código fonte.
+Uma ferramente de extração de informações de dependências entre módulos é útil
+para gerar esta documentação a partir do código fonte do próprio projeto.
+Existem ferramentas capazes de realizar esta tarefa, mas entre as opções
+pesquisadas\cite{SourceVersusObjectCodeExtraction} a maioria delas faz uso do
+código objeto como dados de entrada da análise, ou seja, faz uso de dados
+resultante da compilação do código fonte.
 
 Um problema em extrair estas informações do código objeto é que algumas
 informações conhecidas pelos desenvolvedores do projeto não estão presentes,
@@ -63,7 +58,6 @@ softwares escritos em C/C++.
 \section{Etapas}
 
 \begin{enumerate}
-\item Revisar e finalizar anteprojeto com orientador.
 \item Estudar Egypt, antlr e Doxygen e escolher entre antlr ou Doxygen.
 \item Iniciar implementação do projeto e a escrita da monografia.
 \item Iniciar testes de extração de informação de dependências em projetos de software livre.
@@ -76,15 +70,14 @@ softwares escritos em C/C++.
 \begin{table}
 \caption{Etapas do projeto}
 \centering
-\begin{tabular}{c r r r r l}
+\begin{tabular}{c r l r r l}
 Etapa  & Fev  & Mar  & Abr  & Mai & Jun \\
 \hline
-1      & xxxx &      &      &      &      \\
-2      &  xxx &    x &      &      &      \\
-3      &      & xxxx & xxxx &      &      \\
-4      &      &      &  xxx & xxxx &      \\
-5      &      &      &    x & xxxx & x    \\
-6      &      &      &    x & xxxx & xxxx \\
+1      & xxxx & x    &      &      &      \\
+2      &      & xxxx & xxxx &      &      \\
+3      &      &      &  xxx & xxxx &      \\
+4      &      &      &    x & xxxx & x    \\
+5      &      &      &    x & xxxx & xxxx \\
 \hline
 \end{tabular}
 \end{table}
