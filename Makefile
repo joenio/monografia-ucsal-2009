@@ -1,5 +1,5 @@
 NAME = anteprojeto
 TEXSRCS = anteprojeto-body.tex
-BIBTEXSRCS = anteprojeto.bib
+BIBTEXSRCS = bibliografia.bib
 
 include /usr/share/latex-mk/latex.gmk
