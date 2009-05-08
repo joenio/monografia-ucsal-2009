@@ -5,11 +5,11 @@ TEXSRCS= header.tex
 anteprojeto_TEXSRCS= anteprojeto-content.tex
 monografia_TEXSRCS= monografia-content.tex
 BIBTEXSRCS= bibliografia.bib
-OTHER= $(wildcard imagens/*.png)
 
 # PROJECT VARIABLES
 
 GZCAT= zcat
-VIEWPDF= xpdf
+USE_PDFLATEX=true # directly generate .pdf files from the .tex
+VIEWPDF=evince
 
 include /usr/share/latex-mk/latex.gmk
