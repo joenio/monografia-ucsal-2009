@@ -10,7 +10,7 @@ A introdução eu devo escrever por último, deve conter a importancia do projet
 
 \chapter{Implementação do Extrator}
 
-Neste capítulo deve documentar o que fiz e como fiz, as dificuldades encontradas no processo, etc...
+O projeto consiste na implementação de um novo extrator para o egypt baseado no código fonte do projeto sendo analisado, ao invés de utilizar arquivos intermediários do GCC ou qualquer outro compilador, para que seja possível analisar projetos sem a necessidade de compila-los e para que o a analise e extracao de informacao de um projeto leve menos tempo.
 
 \section{egypt}
 
@@ -62,34 +62,37 @@ Com a saída gerada pelo doxyparse em mãos o egypt precisa agora de um extrator
 \end{figure}
 
 \chapter{Avaliação}
-\section{Procedimento}
-\section{Resultados}
 
 Nos resultados eu posso comparar o que consegui com a nova ferramenta comparado ao modo antigo do egypt extrair informacoes.
 
-%\begin{figure}[h]
-%\center
-%\subfigure[ristretto-0.0.1-doxyparse][Egypt::Extrator::Doxyparse]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_1-doxyparse}}
-%\qquad
-%\subfigure[ristretto-0.0.1-gcc][Egypt::Extrator::GCC]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_1-gcc}}
-%\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt}
-%\end{figure}
-%
-%\begin{figure}[h]
-%\center
-%\subfigure[ristretto-0.0.11-doxyparse][Egypt::Extrator::Doxyparse]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_11-doxyparse}}
-%\qquad
-%\subfigure[ristretto-0.0.11-gcc][Egypt::Extrator::GCC]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_11-gcc}}
-%\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt}
-%\end{figure}
-%
-%\begin{figure}[h]
-%\center
-%\subfigure[ristretto-0.0.21-doxyparse][Egypt::Extrator::Doxyparse]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_21-doxyparse}}
-%\qquad
-%\subfigure[ristretto-0.0.21-gcc][Egypt::Extrator::GCC]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_21-gcc}}
-%\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt}
-%\end{figure}
+\section{Procedimento}
+\section{Resultados}
+
+Segue comparação entre o gráfico de chamada entre módulos gerado pelo egypt usando o extrator Doxyparse e o GCC:
+
+\begin{figure}[h]
+\center
+\subfigure[ristretto-0.0.1-doxyparse][Egypt::Extrator::Doxyparse]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_1-doxyparse}}
+\qquad
+\subfigure[ristretto-0.0.1-gcc][Egypt::Extrator::GCC]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_1-gcc}}
+\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt}
+\end{figure}
+
+\begin{figure}[h]
+\center
+\subfigure[ristretto-0.0.11-doxyparse][Egypt::Extrator::Doxyparse]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_11-doxyparse}}
+\qquad
+\subfigure[ristretto-0.0.11-gcc][Egypt::Extrator::GCC]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_11-gcc}}
+\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt}
+\end{figure}
+
+\begin{figure}[h]
+\center
+\subfigure[ristretto-0.0.21-doxyparse][Egypt::Extrator::Doxyparse]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_21-doxyparse}}
+\qquad
+\subfigure[ristretto-0.0.21-gcc][Egypt::Extrator::GCC]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_21-gcc}}
+\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt}
+\end{figure}
 
 \section{Discussão}
 
