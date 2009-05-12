@@ -13,14 +13,16 @@ uma pincelada rapida em cada um.
 
 \chapter{Implementação do Extrator}
 
-O projeto consiste na implementação de um novo extrator para o egypt onde a
+Este projeto consiste na implementação de um novo extrator para o egypt onde a
 análise seja feita direto do código fonte do projeto sem necessidade de
 compilação, ou seja, o novo extrator irá buscar as informações diretamente no
-código fonte sem necessidade de compilação, seja pelo GCC ou outro compilador
-qualquer. Isto trará duas vantagens imediatas, primeiro: será possível analisar
-projetos que não compilem mais, seja por falhas no código fonte ou por possuir
-dependencias não satisfeitas e segundo: a análise de um projeto irá levar menos
-tempo do que com o extrator atual (isto precisa ser testado).
+código fonte sem necessidade de usar o GCC ou outro compilador qualquer. Isto
+trará uma vantagem imediata que é a possível analisar projetos que
+não compilem mais, seja por falhas no código fonte ou por possuir dependencias
+não satisfeitas. Outras vantagens secundárias são: o tempo necessário para
+analisar um projeto cairá e as informações obtidas serão mais precisas já que
+algumas informações importantes como por exemplo macros em projetos C/C++ se
+perdem \cite{SourceVersusObjectCodeExtraction} durante a compilação.
 
 \section{egypt}
 
@@ -49,20 +51,22 @@ permitir diferentes módulos de extração e relatório.
 
 \section{Doxygen (e a sua API)}
 
-Doxygen\footnote{http://www.doxygen.org} é um sistema de documentação para C,
-C++, Java, Python e outros. Com ele é possível gerar documentação em HTML, RTF,
-PostScript, PDF e man pages, ele extrai a documentação explícita escrita pelo
-programador em comentários no código fonte seguindo uma sintaxe própria, e
-também tem a capacidade de extrair diretamente do código fonte informações de
-hierarquia e colaboração entre as classes. É baseado nesta capacidade de
-extrair informações do código fonte diretamente que o Doxygen foi escolhido
-como base para implementação deste novo extrator para o egypt.
+Doxygen\footnote{http://www.doxygen.org} é um sistema de documentação para C++,
+C, Java, Objective-C, Python, IDL, Fortran, VHDL, PHP e C\#. Com ele é possível
+gerar documentação em HTML, RTF, PostScript, PDF, \LaTeX\ e man pages, ele extrai a
+documentação explícita escrita pelo programador em comentários no código fonte
+seguindo uma sintaxe própria, e também tem a capacidade de extrair diretamente
+do código fonte informações de hierarquia e colaboração entre as classes. É
+baseado nesta capacidade de extrair informações do código fonte que
+o Doxygen foi escolhido como base para implementação deste novo extrator para o
+egypt.
 
-O Doxygen é Software Livre e está disponível sob a GPL \sigla{GPL}{GNU Public
-License} em
-\footnote{https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk}, junto ao
-código fonte do projeto existe um exemplo chamado doxyapp de uma ferramenta
-para parsing de código fonte bem próximo as necessidades deste projeto.
+O Doxygen é Software Livre e está disponível sob a GPL\sigla{GPL}{GNU Public
+License}v2 em
+\footnote{https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk}, junto aos
+fontes do projeto existe um pequeno exemplo chamado doxyapp que implementa uma
+ferramenta para parsing de código fonte bem próximo as necessidades deste
+projeto.
 
 Entre as inúmeras classes presentes na API do Doxygen é importante destacar as
 seguintes:
@@ -76,37 +80,36 @@ doxygen
 \end{itemize}
 
 Neste projeto foi implementado uma ferramenta chamada doxyparse baseado no
-exemplo doxyapp, ele implementa a interface CodeOutputInterface disponível para
+exemplo doxyapp, o doxyparse implementa a interface CodeOutputInterface disponível para
 quem desejar escrever na saída gerada pelo Doxygen trechos de código extraido
-do projeto sendo analisado. Seguindo esta interface foi possível implementar um
+dos fontes do projeto sendo analisado. Seguindo esta interface foi possível implementar um
 parser reaproveitando todo o poder que o Doxygen fornece para análise de código
 fonte e gerar a saída da forma desejada.
 
 \section{Implementação do Extrator usando a API do Doxygen}
 
 O Doxygen apesar de oferecer todos os recursos básicos necessários para
-analisar um projeto C/C++ e extrair o uso de símbolos (funções, varáveis, etc),
+analisar projetos C/C++ e extrair o uso de símbolos (funções, varáveis, etc)
 que é o objetivo deste projeto, não possibilita que a saída gerada seja
-customizada, apenas oferece opções especificas como PDF, HTML, RTF, Latex e man
-pages. É necessário então adaptar o Doxygen para gerar a saída no formato
-personalizado e com apenas as informações necessárias, para isto foi criado o
-doxyparse, um parser capaz de analisar códigos C/C++, e possivelmente outras
-linguagens suportadas pelo Doxygen mas que fogem ao escopo deste trabalho,
-extraindo símbolos como varáveis e funções e indeitificando onde são declarados
-e onde são utilizados ou chamados.
+customizada, apenas oferece opções específicas como PDF e HTML por exemplo. É
+necessário então adaptar o Doxygen para gerar uma saída num formato
+personalizado e apenas com as informações necessárias, para isto foi criado o
+doxyparse, um parser capaz de analisar códigos C/C++ e possivelmente outras
+linguagens suportadas pelo Doxygen, extraindo símbolos como varáveis e funções
+com a identificação de onde são declarados e onde são utilizados.
 
-O doxyparse foi implementado seguindo a interface CodeOutputInterface, onde
-são definidos parametros para o Doxygen deacordo com as necessidades específicas
-deste trabalho, como por exemplo: analisar o diretorio recursivamente, não gerar
-saida em Latex ou HTML, extrair tanta informação quanto possível do codigo
+O doxyparse foi implementado seguindo a interface CodeOutputInterface, onde são
+definidos parametros para o Doxygen deacordo com as necessidades específicas
+deste projeto, como por exemplo: analisar o diretorio recursivamente, não gerar
+saida em Latex ou HTML, extrair tanta informação quanto possível do código
 fonte, extrair informação de chamada, etc.
 
 O doxyparse então faz a análise dos fontes de um diretorio ou arquivo(s)
 passados como parâmetro via linha de comando e extrai destes arquivos fonte os
 simbolos encontrados contendo informação de onde são definidos e onde são
-usados/chamados. Após isto é gerado uma saída num formato específico para ser
-depois analisado pelo extrator implementado no egypt. Exemplo de saída gerado
-pelo doxyparse:
+usados. Após isto é gerado uma saída num formato específico para ser depois
+analisado pelo extrator implementado no egypt. Exemplo de saída gerado pelo
+doxyparse:
 
 \begin{verbatim}
 module module1.c
@@ -128,9 +131,9 @@ o Egypt::Extrator::Doxyparse.
 O egypt em sua implementação atual possui somente a classe Egypt::Extractor que
 faz a extração baseada nos arquivos intermediários gerados pelo GCC, para o
 objetivo deste trabalho esta classe foi transformada numa implementação
-genérica contendo apenas uma interface padrão para os extrator especificos, que
-inicialmente serão dois. O GCC baseado no código já existente e o Doxyparse um
-novo extrator que usa como entrada os dados gerados pelo doxyparse.
+genérica contendo apenas uma interface padrão para os extratores específicos, o
+GCC baseado no código já existente e o Doxyparse um novo extrator que usa como
+entrada os dados gerados pelo doxyparse.
 
 \begin{figure}[h]
 \center
@@ -191,6 +194,8 @@ O mesmo ocorre nas Figuras \ref{ristretto-0.0.11} e \ref{ristretto-0.0.21}, mas 
 \end{figure}
 
 Na Figura \ref{ristretto-0.0.21} temos ainda outra importante, o GCC nos diz que o módulo save\_dialog é chamado por vários módulos: main\_window, thumbnail, navigator, picture\_viewer e thumbnail\_bar sendo que não faz sentido já que este é um módulo que encapsula a exibição de uma caixa de diálogo onde teoricamente deveria ser chamada apenas pelos módulos que compõe a interface, como diz o Doxyparse que apenas main\_window chama save\_dialog, mas o Doxyparse dá uma informação controversa onde o save\_dialog chama thumbnail\_bar e isto pode não ser verdade (verificar).
+
+Ainda sobre a análise do ristretto-0.0.21 a saída gerada pelo doxyparse confunde o uso do simbolo parent\_class que é uma variavei estática definida por todos os módulos, mas o Doxygen registra este símbolo relacionado ao primeiro módulo que ele analisa, e nos demais módulos que fazem uso dele o Doxygen acha que o módulo está usando o simbolo definido no primeiro modulo analisado. Isto foi solucionado ignorando as chamadas aos simbolos estaticos fora do módulo sendo analisado, ou seja, só se considera chamada a símbolos estaticos se eles estiverem no módulo que o simbolo foi encontrado.
 
 \section{Discussão}
 
