@@ -10,34 +10,44 @@ A introdução eu devo escrever por último, deve conter a importancia do projet
 
 \chapter{Implementação do Extrator}
 
-O projeto consiste na implementação de um novo extrator para o egypt baseado no código fonte do projeto sendo analisado, ao invés de utilizar arquivos intermediários do GCC ou qualquer outro compilador, para que seja possível analisar projetos sem a necessidade de compila-los e para que o a analise e extracao de informacao de um projeto leve menos tempo.
+O projeto consiste na implementação de um novo extrator para o egypt onde a análise seja feita direto do código fonte do projeto sem necessidade de compilação, ou seja, o novo extrator irá buscar as informações diretamente no código fonte sem necessidade de compilação, seja pelo GCC ou outro compilador qualquer. Isto trará duas vantagens imediatas, primeiro: será possível analisar projetos que não compilem mais, seja por falhas no código fonte ou por possuir dependencias não satisfeitas e segundo: a análise de um projeto irá levar menos tempo do que com o extrator atual (isto precisa ser testado).
 
 \section{egypt}
 
-egypt é um programa originalmente desenvolvido por Andreas Gustafsson\footnote{http://www.gson.org/egypt} para gerar gráfico de chamada entre funções de programas escrito em C, ele funciona lendo os arquivos intermediários gerados pelo GCC\sigla{GCC}{GNU C Compiler} e converte isto num gráfico de chamada no formato usado pelo Graphviz\footnote{http://www.graphviz.org} um programa de visualização de gráficos.
+O egypt foi originalmente desenvolvido por Andreas Gustafsson\footnote{http://www.gson.org/egypt} com o objetivo de gerar gráficos de chamada entre funções de programas escrito em C, ele funciona lendo os arquivos intermediários gerados pelo GCC\sigla{GCC}{GNU C Compiler} e os converte num gráfico de chamada no formato usado pelo Graphviz\footnote{http://www.graphviz.org}, um programa para visualização de gráficos.
 
-O egypt é software livre e em Janeiro de 2009 começou a ser restruturado por Antonio A S. Terceiro o qual tem mantido em\footnote{http://github.com/terceiro/egypt}. As principais mudanças sofridas pelo egypt foram \cite{StructuralComplexityEvolution}:
+O egypt é Software Livre e em Janeiro de 2009 começou a ser restruturado por Antonio A S. Terceiro o qual o tem mantido em\footnote{http://github.com/terceiro/egypt}. As principais mudanças sofridas pelo egypt deste então foram \cite{StructuralComplexityEvolution}:
 
 \begin{itemize}
-\item Implementação de detecção de uso de variáveis, para identificar que função usa qual variável.
-\item Opção para agrupar chamadas e uso de variaveis por módulo, com isto é possível ter uma visão de dependencia entre módulos.
-\item Refatoração do script egypt para um design orientado a objetos para permitir diferentes módulos de extração e relatório.
-\item Implementação de geração de relatório de métricas.
+\item Detecção de uso de variáveis, para identificar que função usa qual variável.
+\item Opção para agrupar chamada e uso de variaveis por módulo, com isto é possível ter uma visão de dependência entre módulos.
+\item Refatoração do script egypt em um design orientado a objetos, para permitir diferentes módulos de extração e relatório.
+\item Geração de relatório de métricas, como coesão e acoplamento.
 \end{itemize}
-
-Em sua versão original o egypt necessita que seja executado o GCC nos fontes do projeto que se deseja analisar, com isto o tempo de análise de um de um grande projeto torna-se bastante longo e as vezes inviável.
 
 \section{Doxygen (e a sua API)}
 
-Doxygen\footnote{http://www.doxygen.org} é um sistema de documentação para C, C++, Java, Python e outros. Com ele é possível gerar documentação em HTML, RTF, PostScript, PDF e man pages. Ele extrai a documentação explícita desenvolvida pelo programador dos comentários no código fonte seguindo uma sintaxe própria, mas também pode ser configurado para extrair diretamente dos fontes a hierarquia e colaboração entre as classes. É baseado neste recurso de poder extrair a estrutura do código fonte sem necessitar de documentação explícita que o Doxygen foi escolhido para implementar um extrator para o egypt.
+Doxygen\footnote{http://www.doxygen.org} é um sistema de documentação para C, C++, Java, Python e outros. Com ele é possível gerar documentação em HTML, RTF, PostScript, PDF e man pages, ele extrai a documentação explícita escrita pelo programador em comentários no código fonte seguindo uma sintaxe própria, e também tem a capacidade de extrair diretamente do código fonte informações de hierarquia e colaboração entre as classes. É baseado nesta capacidade de extrair informações do código fonte diretamente que o Doxygen foi escolhido como base para implementação deste novo extrator para o egypt.
 
-O Doxygen é Software Livre e está disponível sob a GPL \sigla{GPL}{GNU Public License} em \footnote{https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk}, o código fonte dele vem com o exemplo de uma ferramenta para parsing de código fonte bem próximo as necessidades deste projeto.
+O Doxygen é Software Livre e está disponível sob a GPL \sigla{GPL}{GNU Public License} em \footnote{https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk}, junto ao código fonte do projeto existe um exemplo chamado doxyapp de uma ferramenta para parsing de código fonte bem próximo as necessidades deste projeto.
+
+Entre as inúmeras classes presentes na API do Doxygen é importante destacar as clasess: Doxygen, CodeOutputInterface, MemberDef e FileDef.
+
+\begin{itemize}
+\item Doxygen - Esta classe provê um namespace para varáveis e funções globais usadas pelo doxygen
+\item CodeOutputInterface - Interface de saída para os parsers de código fonte
+\item MemberDef - Definição de um membro (símbolos) de classe
+\item FileDef - Definição de um arquivo
+\end{itemize}
+
+Este exemplo implementa a interface CodeOutputInterface da API do Doxygen, este interface serve para quem deseja escrever trecho de código extraido do código fonte do projeto na documentação gerada pelo Doxygen. Seguindo esta interface é possível implementar um parser reaproveitando todo o poder que o Doxygen fornece para análise de código fonte e gerar a saída da forma desejada.
+
+
 
 \section{Implementação do Extrator usando a API do Doxygen}
 
 O Doxygen apesar de oferecer todos os recursos básicos necessários para analisar um código fonte em C/C++ e extrair o uso de símbolos (funções, varáveis, etc) não faz o trabalho de simplesmente extrair estes dados sem gerar saída em PDF ou RTF por exemplo.
 
-A API do Doxygen fornece uma interface para quem deseja escrever trecho de código fora dos comentários do projeto analisado para um formato específico como Latex ou HTML por exemplo. Seguindo esta interface CodeOutputInterface é possível implementar um parser reaproveitando todo o poder que o Doxygen fornece para análise de código fonte e gerar uma saída da forma desejada.
 
 Neste projeto foi implementado uma ferramenta chamado doxyparse seguindo esta interface onde são definidos parametros para o Doxygen deacordo com as nossas necessidades como por exemplo: analisar o diretorio recursivamente, não gerar saida em Latex ou HTML, extrair tant informação quanto possível do codigo fonte, gerar gráfico de chamada, etc.
 
