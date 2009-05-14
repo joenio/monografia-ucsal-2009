@@ -168,59 +168,105 @@ Nos resultados eu posso comparar o que consegui com a nova ferramenta comparado 
 
 \section{Procedimento}
 
-Primeiro foi feito um estudo sobre o Doxygen para entender seu funcionamento e
-verificar a viabilidade de usá-lo, então implementou-se o doxyparse baseado no
-exemplo vindo junto ao doxygen, a partir daí o egypt foi alterado para permitir
-a implementação do extrator baseado no doxyparse e entao foi implementado o
-Egypt::Extractor::Doxyparse.
-
-Com o extrator Doxyparse pronto, inicia-se a etapa de extração de informações do projeto de softwalire ristretto,um software livre escrito em C para visualização de imagens, este projeto foi utilizado por Antonio Terceiro para o experimento X (fonte?) onde foi gerado dados de dependencia entre módulos para as versões 0.0.1 até a 0.0.21 deste projeto. Foi gerado os mesmos dados utilizando o extrator Doxyparse e então comparados aos dados extraidos pelo extrator GCC.
+Com o extrator Doxyparse pronto é necessário eleger algum projeto que tenha o
+código fonte disponível para fazer a análise de extração de informações de
+colaboração entre módulos, o projeto escolhido foi o
+ristretto\footnote{http://goodies.xfce.org/projects/applications/ristretto}, um
+Software Livre escrito em C para visualização de imagens no ambiente Desktop
+Xfce\footnote{http://www.xfce.org}, este mesmo projeto foi utilizado por
+\cite{StructuralComplexityEvolution} onde foram gerados dados de dependencia
+entre módulos para as versões 0.0.1 até a 0.0.21 usando o antigo
+extrator baseado em GCC. Foi gerado os mesmos dados utilizando o extrator
+Doxyparse e então comparados aos dados extraidos pelo extrator GCC.
 
 \section{Resultados}
 
 http://gitorious.org/doxygen
 
-Os resultados obtidos foram satisfatórios e atingiram o objetivo inicial que foi possibilitar estração de dados sem necessidade de compilar o software em questão, contudo algumas diferenças entre o extrator original do egypt e o atual baseado no Doxyparse foram notadodas. Nas figuras \ref{ristretto-0.0.1}, \ref{ristretto-0.0.11} e \ref{ristretto-0.0.21} estão gráficos de chamadas entre módulos das versões 0.0.1, 0.0.11 e 0.0.21 do ristretto gerado pelo egypt usando o extrator Doxyparse e o GCC :
+Os resultados obtidos foram satisfatórios e atingiram o objetivo inicial que
+foi possibilitar estração de dados sem necessidade de compilar o software em
+questão, contudo algumas diferenças entre o extrator original do egypt e o
+atual baseado no Doxyparse foram notadodas. Nas figuras \ref{ristretto-0.0.1},
+\ref{ristretto-0.0.11} e \ref{ristretto-0.0.21} estão gráficos de chamadas
+entre módulos das versões 0.0.1, 0.0.11 e 0.0.21 do ristretto gerado pelo egypt
+usando o extrator Doxyparse e o GCC :
 
 \begin{figure}
 \center
-\subfigure[ristretto-0.0.1-doxyparse][Egypt::Extrator::Doxyparse]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_1-doxyparse}}
+\subfigure[ristretto-0.0.1-doxyparse][Egypt::Extrator::Doxyparse]{
+   \includegraphics[scale=0.5]{imagens/ristretto-0_0_1-doxyparse}
+}
 \qquad
-\subfigure[ristretto-0.0.1-gcc][Egypt::Extrator::GCC]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_1-gcc}}
+\subfigure[ristretto-0.0.1-gcc][Egypt::Extrator::GCC]{
+   \includegraphics[scale=0.5]{imagens/ristretto-0_0_1-gcc}
+}
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt}
 \label{ristretto-0.0.1}
 \end{figure}
 
-Na figura~\ref{ristretto-0.0.1} nota-se uma diferença interessante entre as informaçõe extraídas pelo GCC e Doxyparse, há uma inversão entre os módulos thumbnailer\_viewer e picture\_viewer. Enquanto o Doxyparse diz que o picture\_viewer chama o thumbnailer\_viewer no GCC temos o contrário, qual deles está errado ou os dois estão errados?
+Na figura~\ref{ristretto-0.0.1} nota-se uma diferença interessante entre as
+informaçõe extraídas pelo GCC e o Doxyparse, há uma inversão entre os módulos
+thumbnailer\_viewer e picture\_viewer. Enquanto o Doxyparse diz que o
+picture\_viewer chama o thumbnailer\_viewer no GCC temos o contrário, qual
+deles está errado ou os dois estão errados?
 
 \begin{figure}
 \center
-\subfigure[ristretto-0.0.11-doxyparse][Egypt::Extrator::Doxyparse]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_11-doxyparse}}
+\subfigure[ristretto-0.0.11-doxyparse][Egypt::Extrator::Doxyparse]{
+   \includegraphics[scale=0.5]{imagens/ristretto-0_0_11-doxyparse}
+}
 \qquad
-\subfigure[ristretto-0.0.11-gcc][Egypt::Extrator::GCC]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_11-gcc}}
+\subfigure[ristretto-0.0.11-gcc][Egypt::Extrator::GCC]{
+   \includegraphics[scale=0.5]{imagens/ristretto-0_0_11-gcc}
+}
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt}
 \label{ristretto-0.0.11}
 \end{figure}
 
-O mesmo ocorre nas figuras \ref{ristretto-0.0.11} e \ref{ristretto-0.0.21}, mas nestas outras ainda temos mais observações, por exemplo na figura~\ref{ristretto-0.0.11} o GCC diz que o módulo main\_window chama main, já no Doxyparse não há esta chamada.
+O mesmo ocorre nas figuras \ref{ristretto-0.0.11} e \ref{ristretto-0.0.21}, mas
+nestas outras ainda temos mais observações, por exemplo na
+figura~\ref{ristretto-0.0.11} o GCC diz que o módulo main\_window chama main,
+já no Doxyparse não há esta chamada.
 
 \begin{figure}
 \center
-\subfigure[ristretto-0.0.21-doxyparse][Egypt::Extrator::Doxyparse]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_21-doxyparse}}
+\subfigure[ristretto-0.0.21-doxyparse][Egypt::Extrator::Doxyparse]{
+   \includegraphics[scale=0.5]{imagens/ristretto-0_0_21-doxyparse}
+}
 \qquad
-\subfigure[ristretto-0.0.21-gcc][Egypt::Extrator::GCC]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_21-gcc}}
+\subfigure[ristretto-0.0.21-gcc][Egypt::Extrator::GCC]{
+   \includegraphics[scale=0.5]{imagens/ristretto-0_0_21-gcc}
+}
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt}
 \label{ristretto-0.0.21}
 \end{figure}
 
-Na figura~\ref{ristretto-0.0.21} temos ainda outra importante, o GCC nos diz que o módulo save\_dialog é chamado por vários módulos: main\_window, thumbnail, navigator, picture\_viewer e thumbnail\_bar sendo que não faz sentido já que este é um módulo que encapsula a exibição de uma caixa de diálogo onde teoricamente deveria ser chamada apenas pelos módulos que compõe a interface, como diz o Doxyparse que apenas main\_window chama save\_dialog, mas o Doxyparse dá uma informação controversa onde o save\_dialog chama thumbnail\_bar e isto pode não ser verdade (verificar).
+Na figura~\ref{ristretto-0.0.21} temos ainda outra importante, o GCC nos diz
+que o módulo save\_dialog é chamado por vários módulos: main\_window,
+thumbnail, navigator, picture\_viewer e thumbnail\_bar sendo que não faz
+sentido já que este é um módulo que encapsula a exibição de uma caixa de
+diálogo onde teoricamente deveria ser chamada apenas pelos módulos que compõe a
+interface, como diz o Doxyparse que apenas main\_window chama save\_dialog, mas
+o Doxyparse dá uma informação controversa onde o save\_dialog chama
+thumbnail\_bar e isto pode não ser verdade (verificar).
 
-Ainda sobre a análise do ristretto-0.0.21 a saída gerada pelo doxyparse confunde o uso do simbolo parent\_class que é uma variavei estática definida por todos os módulos, mas o Doxygen registra este símbolo relacionado ao primeiro módulo que ele analisa, e nos demais módulos que fazem uso dele o Doxygen acha que o módulo está usando o simbolo definido no primeiro modulo analisado. Isto foi solucionado ignorando as chamadas aos simbolos estaticos fora do módulo sendo analisado, ou seja, só se considera chamada a símbolos estaticos se eles estiverem no módulo que o simbolo foi encontrado.
+Ainda sobre a análise do ristretto-0.0.21 a saída gerada pelo doxyparse
+confunde o uso do simbolo parent\_class que é uma variavei estática definida
+por todos os módulos, mas o Doxygen registra este símbolo relacionado ao
+primeiro módulo que ele analisa, e nos demais módulos que fazem uso dele o
+Doxygen acha que o módulo está usando o simbolo definido no primeiro modulo
+analisado. Isto foi solucionado ignorando as chamadas aos simbolos estaticos
+fora do módulo sendo analisado, ou seja, só se considera chamada a símbolos
+estaticos se eles estiverem no módulo que o simbolo foi encontrado.
 
 \section{Discussão}
 
 \chapter{Conclusão}
 
-A conclusão eu devo escrever por último, deve conter algo assim: "Este trabalho tinha objetivo tal e atingiu tal objetivo". Deve ter referencia de como foi feito e se os resultados foram bons, medios, satisfatorios, ruins, etc. E ao final deve ter trabalhos futuros que eu tenha interesse ou não de fazer.
+A conclusão eu devo escrever por último, deve conter algo assim: "Este trabalho
+tinha objetivo tal e atingiu tal objetivo". Deve ter referencia de como foi
+feito e se os resultados foram bons, medios, satisfatorios, ruins, etc. E ao
+final deve ter trabalhos futuros que eu tenha interesse ou não de fazer.
 
-Trabalhos futuros: verificar Natural Docs, semelhando ao Doxygen implementado em Perl e suporta outras linguagens.
+Trabalhos futuros: verificar Natural Docs, semelhando ao Doxygen implementado
+em Perl e suporta outras linguagens.
