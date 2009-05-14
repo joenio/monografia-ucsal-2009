@@ -135,8 +135,8 @@ module module1.c
       uses function say_hello defined in module2.c
       uses variable variable defined in module3.c
 \end{Verbatim}
-\label{exemplo-saida-doxyparse}
 \caption{exemplo de saída do doxyparse}
+\label{exemplo-saida-doxyparse}
 \end{figure}
 
 Com a saída gerada pelo doxyparse o egypt precisa agora de um extrator que
@@ -150,15 +150,16 @@ o Egypt::Extrator::Doxyparse.
 O egypt em sua implementação atual possui somente a classe Egypt::Extractor que
 faz a extração baseada nos arquivos intermediários gerados pelo GCC, para o
 objetivo deste trabalho esta classe foi transformada numa implementação
-genérica contendo apenas uma interface padrão para os extratores específicos, o
-GCC baseado no código já existente e o Doxyparse um novo extrator que usa como
-entrada os dados gerados pelo doxyparse.
+genérica contendo apenas uma interface padrão para os extratores GCC e
+Doxyparse. O extrator GCC é baseado no código já existente e o Doxyparse é um
+novo extrator que usa como entrada os dados de saída do doxyparse. Na
+figura \ref{egypt-diagram-extractor} está o diagrama desta nova estrutura.
 
 \begin{figure}[h]
 \center
 \includegraphics[scale=0.5]{imagens/egypt-diagram-extractor}
-\label{egypt-diagram-extractor}
 \caption{diagrama da hierarquia de classes do extrator do egypt}
+\label{egypt-diagram-extractor}
 \end{figure}
 
 \chapter{Avaliação}
@@ -186,8 +187,8 @@ Os resultados obtidos foram satisfatórios e atingiram o objetivo inicial que fo
 \subfigure[ristretto-0.0.1-doxyparse][Egypt::Extrator::Doxyparse]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_1-doxyparse}}
 \qquad
 \subfigure[ristretto-0.0.1-gcc][Egypt::Extrator::GCC]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_1-gcc}}
-\label{ristretto-0.0.1}
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt}
+\label{ristretto-0.0.1}
 \end{figure}
 
 Na figura~\ref{ristretto-0.0.1} nota-se uma diferença interessante entre as informaçõe extraídas pelo GCC e Doxyparse, há uma inversão entre os módulos thumbnailer\_viewer e picture\_viewer. Enquanto o Doxyparse diz que o picture\_viewer chama o thumbnailer\_viewer no GCC temos o contrário, qual deles está errado ou os dois estão errados?
@@ -197,8 +198,8 @@ Na figura~\ref{ristretto-0.0.1} nota-se uma diferença interessante entre as inf
 \subfigure[ristretto-0.0.11-doxyparse][Egypt::Extrator::Doxyparse]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_11-doxyparse}}
 \qquad
 \subfigure[ristretto-0.0.11-gcc][Egypt::Extrator::GCC]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_11-gcc}}
-\label{ristretto-0.0.11}
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt}
+\label{ristretto-0.0.11}
 \end{figure}
 
 O mesmo ocorre nas figuras \ref{ristretto-0.0.11} e \ref{ristretto-0.0.21}, mas nestas outras ainda temos mais observações, por exemplo na figura~\ref{ristretto-0.0.11} o GCC diz que o módulo main\_window chama main, já no Doxyparse não há esta chamada.
@@ -208,8 +209,8 @@ O mesmo ocorre nas figuras \ref{ristretto-0.0.11} e \ref{ristretto-0.0.21}, mas 
 \subfigure[ristretto-0.0.21-doxyparse][Egypt::Extrator::Doxyparse]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_21-doxyparse}}
 \qquad
 \subfigure[ristretto-0.0.21-gcc][Egypt::Extrator::GCC]{\includegraphics[scale=0.5]{imagens/ristretto-0_0_21-gcc}}
-\label{ristretto-0.0.21}
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt}
+\label{ristretto-0.0.21}
 \end{figure}
 
 Na figura~\ref{ristretto-0.0.21} temos ainda outra importante, o GCC nos diz que o módulo save\_dialog é chamado por vários módulos: main\_window, thumbnail, navigator, picture\_viewer e thumbnail\_bar sendo que não faz sentido já que este é um módulo que encapsula a exibição de uma caixa de diálogo onde teoricamente deveria ser chamada apenas pelos módulos que compõe a interface, como diz o Doxyparse que apenas main\_window chama save\_dialog, mas o Doxyparse dá uma informação controversa onde o save\_dialog chama thumbnail\_bar e isto pode não ser verdade (verificar).
