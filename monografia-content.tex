@@ -14,21 +14,22 @@ uma pincelada rapida em cada um.
 \chapter{Implementação do Extrator}
 
 Este projeto consiste na implementação de um novo extrator para o egypt onde a
-análise seja feita direto do código fonte do projeto sem necessidade de
-compilação, ou seja, o novo extrator irá buscar as informações diretamente no
-código fonte sem necessidade de usar o GCC ou outro compilador qualquer. Isto
-trará uma vantagem imediata que é a possível analisar projetos que
-não compilem mais, seja por falhas no código fonte ou por possuir dependencias
-não satisfeitas. Outras vantagens secundárias são: o tempo necessário para
-analisar um projeto cairá e as informações obtidas serão mais precisas já que
-algumas informações importantes como por exemplo macros em projetos C/C++ se
-perdem \cite{SourceVersusObjectCodeExtraction} durante a compilação.
+análise seja feita direto do código fonte do sem necessidade de compilação, ou
+seja, o novo extrator irá buscar as informações diretamente no código fonte sem
+necessidade de usar o GCC ou qualquer outro compilador. Com sto será possível
+analisar projetos que não compilem mais, seja por falhas no código ou por
+possuir dependencias não satisfeitas. Além disto, este novo extrator trará mais
+duas vantagens: primeiro, o tempo necessário para analisar um projeto cairá e
+segundo, as informações obtidas serão mais precisas já que alguns dados
+importantes como por exemplo macros em projetos C/C++ não se perderão
+\cite{SourceVersusObjectCodeExtraction}, como acontece com o extrator baseado
+em GCC.
 
 \section{egypt}
 
 O egypt foi originalmente desenvolvido por Andreas
 Gustafsson\footnote{http://www.gson.org/egypt} com o objetivo de gerar gráficos
-de chamada entre funções de programas escrito em C, ele funciona lendo os
+de chamada entre funções de programas escritos em C, ele funciona lendo os
 arquivos intermediários gerados pelo GCC\sigla{GCC}{GNU C Compiler} e os
 converte num gráfico de chamada no formato usado pelo
 Graphviz\footnote{http://www.graphviz.org}, um programa para visualização de
@@ -46,8 +47,18 @@ variável.
 possível ter uma visão de dependência entre módulos.
 \item Refatoração do script egypt em um design orientado a objetos, para
 permitir diferentes módulos de extração e relatório.
-\item Geração de relatório de métricas, como coesão e acoplamento.
+\item Geração de relatório de métricas, como coesão e acoplamento por exemplo.
 \end{itemize}
+
+Abaixo a lista das classes do egypt após a refatoração:
+
+\begin{description}
+\item[egypt] Script principal
+\item[Egypt::Extractor] Extrator de arquivos intermediários do GCC
+\item[Egypt::Metrics] Gera relatório de métricas com os dados de Egypt::Model
+\item[Egypt::Model] Armazena os dados obtidos pelo extrator
+\item[Egypt::Output::DOT] Gera saída no formato do Graphviz com os dados de Egypt::Model
+\end{description}
 
 \section{Doxygen (e a sua API)}
 
@@ -64,9 +75,9 @@ egypt.
 O Doxygen é Software Livre e está disponível sob a GPL\sigla{GPL}{GNU Public
 License}v2 em
 \footnote{https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk}, junto aos
-fontes do projeto existe um pequeno exemplo chamado doxyapp que implementa uma
-ferramenta para parsing de código fonte bem próximo as necessidades deste
-projeto.
+fontes deste programa existe um pequeno exemplo chamado doxyapp, que foi usado
+como base para este projeto, que implementa uma ferramenta para parsing de
+código fonte bem próximo as necessidades deste projeto.
 
 Entre as inúmeras classes presentes na API do Doxygen é importante destacar as
 seguintes:
@@ -74,39 +85,43 @@ seguintes:
 \begin{itemize}
 \item Doxygen - Provê um namespace para varáveis e funções globais usadas pelo
 doxygen
-\item CodeOutputInterface - Interface de saída para os parsers de código fonte
+\item CodeOutputInterface - Interface de saída de trecho de código para os
+parsers
 \item MemberDef - Definição de um membro (símbolos) de classe
 \item FileDef - Definição de um arquivo
 \end{itemize}
 
-Neste projeto foi implementado uma ferramenta chamada doxyparse baseado no
-exemplo doxyapp, o doxyparse implementa a interface CodeOutputInterface disponível para
+O exemplo doxyapp utilizado como base para este projeto implementa a interface CodeOutputInterface disponível para
 quem desejar escrever na saída gerada pelo Doxygen trechos de código extraido
-dos fontes do projeto sendo analisado. Seguindo esta interface foi possível implementar um
-parser reaproveitando todo o poder que o Doxygen fornece para análise de código
-fonte e gerar a saída da forma desejada.
+dos fontes do projeto sendo analisado.
 
 \section{Implementação do Extrator usando a API do Doxygen}
 
-O Doxygen apesar de oferecer todos os recursos básicos necessários para
+O Doxygen apesar de oferecer todos os recursos necessários para
 analisar projetos C/C++ e extrair o uso de símbolos (funções, varáveis, etc)
 que é o objetivo deste projeto, não possibilita que a saída gerada seja
 customizada, apenas oferece opções específicas como PDF e HTML por exemplo. É
 necessário então adaptar o Doxygen para gerar uma saída num formato
-personalizado e apenas com as informações necessárias, para isto foi criado o
+específico e apenas com as informações necessárias, para isto foi criado o
 doxyparse, um parser capaz de analisar códigos C/C++ e possivelmente outras
 linguagens suportadas pelo Doxygen, extraindo símbolos como varáveis e funções
 com a identificação de onde são declarados e onde são utilizados.
 
-O doxyparse foi implementado seguindo a interface CodeOutputInterface, onde são
-definidos parametros para o Doxygen deacordo com as necessidades específicas
-deste projeto, como por exemplo: analisar o diretorio recursivamente, não gerar
-saida em Latex ou HTML, extrair tanta informação quanto possível do código
-fonte, extrair informação de chamada, etc.
+Seguindo a interface CodeOutputInterface, a mesma utilizada no exemplo doxyapp,
+foi possível reaproveitar no doxyparse todo o poder que o Doxygen fornece para
+análise de código fonte e ainda gerar a saída da forma desejada.
 
-O doxyparse então faz a análise dos fontes de um diretorio ou arquivo(s)
-passados como parâmetro via linha de comando e extrai destes arquivos fonte os
-simbolos encontrados contendo informação de onde são definidos e onde são
+O doxyparse então foi implementado seguindo esta interface, onde é possível
+reaproveitar os recursos existentes no Doxygen e gerar como saída uma estrutura
+específica que será então lida pelo extrator a ser implementado no egypt, o
+doxyparse redefine algums parâmetros da configuração do Doxygen para obter o
+comportamento desejado, como: analisar diretorios recursivamente, não gerar
+saida em Latex ou HTML, extrair tanta informação quanto possível do código
+fonte, extrair informação de chamada e não gerar mensagens de warnings.
+
+O doxyparse faz então a análise dos fontes de um diretorio ou arquivo(s)
+passados como parâmetro via linha de comando e extrai destes fontes os
+simbolos encontrados contendo a informação de onde são definidos e onde são
 usados. Após isto é gerado uma saída num formato específico para ser depois
 analisado pelo extrator implementado no egypt. Exemplo de saída gerado pelo
 doxyparse:
