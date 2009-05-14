@@ -120,20 +120,24 @@ saida em Latex ou HTML, extrair tanta informação quanto possível do código
 fonte, extrair informação de chamada e não gerar mensagens de warnings.
 
 O doxyparse faz então a análise dos fontes de um diretorio ou arquivo(s)
-passados como parâmetro via linha de comando e extrai destes fontes os
-simbolos encontrados contendo a informação de onde são definidos e onde são
-usados. Após isto é gerado uma saída num formato específico para ser depois
-analisado pelo extrator implementado no egypt. Exemplo de saída gerado pelo
-doxyparse:
+passados como parâmetro via linha de comando e extrai destes fontes os simbolos
+encontrados contendo a informação de onde são definidos e onde são usados. Após
+isto é gerado uma saída num formato específico para ser depois analisado pelo
+extrator implementado no egypt. Na Figura \ref{exemplo-saida-doxyparse} tem um
+exemplo de saída gerado pelo doxyparse.
 
-\begin{verbatim}
+\begin{figure}[h]
+\begin{Verbatim}[frame=single,fontsize=\relsize{-2},fontfamily=courier]
 module module1.c
    function main in line 5
       uses function callback defined in module3.c
       uses function say_bye defined in module2.c
       uses function say_hello defined in module2.c
       uses variable variable defined in module3.c
-\end{verbatim}
+\end{Verbatim}
+\label{exemplo-saida-doxyparse}
+\caption{exemplo de saída do doxyparse}
+\end{figure}
 
 Com a saída gerada pelo doxyparse o egypt precisa agora de um extrator que
 entenda estes dados e gere a saída no formato do Graphviz que irá então gerar o
