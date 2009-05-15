@@ -16,14 +16,14 @@ uma pincelada rapida em cada um.
 Este projeto consiste na implementação de um novo extrator para o egypt onde a
 análise seja feita direto do código fonte do sem necessidade de compilação, ou
 seja, o novo extrator irá buscar as informações diretamente no código fonte sem
-necessidade de usar o GCC ou qualquer outro compilador. Com sto será possível
+necessidade de usar o GCC ou qualquer outro compilador. Com isto será possível
 analisar projetos que não compilem mais, seja por falhas no código ou por
 possuir dependencias não satisfeitas. Além disto, este novo extrator trará mais
 duas vantagens: primeiro, o tempo necessário para analisar um projeto cairá e
 segundo, as informações obtidas serão mais precisas já que alguns dados
-importantes como por exemplo macros em projetos C/C++ não se perderão
-\cite{SourceVersusObjectCodeExtraction}, como acontece com o extrator baseado
-em GCC.
+importantes não se perderão como acontece por exemplo com macros em projetos
+C/C++ \cite{SourceVersusObjectCodeExtraction} que se perdem com o extrator
+baseado em GCC.
 
 \section{egypt}
 
@@ -50,12 +50,12 @@ permitir diferentes módulos de extração e relatório.
 \item Geração de relatório de métricas, como coesão e acoplamento por exemplo.
 \end{itemize}
 
-Abaixo a lista das classes do egypt após a refatoração:
+Segue abaixo como ficou estruturado o egypt após a refatoração:
 
 \begin{description}
 \item[egypt] Script principal
-\item[Egypt::Extractor] Extrator de arquivos intermediários do GCC
-\item[Egypt::Metrics] Gera relatório de métricas com os dados de Egypt::Model
+\item[Egypt::Extractor] Extrator baseado nos arquivos intermediários do GCC
+\item[Egypt::Metrics] Gera relatório de métricas com os dados do Egypt::Model
 \item[Egypt::Model] Armazena os dados obtidos pelo extrator
 \item[Egypt::Output::DOT] Gera saída no formato do Graphviz com os dados de Egypt::Model
 \end{description}
@@ -64,11 +64,10 @@ Abaixo a lista das classes do egypt após a refatoração:
 
 Doxygen\footnote{http://www.doxygen.org} é um sistema de documentação para C++,
 C, Java, Objective-C, Python, IDL, Fortran, VHDL, PHP e C\#. Com ele é possível
-gerar documentação em HTML, RTF, PostScript, PDF, \LaTeX\ e man pages, ele extrai a
-documentação explícita escrita pelo programador em comentários no código fonte
-seguindo uma sintaxe própria, e também tem a capacidade de extrair diretamente
-do código fonte informações de hierarquia e colaboração entre as classes. É
-baseado nesta capacidade de extrair informações do código fonte que
+gerar documentação em HTML, RTF, PostScript, PDF, \LaTeX\ e man pages, ele
+extrai a documentação existente no código fonte e também a partir deste mesmo
+código ele extrai informações de hierarquia e colaboração entre os módulos do
+projeto. É baseado nesta capacidade de extrair informações do código fonte que
 o Doxygen foi escolhido como base para implementação deste novo extrator para o
 egypt.
 
@@ -76,7 +75,7 @@ O Doxygen é Software Livre e está disponível sob a GPL\sigla{GPL}{GNU Public
 License}v2 em
 \footnote{https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk}, junto aos
 fontes deste programa existe um pequeno exemplo chamado doxyapp, que foi usado
-como base para este projeto, que implementa uma ferramenta para parsing de
+como base para este projeto, este exemplo implementa uma ferramenta para parsing de
 código fonte bem próximo as necessidades deste projeto.
 
 Entre as inúmeras classes presentes na API do Doxygen é importante destacar as
@@ -87,7 +86,7 @@ seguintes:
 doxygen
 \item CodeOutputInterface - Interface de saída de trecho de código para os
 parsers
-\item MemberDef - Definição de um membro (símbolos) de classe
+\item MemberDef - Definição de um membro (símbolo) de classe
 \item FileDef - Definição de um arquivo
 \end{itemize}
 
@@ -104,20 +103,20 @@ customizada, apenas oferece opções específicas como PDF e HTML por exemplo. �
 necessário então adaptar o Doxygen para gerar uma saída num formato
 específico e apenas com as informações necessárias, para isto foi criado o
 doxyparse, um parser capaz de analisar códigos C/C++ e possivelmente outras
-linguagens suportadas pelo Doxygen, extraindo símbolos como varáveis e funções
+linguagens suportadas pelo Doxygen, extraindo símbolos como variáveis e funções
 com a identificação de onde são declarados e onde são utilizados.
 
 Seguindo a interface CodeOutputInterface, a mesma utilizada no exemplo doxyapp,
 foi possível reaproveitar no doxyparse todo o poder que o Doxygen fornece para
 análise de código fonte e ainda gerar a saída da forma desejada.
 
-O doxyparse então foi implementado seguindo esta interface, onde é possível
-reaproveitar os recursos existentes no Doxygen e gerar como saída uma estrutura
-específica que será então lida pelo extrator a ser implementado no egypt, o
-doxyparse redefine algums parâmetros da configuração do Doxygen para obter o
-comportamento desejado, como: analisar diretorios recursivamente, não gerar
-saida em Latex ou HTML, extrair tanta informação quanto possível do código
-fonte, extrair informação de chamada e não gerar mensagens de warnings.
+O doxyparse então reaproveita os recursos existentes no Doxygen para fazer a
+análise de código e gerar uma saída que será lida pelo extrator a ser
+implementado no egypt, o doxyparse redefine algums parâmetros da configuração
+do Doxygen para obter o comportamento desejado, como: analisar diretorios
+recursivamente, não gerar saida em Latex ou HTML, extrair tanta informação
+quanto possível do código fonte, extrair informação de chamada e não gerar
+mensagens de warnings.
 
 O doxyparse faz então a análise dos fontes de um diretorio ou arquivo(s)
 passados como parâmetro via linha de comando e extrai destes fontes os simbolos
@@ -161,6 +160,16 @@ figura~\ref{egypt-diagram-extractor} está o diagrama desta nova estrutura.
 \caption{diagrama da hierarquia de classes do extrator do egypt}
 \label{egypt-diagram-extractor}
 \end{figure}
+
+O egypt agora pode extrair informações usando 2 métodos diferentes. Um usando o
+Egypt::Extractor::GCC que faz a extração baseada nos arquivos intermediários do
+GCC e outro usando o Egypt::Extractor::Doxyparse que faz a análise utilizando o
+doxyparse. Exemplo de execução do egypt usando cada um dos extratores:
+
+\begin{Verbatim}[frame=single,fontsize=\relsize{-2},fontfamily=courier]
+ $ egypt --extractor Doxyparse <arquivos>
+ $ egypt --extractor GCC <arquivos>
+\end{Verbatim}
 
 \chapter{Avaliação}
 
