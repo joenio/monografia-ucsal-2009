@@ -16,21 +16,22 @@ uma pincelada rapida em cada um.
 Este projeto consiste na implementação de um novo extrator para o egypt onde a
 análise seja feita direto do código fonte do sem necessidade de compilação, ou
 seja, o novo extrator irá buscar as informações diretamente no código fonte sem
-necessidade de usar o GCC ou qualquer outro compilador. Com isto será possível
-analisar projetos que não compilem mais, seja por falhas no código ou por
-possuir dependencias não satisfeitas. Além disto, este novo extrator trará mais
-duas vantagens: primeiro, o tempo necessário para analisar um projeto cairá e
-segundo, as informações obtidas serão mais precisas já que alguns dados
-importantes não se perderão como acontece por exemplo com macros em projetos
-C/C++ \cite{SourceVersusObjectCodeExtraction} que se perdem com o extrator
-baseado em GCC.
+necessidade de usar o GCC\sigla{GCC}{GNU C Compiler} ou qualquer outro
+compilador. Com isto será possível analisar projetos que não compilem mais,
+seja por falhas no código ou por possuir dependencias não satisfeitas. Além
+disto, este novo extrator trará mais duas vantagens: primeiro, o tempo
+necessário para analisar um projeto cairá e segundo, as informações obtidas
+serão mais precisas já que alguns dados importantes não se perderão como
+acontece por exemplo com macros em projetos C/C++
+\cite{SourceVersusObjectCodeExtraction} que se perdem com o extrator baseado em
+GCC.
 
 \section{egypt}
 
 O egypt foi originalmente desenvolvido por Andreas
 Gustafsson\footnote{http://www.gson.org/egypt} com o objetivo de gerar gráficos
 de chamada entre funções de programas escritos em C, ele funciona lendo os
-arquivos intermediários gerados pelo GCC\sigla{GCC}{GNU C Compiler} e os
+arquivos intermediários gerados pelo GCC e os
 converte num gráfico de chamada no formato usado pelo
 Graphviz\footnote{http://www.graphviz.org}, um programa para visualização de
 gráficos.
@@ -78,8 +79,9 @@ fontes deste programa existe um pequeno exemplo chamado doxyapp, que foi usado
 como base para este projeto, este exemplo implementa uma ferramenta para parsing de
 código fonte bem próximo as necessidades deste projeto.
 
-Entre as inúmeras classes presentes na API do Doxygen é importante destacar as
-seguintes:
+Entre as inúmeras classes presentes na API\sigla{API}{Application Programming
+Interface (ou Interface de Programação de Aplicativos)} do Doxygen é importante
+destacar as seguintes:
 
 \begin{itemize}
 \item Doxygen - Provê um namespace para varáveis e funções globais usadas pelo
@@ -173,34 +175,37 @@ doxyparse. Exemplo de execução do egypt usando cada um dos extratores:
 
 \chapter{Avaliação}
 
-Com o extrator pronto é necessário avaliar se as informações extraidas estao corretas
-e se há diferenças em relação as informações extraidas pelo extrator original do egypt.
+Com o extrator pronto é necessário avaliar se as informações extraidas estao
+corretas e se há diferenças em relação as informações extraidas pelo extrator
+original do egypt baseado em GCC.
 
 \section{Procedimento}
 
-Em \cite{StructuralComplexityEvolution} Antonio A. S. Terceiro fez uma análise
-do ristretto\footnote{http://goodies.xfce.org/projects/applications/ristretto},
-um Software Livre escrito em C para visualização de imagens no ambiente Desktop
+Em \cite{StructuralComplexityEvolution} foi feita uma análise do
+ristretto\footnote{http://goodies.xfce.org/projects/applications/ristretto}, um
+Software Livre escrito em C para visualização de imagens no ambiente Desktop
 Xfce\footnote{http://www.xfce.org}, utilizando o extrator original do egypt, as
 informações geradas por esta análise serão utilizadas aqui para comparação com
 as informações extraídas pelo novo extrator baseado no doxyparse.
 
-Além da comparação com entre o extrator original e o novo extrator a saída
+Além da comparação entre o extrator original e o novo extrator a saída
 gerada pelo doxyparse, o parser baseado no Doxygen, será analisada em
 comparação com o código fonte em busca de inconsistências em relação a
-declaração e uso de funções e variáveis.
+declaração e uso dos símbolos encontrados.
 
 \section{Resultados}
 
-Com os dados do ristretto gerados pelo egypt foi gerado gráficos de dependencia
-entre os módulos do projeto tanto do extrator Doxyprse quanto do GCC
+Com os dados extraidos pelo Egypt::Extractor::GCC e Egypt::Extractor::Doxyparse
+foram gerados gráficos de dependencia entre os módulos do projeto ristretto das
+versões 0.0.1 até a 0.0.21.
 
-Foi gerado gráficos de dependência entre os módulos do ristretto usando o
-extrator Egypt::Extractor::GCC e o Egypt::Extractor::Doxyparse. Nas figuras
-\ref{ristretto-0.0.1}, \ref{ristretto-0.0.11} e \ref{ristretto-0.0.21} estão
-gráficos de chamadas entre módulos das versões 0.0.1, 0.0.11 e 0.0.21 do
-ristretto gerado pelo Doxyparse e peloo GCC, algumas diferenças entre os
-gráficos gerados pelo GCC e pelo Doxyparse foram notadas. 
+
+Para comparação entre os dois extratores foram selecionadas 3 versões do
+ristretto para ser avaliado, nas figuras \ref{ristretto-0.0.1},
+\ref{ristretto-0.0.11} e \ref{ristretto-0.0.21} estão gráficos de chamadas
+entre módulos das versões 0.0.1, 0.0.11 e 0.0.21 do ristretto gerado pelo
+Doxyparse e pelo GCC, algumas diferenças entre os gráficos gerados pelo GCC e
+pelo Doxyparse foram notadas. 
 
 \begin{figure}
 \center
@@ -220,17 +225,25 @@ informaçõe extraídas pelo GCC e o Doxyparse, há uma inversão entre os módu
 thumbnailer\_viewer e picture\_viewer. Enquanto o Doxyparse diz que o
 picture\_viewer chama o thumbnailer\_viewer no GCC temos o contrário, após uma
 verificação ao código fonte do ristretto 0.0.1 nota-se que nenhum dos 2 módulos
-se chamam. Isto prova que tanto o extrator baseado em GCC quanto o Doxyparse
-estão dando informações erradas, como o objetivo deste trabalho é o extrator
-baseado no doxyparse faz-se necessário procurar uma solução para este problema.
-Ao investigar o problema notou-se que o problema está mesmo no extrator
-Egypt::Extractor::Doxyparse e não no doxyparse em si, o problema é que o egypt
-armazena as informações usando como chave o nome do símbolo em questão (função
-ou variável por exemplo) e alguns símbolos possuem o mesmo nome em vários
-módulos, isto faz com que o egypt confunda o uso e chamada desses símbolos. A
-solução adotada foi armazenar o nome do símbolo junto ao nome do módulo onde o
-símbolo está definido, por exemplo ao invés de guardar apenas parent\_class
-guarda-se main::parent\_class. Na figura \ref{ristretto-0.0.1-doxyparse-2} na página \pageref{ristretto-0.0.1-doxyparse-2} temos o gráfico atualizado após a correcão feita no egypt.
+se referenciam, então tanto o extrator baseado no GCC quanto o
+extrator baseado no doxyparse estão dando informações incorretas.
+
+Como o objetivo deste trabalho é o extrator baseado no doxyparse faz-se
+necessário procurar uma solução para este problema. O problema pode estar no
+doxyparse ou no extrator Egypt::Extractor::Doxyparse.
+
+Ao investigar o problema notou-se que o problema está no extrator não no
+doxyparse em si. O egypt armazena as informações usando como chave, ou seja,
+como identificador único, o nome do símbolo em questão (função ou variável por
+exemplo) mas alguns módulos possuem símbolos com o mesmo nome, isto faz com que
+o egypt confunda o uso e chamada desses símbolos.
+
+A solução adotada para este problema foi armazenar o nome do símbolo junto ao
+nome do módulo onde o símbolo está definido, por exemplo ao invés de guardar
+apenas parent\_class guarda-se main::parent\_class.  Na figura
+\ref{ristretto-0.0.1-doxyparse-2} na página
+\pageref{ristretto-0.0.1-doxyparse-2} temos o gráfico atualizado após esta
+correcão.
 
 \begin{figure}
 \center
@@ -266,9 +279,15 @@ já no Doxyparse não há esta chamada. E de fato, analisando o código fonte do
 Na figura~\ref{ristretto-0.0.21} temos ainda outra importante, o GCC nos diz
 que o módulo save\_dialog é chamado por vários módulos: main\_window,
 thumbnail, navigator, picture\_viewer e thumbnail\_bar sendo que no código
-fonte do ristretto 0.0.21 não há indícios de que o módulo save\_dialog seja chamado por todos estes módulos,
-com excessão do main\_window que realmente chama save\_dialog. Já o Doxyparse dá uma informação mais real onde apenas main\_window chama save\_dialog, mas o Doxyparse dá uma informação controversa onde o save\_dialog chama
-thumbnail\_bar e isto não foi confirmado analisando o código fonte do projeto. Mas este problema foi causado pelo mesmo problema já corrigido no egypt para o grafico do ristretto 0.0.1 e 0.0.11. O gráfico corrigido está na figura~\ref{ristretto-0.0.21-doxyparse-2} \ref{ristretto-0.0.21-doxyparse-2}
+fonte do ristretto 0.0.21 não há indícios de que todos esses módulos chamem o
+módulo save\_dialog, com excessão do main\_window que realmente chama
+save\_dialog. Já o Doxyparse dá uma informação mais real onde apenas
+main\_window chama save\_dialog, mas o Doxyparse dá uma informação controversa
+onde o save\_dialog chama thumbnail\_bar e isto não foi confirmado analisando o
+código fonte do projeto. Mas este problema foi causado pelo mesmo problema já
+corrigido no egypt para o grafico do ristretto 0.0.1 e 0.0.11. O gráfico
+corrigido está na figura~\ref{ristretto-0.0.21-doxyparse-2}
+\ref{ristretto-0.0.21-doxyparse-2}
 
 Além desta correção no Doxyparse foi necessário corrigir o doxyparse
 que nestes casos confunde o uso do simbolo parent\_class que é uma variavei estática definida
@@ -282,21 +301,21 @@ estaticos se eles estiverem no módulo que o simbolo foi encontrado.
 \begin{figure}
 \center
 \includegraphics[scale=0.5]{imagens/ristretto-0_0_1-doxyparse-2}
-\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt::Extrator::Doxyparse}
+\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt::Extrator::Doxyparse atualizado}
 \label{ristretto-0.0.1-doxyparse-2}
 \end{figure}
 
 \begin{figure}
 \center
 \includegraphics[scale=0.5]{imagens/ristretto-0_0_11-doxyparse-2}
-\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt::Extrator::Doxyparse}
+\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt::Extrator::Doxyparse atualizado}
 \label{ristretto-0.0.11-doxyparse-2}
 \end{figure}
 
 \begin{figure}
 \center
 \includegraphics[scale=0.5]{imagens/ristretto-0_0_21-doxyparse-2}
-\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt::Extrator::Doxyparse}
+\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt::Extrator::Doxyparse atualizado}
 \label{ristretto-0.0.21-doxyparse-2}
 \end{figure}
 
