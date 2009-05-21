@@ -23,8 +23,6 @@ extrator baseado em GCC\sigla{GCC}{GNU C Compiler}.
 
 \chapter{Implementação do Extrator}
 
-
-
 \section{egypt}
 
 O egypt foi originalmente desenvolvido por Andreas
@@ -81,14 +79,12 @@ Entre as inúmeras classes presentes na API\sigla{API}{Application Programming
 Interface (ou Interface de Programação de Aplicativos)} do Doxygen é importante
 destacar as seguintes:
 
-\begin{itemize}
-\item Doxygen - Provê um namespace para varáveis e funções globais usadas pelo
-doxygen
-\item CodeOutputInterface - Interface de saída de trecho de código para os
-parsers
-\item MemberDef - Definição de um membro ou símbolo de classe
-\item FileDef - Definição de um arquivo
-\end{itemize}
+\begin{description}
+\item[Doxygen] Provê um namespace para varáveis e funções globais usadas pelo doxygen
+\item[CodeOutputInterface] Interface de saída de trecho de código para os parsers
+\item[MemberDef] Definição de um membro ou símbolo de classe
+\item[FileDef] Definição de um arquivo
+\end{description}
 
 \section{Implementação do Extrator usando a API do Doxygen}
 
@@ -103,7 +99,15 @@ com a identificação de onde são declarados e onde são utilizados.
 
 Seguindo a interface CodeOutputInterface foi possível reaproveitar no doxyparse
 todo o poder que o Doxygen fornece para análise de código fonte e ainda gerar a
-saída da forma desejada.
+saída da forma desejada. Na figura~\ref{doxyparse-diagram} temos o diagrama
+desta implementação.
+
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.5]{imagens/doxyparse-diagram}
+\caption{diagrama da hierarquia de classes do doxyparse}
+\label{doxyparse-diagram}
+\end{figure}
 
 O doxyparse então reaproveita os recursos existentes no Doxygen para fazer a
 análise de código e gerar uma saída que será lida pelo extrator a ser
@@ -111,7 +115,7 @@ implementado no egypt, o doxyparse redefine algums parâmetros da configuração
 do Doxygen para obter o comportamento desejado, como: analisar diretórios
 recursivamente, não gerar saida em Latex ou HTML, extrair tanta informação
 quanto possível do código fonte, extrair informação de chamada e não gerar
-mensagens de warnings.
+mensagens de aviso.
 
 O doxyparse faz então a análise dos fontes de um diretorio ou arquivo(s)
 passados como parâmetro via linha de comando e extrai destes fontes os
