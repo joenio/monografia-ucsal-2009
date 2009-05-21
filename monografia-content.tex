@@ -163,11 +163,11 @@ figura~\ref{egypt-diagram-extractor}:
 \item[Egypt::Extrator::Doxyparse] Novo extrator baseado na saída do doxyparse
 \end{description}
 
-O egypt já possui a infraestrutura
-para gerar saída no formato do Graphviz, a classe Egypt::Output::DOT é a
-responsável por isto, ela lê os dados armazenados em Egypt::Model e gera a
-saída corretamente. O Egypt::Model é alimentado pelo extrator, que neste caso será
-o Egypt::Extrator::Doxyparse.
+O egypt já possui a infraestrutura para gerar saída no formato do Graphviz, a
+classe Egypt::Output::DOT é a responsável por isto, ela lê os dados armazenados
+em Egypt::Model e gera a saída corretamente. O Egypt::Model é alimentado pelo
+extrator, que neste caso será o Egypt::Extrator::Doxyparse. Na
+figura~\ref{egypt-fluxogram} está o fluxograma de funcionamento do egypt.
 
 \begin{figure}[h]
 \center
@@ -176,10 +176,12 @@ o Egypt::Extrator::Doxyparse.
 \label{egypt-fluxogram}
 \end{figure}
 
-O egypt agora pode extrair informações usando 2 métodos diferentes. Um usando o
+Após a refatoração demonstrada na figura~\ref{egypt-diagram-extractor} o egypt
+pode extrair informações usando 2 métodos diferentes, usando o
 Egypt::Extractor::GCC que faz a extração baseada nos arquivos intermediários do
-GCC e outro usando o Egypt::Extractor::Doxyparse que faz a análise utilizando o
-doxyparse. Exemplo de execução do egypt usando cada um dos extratores:
+GCC ou usando o Egypt::Extractor::Doxyparse que faz a análise utilizando o
+doxyparse. Segue abaixo um exemplo de execução do egypt usando cada um dos
+extratores:
 
 \begin{Verbatim}[frame=single,fontsize=\relsize{-2},fontfamily=courier]
  $ egypt --extractor Doxyparse <arquivos>
@@ -188,8 +190,8 @@ doxyparse. Exemplo de execução do egypt usando cada um dos extratores:
 
 \chapter{Avaliação}
 
-Com o extrator pronto é necessário avaliar se as informações extraidas estao
-corretas e se há diferenças em relação as informações extraidas pelo extrator
+Com o extrator pronto é necessário avaliar se as informações extraídas estão
+corretas e se há diferenças em relação as informações extraídas pelo extrator
 original do egypt baseado em GCC.
 
 \section{Procedimento}
@@ -238,12 +240,12 @@ informaçõe extraídas pelo GCC e o Doxyparse, há uma inversão entre os módu
 thumbnailer\_viewer e picture\_viewer. Enquanto o Doxyparse diz que o
 picture\_viewer chama o thumbnailer\_viewer no GCC temos o contrário, após uma
 verificação ao código fonte do ristretto 0.0.1 nota-se que nenhum dos 2 módulos
-se referenciam, então tanto o extrator baseado no GCC quanto o
-extrator baseado no doxyparse estão dando informações incorretas.
+se referenciam, então tanto o extrator GCC quanto o extrator Doxyparse estão
+dando informações incorretas.
 
-Como o objetivo deste trabalho é o extrator baseado no doxyparse faz-se
-necessário procurar uma solução para este problema. O problema pode estar no
-doxyparse ou no extrator Egypt::Extractor::Doxyparse.
+Como o objetivo deste trabalho é o extrator Doxyparse faz-se necessário
+procurar uma solução para este problema. O problema pode estar no doxyparse ou
+no extrator Egypt::Extractor::Doxyparse.
 
 Ao investigar o problema notou-se que o problema está no extrator não no
 doxyparse em si. O egypt armazena as informações usando como chave, ou seja,
