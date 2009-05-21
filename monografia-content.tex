@@ -118,11 +118,10 @@ quanto possível do código fonte, extrair informação de chamada e não gerar
 mensagens de aviso.
 
 O doxyparse faz então a análise dos fontes de um diretorio ou arquivo(s)
-passados como parâmetro via linha de comando e extrai destes fontes os
-símbolos. Após isto é gerado uma saída num formato específico para ser depois
-analisado pelo extrator implementado no egypt. Na
-figura~\ref{exemplo-saida-doxyparse} tem um exemplo de saída gerado pelo
-doxyparse.
+passados como parâmetro via linha de comando e extrai destes fontes os símbolos
+encontrados. Após isto é gerada uma saída num formato específico que será lida
+pelo extrator no egypt. Na figura~\ref{exemplo-saida-doxyparse} tem um exemplo
+desta saída.
 
 \begin{figure}[h]
 \begin{Verbatim}[frame=single,fontsize=\relsize{-2},fontfamily=courier]
@@ -139,25 +138,42 @@ module module1.c
 
 Com a saída gerada pelo doxyparse o egypt precisa agora de um extrator que
 entenda estes dados e gere a saída no formato do Graphviz que irá então gerar o
-gráfico de chamada entre os módulos. O egypt já possui a infraestrutura
-para gerar saída no formato do Graphviz, a classe Egypt::Output::DOT é a
-responsável por isto, ela lê os dados armazenados em Egypt::Model e gera a
-saída corretamente. O Egypt::Model é alimentado pelo extrator, que neste caso será
-o Egypt::Extrator::Doxyparse.
+gráfico de chamada entre os módulos.
 
-O egypt em sua implementação atual possui somente a classe Egypt::Extractor que
-faz a extração baseada nos arquivos intermediários gerados pelo GCC, para o
-objetivo deste trabalho esta classe foi transformada numa implementação
-genérica contendo apenas uma interface padrão para os extratores GCC e
-Doxyparse. O extrator GCC é baseado no código já existente e o Doxyparse é um
-novo extrator que usa como entrada os dados de saída do doxyparse. Na
-figura~\ref{egypt-diagram-extractor} está o diagrama desta nova estrutura.
+O extrator atual do egypt, Egypt::Extractor, entende apenas arquivos
+intermediários gerados pelo GCC, para que o egypt entenda a saída da
+figura~\ref{exemplo-saida-doxyparse} é necessário implementar um novo extrator.
+Para isto foi necessário restruturar um pouco a atual implementação do egypt em
+relação ao extrator. Na figura~\ref{egypt-diagram-extractor} está o desenho
+desta nova estrutura.
 
 \begin{figure}[h]
 \center
 \includegraphics[scale=0.5]{imagens/egypt-diagram-extractor}
 \caption{diagrama da hierarquia de classes do extrator do egypt}
 \label{egypt-diagram-extractor}
+\end{figure}
+
+Abaixo uma breve descrição de cada classe presente na
+figura~\ref{egypt-diagram-extractor}:
+
+\begin{description}
+\item[Egypt::Extractor] Interface padrão para os extratores.
+\item[Egypt::Extrator::GCC] Extrator baseado nos arquivos intermediários do GCC.
+\item[Egypt::Extrator::Doxyparse] Novo extrator baseado na saída do doxyparse
+\end{description}
+
+O egypt já possui a infraestrutura
+para gerar saída no formato do Graphviz, a classe Egypt::Output::DOT é a
+responsável por isto, ela lê os dados armazenados em Egypt::Model e gera a
+saída corretamente. O Egypt::Model é alimentado pelo extrator, que neste caso será
+o Egypt::Extrator::Doxyparse.
+
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.5]{imagens/egypt-fluxogram}
+\caption{fluxograma de funcionamento do egypt}
+\label{egypt-fluxogram}
 \end{figure}
 
 O egypt agora pode extrair informações usando 2 métodos diferentes. Um usando o
