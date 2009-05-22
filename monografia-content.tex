@@ -72,7 +72,7 @@ O Doxygen é Software Livre e está disponível sob a GPL\sigla{GPL}{GNU Public
 License}v2 em
 \footnote{https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk}, junto aos
 fontes deste programa existe um pequeno exemplo chamado doxyapp, que foi usado
-como base para este projeto já que ele implementa uma ferramenta para parsing
+como base para este projeto já que ele implementa uma ferramenta para análise
 de código fonte bem próximo as necessidades deste projeto.
 
 Entre as inúmeras classes presentes na API\sigla{API}{Application Programming
@@ -89,7 +89,7 @@ destacar as seguintes:
 \section{Implementação do Extrator usando a API do Doxygen}
 
 O Doxygen apesar de oferecer todos os recursos necessários para
-analisar projetos C/C++ e extrair o uso de símbolos, como funções e varáveis,
+analisar projetos C/C++ e extrair o uso de símbolos, como funções e variáveis,
 que é o objetivo deste projeto, não possibilita que a saída gerada seja
 customizada, apenas oferece opções específicas como PDF e HTML por exemplo. É
 necessário então adaptar o Doxygen para gerar uma saída num formato
@@ -111,7 +111,7 @@ desta implementação.
 
 O doxyparse então reaproveita os recursos existentes no Doxygen para fazer a
 análise de código e gerar uma saída que será lida pelo extrator a ser
-implementado no egypt, o doxyparse redefine algums parâmetros da configuração
+implementado no egypt, o doxyparse redefine algums parâmetros de configuração
 do Doxygen para obter o comportamento desejado, como: analisar diretórios
 recursivamente, não gerar saida em Latex ou HTML, extrair tanta informação
 quanto possível do código fonte, extrair informação de chamada e não gerar
@@ -137,15 +137,15 @@ module module1.c
 \end{figure}
 
 Com a saída gerada pelo doxyparse o egypt precisa agora de um extrator que
-entenda estes dados e gere a saída no formato do Graphviz que irá então gerar o
-gráfico de chamada entre os módulos.
+entenda estes dados, extraia informações sobre os símbolos e gere a saída no
+formato do Graphviz que irá então gerar o gráfico de chamada entre os módulos.
 
 O extrator atual do egypt, Egypt::Extractor, entende apenas arquivos
 intermediários gerados pelo GCC, para que o egypt entenda a saída da
 figura~\ref{exemplo-saida-doxyparse} é necessário implementar um novo extrator.
-Para isto foi necessário restruturar um pouco a atual implementação do egypt em
-relação ao extrator. Na figura~\ref{egypt-diagram-extractor} está o desenho
-desta nova estrutura.
+Para isto foi necessário refatorar a atual implementação do egypt em relação ao
+extrator. Na figura~\ref{egypt-diagram-extractor} está o desenho desta nova
+estrutura.
 
 \begin{figure}[h]
 \center
