@@ -8,12 +8,13 @@ uma pincelada rapida em cada um.
 Este projeto consiste na implementação de um novo extrator para o egypt onde a
 análise seja feita direto do código fonte sem necessidade de compilação. Com
 isto será possível analisar projetos que não compilem mais, seja por falhas no
-código ou por possuir dependencias não satisfeitas. Este novo extrator trará
-ainda mais duas vantagens: primeiro, o tempo necessário para analisar um
-projeto cairá e segundo, as informações obtidas serão mais precisas já que
-alguns dados importantes não se perderão como acontece por exemplo com macros
-em projetos C/C++ \cite{SourceVersusObjectCodeExtraction} que se perdem com o
-extrator baseado em GCC\sigla{GCC}{GNU C Compiler}.
+código ou por possuir dependencias não satisfeitas. Além disso, espera-se que
+este novo extrator traga ainda mais duas vantagens: primeiro, o tempo
+necessário para analisar um projeto cairá e segundo, as informações obtidas
+serão mais precisas já que alguns dados importantes não se perderão como
+acontece por exemplo com macros em projetos C/C++
+\cite{SourceVersusObjectCodeExtraction} que se perdem com o extrator baseado em
+GCC\sigla{GCC}{GNU C Compiler}.
 
 \chapter{Conceitos}
 \section{Arquitetura de Software}
@@ -58,6 +59,18 @@ Segue abaixo como ficou estruturado o egypt após a refatoração:
 \item[Egypt::Output::DOT] Gera saída no formato do Graphviz com os dados de Egypt::Model
 \end{description}
 
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.5]{imagens/egypt-fluxogram}
+\caption{fluxograma de funcionamento do egypt}
+\label{egypt-fluxogram}
+\end{figure}
+
+No fluxograma da figura~\ref{egypt-fluxogram} temos o seguinte: Egypt::Model é
+alimentado com informações sobre declaração e uso de símbolos extraídos pelo
+Egypt::Extractor e o Egypt::Output lê as informações contidas nele e gera saída
+no formato apropriado.
+
 \section{Doxygen (e a sua API)}
 
 Doxygen\footnote{http://www.doxygen.org} é um sistema de documentação para C++,
@@ -98,9 +111,8 @@ doxyparse, um parser capaz de analisar códigos C/C++ extraindo símbolos
 com a identificação de onde são declarados e onde são utilizados.
 
 Seguindo a interface CodeOutputInterface foi possível reaproveitar no doxyparse
-todo o poder que o Doxygen fornece para análise de código fonte e ainda gerar a
-saída da forma desejada. Na figura~\ref{doxyparse-diagram} temos o diagrama
-desta implementação.
+todo o poder que o Doxygen fornece e gerar a saída da forma desejada. Na
+figura~\ref{doxyparse-diagram} temos o diagrama desta implementação.
 
 \begin{figure}[h]
 \center
@@ -111,7 +123,7 @@ desta implementação.
 
 O doxyparse então reaproveita os recursos existentes no Doxygen para fazer a
 análise de código e gerar uma saída que será lida pelo extrator a ser
-implementado no egypt, o doxyparse redefine algums parâmetros de configuração
+implementado no egypt, ele redefine algums parâmetros de configuração
 do Doxygen para obter o comportamento desejado, como: analisar diretórios
 recursivamente, não gerar saida em Latex ou HTML, extrair tanta informação
 quanto possível do código fonte, extrair informação de chamada e não gerar
@@ -137,15 +149,14 @@ module module1.c
 \end{figure}
 
 Com a saída gerada pelo doxyparse o egypt precisa agora de um extrator que
-entenda estes dados, extraia informações sobre os símbolos e gere a saída no
+entenda estes dados, extraia as informações sobre os símbolos e gere a saída no
 formato do Graphviz que irá então gerar o gráfico de chamada entre os módulos.
 
 O extrator atual do egypt, Egypt::Extractor, entende apenas arquivos
-intermediários gerados pelo GCC, para que o egypt entenda a saída da
-figura~\ref{exemplo-saida-doxyparse} é necessário implementar um novo extrator.
-Para isto foi necessário refatorar a atual implementação do egypt em relação ao
-extrator. Na figura~\ref{egypt-diagram-extractor} está o desenho desta nova
-estrutura.
+intermediários gerados pelo GCC e não é capaz de entender a saída da
+figura~\ref{exemplo-saida-doxyparse}. Para isto foi necessário refatorar a
+atual implementação do egypt e implementar um novo extrator. Na
+figura~\ref{egypt-diagram-extractor} está o desenho desta nova estrutura.
 
 \begin{figure}[h]
 \center
@@ -159,22 +170,9 @@ figura~\ref{egypt-diagram-extractor}:
 
 \begin{description}
 \item[Egypt::Extractor] Interface padrão para os extratores.
-\item[Egypt::Extrator::GCC] Extrator baseado nos arquivos intermediários do GCC.
-\item[Egypt::Extrator::Doxyparse] Novo extrator baseado na saída do doxyparse
+\item[Egypt::Extractor::GCC] Extrator baseado nos arquivos intermediários do GCC.
+\item[Egypt::Extractor::Doxyparse] Novo extrator baseado na saída do doxyparse
 \end{description}
-
-O egypt já possui a infraestrutura para gerar saída no formato do Graphviz, a
-classe Egypt::Output::DOT é a responsável por isto, ela lê os dados armazenados
-em Egypt::Model e gera a saída corretamente. O Egypt::Model é alimentado pelo
-extrator, que neste caso será o Egypt::Extrator::Doxyparse. Na
-figura~\ref{egypt-fluxogram} está o fluxograma de funcionamento do egypt.
-
-\begin{figure}[h]
-\center
-\includegraphics[scale=0.5]{imagens/egypt-fluxogram}
-\caption{fluxograma de funcionamento do egypt}
-\label{egypt-fluxogram}
-\end{figure}
 
 Após a refatoração demonstrada na figura~\ref{egypt-diagram-extractor} o egypt
 pode extrair informações usando 2 métodos diferentes, usando o
@@ -206,7 +204,7 @@ as informações extraídas pelo novo extrator baseado no doxyparse.
 Além da comparação entre o extrator original e o novo extrator a saída
 gerada pelo doxyparse, o parser baseado no Doxygen, será analisada em
 comparação com o código fonte em busca de inconsistências em relação a
-declaração e uso dos símbolos encontrados.
+declaração e uso de símbolos encontrados.
 
 \section{Resultados}
 
