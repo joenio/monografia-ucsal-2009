@@ -5,7 +5,7 @@ TEXSRCS= header.tex
 anteprojeto_TEXSRCS= anteprojeto-content.tex
 monografia_TEXSRCS= monografia-content.tex
 BIBTEXSRCS= bibliografia.bib
-CLEAN_FILES+= *.sigla* *symbols*
+CLEAN_FILES+= *.sigla* *symbols* imagens/*~
 
 # PROJECT VARIABLES
 
