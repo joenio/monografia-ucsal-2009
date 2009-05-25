@@ -328,6 +328,41 @@ chamada a símbolos estaticos se eles estiverem no mesmo módulo que o simbolo.
 
 \section{Discussão}
 
+\begin{table}
+\caption{Resumo de comparação entre os extrator GCC e Doxyparse}
+\centering
+\begin{tabular}{| l | c c | c c |}
+\hline
+Extrator  & \multicolumn{2}{|c|}{Egypt::Extractor::GCC} & \multicolumn{2}{|c|}{Egypt::Extractor::Doxyparse} \\
+\hline
+Média     & Coesão(LCOM4)  & Acoplamento    & Coesão(LCOM4)  & Acoplamento  \\
+\hline
+0.0.1     & 4.75           & 2.75           & 5.00           & 1.25         \\
+0.0.2     & 5.75           & 2.75           & 6.00           & 1.25         \\
+0.0.3     & 6.00           & 2.75           & 6.00           & 1.25         \\
+0.0.4     &                &                &                &              \\
+0.0.5     &                &                &                &              \\
+0.0.6     &                &                &                &              \\
+0.0.7     &                &                &                &              \\
+0.0.8     &                &                &                &              \\
+0.0.9     &                &                &                &              \\
+0.0.10    &                &                &                &              \\
+0.0.11    &                &                &                &              \\
+0.0.12    &                &                &                &              \\
+0.0.13    &                &                &                &              \\
+0.0.14    &                &                &                &              \\
+0.0.15    &                &                &                &              \\
+0.0.16    &                &                &                &              \\
+0.0.17    &                &                &                &              \\
+0.0.18    &                &                &                &              \\
+0.0.19    &                &                &                &              \\
+0.0.20    &                &                &                &              \\
+0.0.21    &                &                &                &              \\
+\hline
+\end{tabular}
+\end{table}
+
+
 \chapter{Conclusão}
 
 ... Os resultados obtidos foram satisfatórios e atingiram o objetivo inicial que
@@ -340,4 +375,5 @@ feito e se os resultados foram bons, medios, satisfatorios, ruins, etc. E ao
 final deve ter trabalhos futuros que eu tenha interesse ou não de fazer.
 
 Trabalhos futuros: verificar Natural Docs, semelhando ao Doxygen implementado
-em Perl e suporta outras linguagens.
+em Perl e suporta outras linguagens. Implementar no doxyparse detecção de chamada
+indireta.
