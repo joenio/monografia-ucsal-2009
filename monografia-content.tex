@@ -213,19 +213,18 @@ foram gerados gráficos de dependencia entre os módulos do projeto ristretto da
 versões 0.0.1 até a 0.0.21.
 
 Para comparação entre os dois extratores foram selecionadas 3 versões do
-ristretto para ser avaliado, nas figuras \ref{ristretto-0.0.1},
+ristretto, a 0.0.1, 0.0.11 e 0.0.21, nas figuras \ref{ristretto-0.0.1},
 \ref{ristretto-0.0.11} e \ref{ristretto-0.0.21} estão gráficos de chamadas
-entre módulos das versões 0.0.1, 0.0.11 e 0.0.21 do ristretto gerado pelo
-Doxyparse e pelo GCC, algumas diferenças entre os gráficos gerados pelo GCC e
-pelo Doxyparse foram notadas. 
+entre módulos de cada um. Algumas diferenças entre os gráficos
+gerados pelo GCC e pelo Doxyparse foram notadas. 
 
 \begin{figure}
 \center
-\subfigure[ristretto-0.0.1-doxyparse][Egypt::Extrator::Doxyparse]{
+\subfigure[ristretto-0.0.1-doxyparse][Egypt::Extractor::Doxyparse]{
    \includegraphics[scale=0.5]{imagens/ristretto-0_0_1-doxyparse}
 }
 \qquad
-\subfigure[ristretto-0.0.1-gcc][Egypt::Extrator::GCC]{
+\subfigure[ristretto-0.0.1-gcc][Egypt::Extractor::GCC]{
    \includegraphics[scale=0.5]{imagens/ristretto-0_0_1-gcc}
 }
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt}
@@ -248,85 +247,82 @@ mesmo nome, isto faz com que o egypt confunda o uso e chamada destes símbolos.
 
 A solução adotada para este problema foi armazenar o nome do módulo junto ao
 nome do símbolo, por exemplo ao invés de guardar apenas parent\_class guarda-se
-main::parent\_class. Na figura \ref{ristretto-0.0.1-doxyparse-2} na página
-\pageref{ristretto-0.0.1-doxyparse-2} temos o gráfico atualizado após esta
-correcão.
+main::parent\_class. Na figura \ref{ristretto-0.0.1-doxyparse-2} temos o
+gráfico atualizado após esta correcão.
 
-\begin{figure}
+\begin{figure}[h]
 \center
 \includegraphics[scale=0.5]{imagens/ristretto-0_0_1-doxyparse-2}
-\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt::Extrator::Doxyparse atualizado}
+\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt::Extractor::Doxyparse atualizado}
 \label{ristretto-0.0.1-doxyparse-2}
 \end{figure}
 
 \begin{figure}
 \center
-\subfigure[ristretto-0.0.11-doxyparse][Egypt::Extrator::Doxyparse]{
+\subfigure[ristretto-0.0.11-doxyparse][Egypt::Extractor::Doxyparse]{
    \includegraphics[scale=0.5]{imagens/ristretto-0_0_11-doxyparse}
 }
 \qquad
-\subfigure[ristretto-0.0.11-gcc][Egypt::Extrator::GCC]{
+\subfigure[ristretto-0.0.11-gcc][Egypt::Extractor::GCC]{
    \includegraphics[scale=0.5]{imagens/ristretto-0_0_11-gcc}
 }
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt}
 \label{ristretto-0.0.11}
 \end{figure}
 
-O mesmo ocorre nas figuras \ref{ristretto-0.0.11} e \ref{ristretto-0.0.21}, mas
-nestas outras ainda temos mais observações, por exemplo na
-figura~\ref{ristretto-0.0.11} o GCC diz que o módulo main\_window chama main,
-já no Doxyparse não há esta chamada. E de fato, analisando o código fonte do
-ristretto 0.0.11 não foi encontrado nenhuma chamada de main\_window para main.
-Este problema foi corrigido pela mesma correção feita no egypt para corrigir o
-problema encontrado na versao 0.1.1 do ristretto, na página
-\pageref{ristretto-0.0.11-doxyparse-2} está a
-figura~\ref{ristretto-0.0.11-doxyparse-2} contendo o gráfico atualizado.
+Na figura~\ref{ristretto-0.0.11} o GCC diz que o módulo main\_window chama
+main, já no Doxyparse não há esta chamada. E de fato, analisando o código fonte
+do ristretto 0.0.11 não foi encontrada nenhuma chamada de main\_window para
+main, então o Doxyparse está correto neste caso. Mas ele confunde alguns
+símbolos como na figura~\ref{ristretto-0.0.1}, veja na
+figura~\ref{ristretto-0.0.11-doxyparse-2} o gráfico atualizado após a correção.
 
 \begin{figure}
 \center
 \includegraphics[scale=0.5]{imagens/ristretto-0_0_11-doxyparse-2}
-\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt::Extrator::Doxyparse atualizado}
+\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt::Extractor::Doxyparse atualizado}
 \label{ristretto-0.0.11-doxyparse-2}
 \end{figure}
 
-Na figura~\ref{ristretto-0.0.21} temos ainda outra importante, o GCC nos diz
-que o módulo save\_dialog é chamado por vários módulos: main\_window,
+Na figura~\ref{ristretto-0.0.21} temos outra diferença interessante, o GCC
+informa que o módulo save\_dialog é chamado pelos módulos main\_window,
 thumbnail, navigator, picture\_viewer e thumbnail\_bar sendo que no código
 fonte do ristretto 0.0.21 não há indícios de que todos esses módulos chamem o
 módulo save\_dialog, com excessão de main\_window. Já o Doxyparse dá uma
-informação mais real onde apenas main\_window chama save\_dialog, mas o
+informação mais coerente onde apenas main\_window chama save\_dialog, mas o
 Doxyparse dá uma informação controversa onde o save\_dialog chama
 thumbnail\_bar e isto não foi confirmado analisando o código fonte do projeto.
-Mas este problema foi causado pelo mesmo problema já corrigido no egypt para o
-gráfico do ristretto 0.0.1 e 0.0.11. O gráfico corrigido está na
-figura~\ref{ristretto-0.0.21-doxyparse-2}.
+Mas este problema foi causado pelo mesmo problema já corrigido nos exemplos
+citados acima para as versões 0.0.1 e 0.0.11, veja na
+figura~\ref{ristretto-0.0.21-doxyparse-2} o gráfico atualizado.
 
 \begin{figure}
 \center
-\subfigure[ristretto-0.0.21-doxyparse][Egypt::Extrator::Doxyparse]{
+\subfigure[ristretto-0.0.21-doxyparse][Egypt::Extractor::Doxyparse]{
    \includegraphics[scale=0.5]{imagens/ristretto-0_0_21-doxyparse}
 }
 \qquad
-\subfigure[ristretto-0.0.21-gcc][Egypt::Extrator::GCC]{
+\subfigure[ristretto-0.0.21-gcc][Egypt::Extractor::GCC]{
    \includegraphics[scale=0.5]{imagens/ristretto-0_0_21-gcc}
 }
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt}
 \label{ristretto-0.0.21}
 \end{figure}
 
-Além desta correção no Doxyparse foi necessário corrigir o doxyparse
-que nestes casos confunde o uso do simbolo parent\_class que é uma variavei estática definida
-por todos os módulos, mas o Doxygen registra este símbolo relacionado ao
-primeiro módulo que ele analisa, e nos demais módulos que fazem uso dele o
-Doxygen acha que o módulo está usando o simbolo definido no primeiro modulo
-analisado. Isto foi solucionado ignorando as chamadas aos simbolos estaticos
-fora do módulo sendo analisado, ou seja, só se considera chamada a símbolos
-estaticos se eles estiverem no módulo que o simbolo foi encontrado.
+Além destas correções no extrator foi necessário corrigir no doxyparse a
+identificação dos símbolos estáticos, nesta avaliação feita com o ristretto o
+doxyparse confunde o uso do simbolo parent\_class, uma variavei estática
+definida por todos os módulos do projeto. O doxyparse registra a declaração
+deste símbolo apenas na primeira vez que é encontrado e nas ocorrências de uso
+e chamada nos diversos módulos o doxyparse faz referência ao primeiro módulo
+onde o símbolo foi encontrado. Isto foi solucionado ignorando as chamadas aos
+símbolos estáticos fora do módulo sendo analisado, ou seja, só se considera
+chamada a símbolos estaticos se eles estiverem no mesmo módulo que o simbolo.
 
 \begin{figure}
 \center
 \includegraphics[scale=0.5]{imagens/ristretto-0_0_21-doxyparse-2}
-\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt::Extrator::Doxyparse atualizado}
+\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt::Extractor::Doxyparse atualizado}
 \label{ristretto-0.0.21-doxyparse-2}
 \end{figure}
 
