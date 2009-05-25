@@ -17,6 +17,9 @@ acontece por exemplo com macros em projetos C/C++
 GCC\sigla{GCC}{GNU C Compiler}.
 
 \chapter{Conceitos}
+
+... \cite{EngenhariaDeSoftwarePeters} ...
+
 \section{Arquitetura de Software}
 \section{Atributos de Modularidade}
 \subsection{Acoplamento}
@@ -61,7 +64,7 @@ Segue abaixo como ficou estruturado o egypt após a refatoração:
 
 \begin{figure}[h]
 \center
-\includegraphics[scale=0.5]{imagens/egypt-fluxogram}
+\includegraphics[scale=0.4]{imagens/egypt-fluxogram}
 \caption{fluxograma de funcionamento do egypt}
 \label{egypt-fluxogram}
 \end{figure}
@@ -116,7 +119,7 @@ figura~\ref{doxyparse-diagram} temos o diagrama desta implementação.
 
 \begin{figure}[h]
 \center
-\includegraphics[scale=0.5]{imagens/doxyparse-diagram}
+\includegraphics[scale=0.4]{imagens/doxyparse-diagram}
 \caption{diagrama da hierarquia de classes do doxyparse}
 \label{doxyparse-diagram}
 \end{figure}
@@ -160,7 +163,7 @@ figura~\ref{egypt-diagram-extractor} está o desenho desta nova estrutura.
 
 \begin{figure}[h]
 \center
-\includegraphics[scale=0.5]{imagens/egypt-diagram-extractor}
+\includegraphics[scale=0.4]{imagens/egypt-diagram-extractor}
 \caption{diagrama da hierarquia de classes do extrator do egypt}
 \label{egypt-diagram-extractor}
 \end{figure}
@@ -206,6 +209,10 @@ gerada pelo doxyparse, o parser baseado no Doxygen, será analisada em
 comparação com o código fonte em busca de inconsistências em relação a
 declaração e uso de símbolos encontrados.
 
+E por fim as métricas de coesão e acomplamento calculadas pelo egypt, usando
+cada um dos dois extratores, serão analisadas com objetivo de identificar
+possíveis diferenças entre cada um.
+
 \section{Resultados}
 
 Com os dados extraidos pelo Egypt::Extractor::GCC e Egypt::Extractor::Doxyparse
@@ -221,11 +228,11 @@ gerados pelo GCC e pelo Doxyparse foram notadas.
 \begin{figure}
 \center
 \subfigure[ristretto-0.0.1-doxyparse][Egypt::Extractor::Doxyparse]{
-   \includegraphics[scale=0.5]{imagens/ristretto-0_0_1-doxyparse}
+   \includegraphics[scale=0.3]{imagens/ristretto-0_0_1-doxyparse}
 }
 \qquad
 \subfigure[ristretto-0.0.1-gcc][Egypt::Extractor::GCC]{
-   \includegraphics[scale=0.5]{imagens/ristretto-0_0_1-gcc}
+   \includegraphics[scale=0.3]{imagens/ristretto-0_0_1-gcc}
 }
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt}
 \label{ristretto-0.0.1}
@@ -252,7 +259,7 @@ gráfico atualizado após esta correcão.
 
 \begin{figure}[h]
 \center
-\includegraphics[scale=0.5]{imagens/ristretto-0_0_1-doxyparse-2}
+\includegraphics[scale=0.3]{imagens/ristretto-0_0_1-doxyparse-2}
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt::Extractor::Doxyparse atualizado}
 \label{ristretto-0.0.1-doxyparse-2}
 \end{figure}
@@ -260,11 +267,11 @@ gráfico atualizado após esta correcão.
 \begin{figure}
 \center
 \subfigure[ristretto-0.0.11-doxyparse][Egypt::Extractor::Doxyparse]{
-   \includegraphics[scale=0.5]{imagens/ristretto-0_0_11-doxyparse}
+   \includegraphics[scale=0.3]{imagens/ristretto-0_0_11-doxyparse}
 }
 \qquad
 \subfigure[ristretto-0.0.11-gcc][Egypt::Extractor::GCC]{
-   \includegraphics[scale=0.5]{imagens/ristretto-0_0_11-gcc}
+   \includegraphics[scale=0.3]{imagens/ristretto-0_0_11-gcc}
 }
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt}
 \label{ristretto-0.0.11}
@@ -279,7 +286,7 @@ figura~\ref{ristretto-0.0.11-doxyparse-2} o gráfico atualizado após a correç�
 
 \begin{figure}
 \center
-\includegraphics[scale=0.5]{imagens/ristretto-0_0_11-doxyparse-2}
+\includegraphics[scale=0.3]{imagens/ristretto-0_0_11-doxyparse-2}
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt::Extractor::Doxyparse atualizado}
 \label{ristretto-0.0.11-doxyparse-2}
 \end{figure}
@@ -299,11 +306,11 @@ figura~\ref{ristretto-0.0.21-doxyparse-2} o gráfico atualizado.
 \begin{figure}
 \center
 \subfigure[ristretto-0.0.21-doxyparse][Egypt::Extractor::Doxyparse]{
-   \includegraphics[scale=0.5]{imagens/ristretto-0_0_21-doxyparse}
+   \includegraphics[scale=0.3]{imagens/ristretto-0_0_21-doxyparse}
 }
 \qquad
 \subfigure[ristretto-0.0.21-gcc][Egypt::Extractor::GCC]{
-   \includegraphics[scale=0.5]{imagens/ristretto-0_0_21-gcc}
+   \includegraphics[scale=0.3]{imagens/ristretto-0_0_21-gcc}
 }
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt}
 \label{ristretto-0.0.21}
@@ -321,12 +328,14 @@ chamada a símbolos estaticos se eles estiverem no mesmo módulo que o simbolo.
 
 \begin{figure}
 \center
-\includegraphics[scale=0.5]{imagens/ristretto-0_0_21-doxyparse-2}
+\includegraphics[scale=0.3]{imagens/ristretto-0_0_21-doxyparse-2}
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt::Extractor::Doxyparse atualizado}
 \label{ristretto-0.0.21-doxyparse-2}
 \end{figure}
 
 \section{Discussão}
+
+Na tabela~\ref{comparacao-metricas} temos resumo comparativo entre as métricas calculadas pelo egypt, através de Egypt::Metrics, usando os extratores GCC e Doxyparse.
 
 \begin{table}
 \caption{Resumo de comparação entre os extrator GCC e Doxyparse}
@@ -335,39 +344,41 @@ chamada a símbolos estaticos se eles estiverem no mesmo módulo que o simbolo.
 \hline
 Extrator  & \multicolumn{2}{|c|}{Egypt::Extractor::GCC} & \multicolumn{2}{|c|}{Egypt::Extractor::Doxyparse} \\
 \hline
-Média     & Coesão(LCOM4)  & Acoplamento    & Coesão(LCOM4)  & Acoplamento  \\
+Média     & Coesão (LCOM4)  & Acoplamento    & Coesão (LCOM4)  & Acoplamento  \\
 \hline
-0.0.1     & 4.75           & 2.75           & 5.00           & 1.25         \\
-0.0.2     & 5.75           & 2.75           & 6.00           & 1.25         \\
-0.0.3     & 6.00           & 2.75           & 6.00           & 1.25         \\
-0.0.4     &                &                &                &              \\
-0.0.5     &                &                &                &              \\
-0.0.6     &                &                &                &              \\
-0.0.7     &                &                &                &              \\
-0.0.8     &                &                &                &              \\
-0.0.9     &                &                &                &              \\
-0.0.10    &                &                &                &              \\
-0.0.11    &                &                &                &              \\
-0.0.12    &                &                &                &              \\
-0.0.13    &                &                &                &              \\
-0.0.14    &                &                &                &              \\
-0.0.15    &                &                &                &              \\
-0.0.16    &                &                &                &              \\
-0.0.17    &                &                &                &              \\
-0.0.18    &                &                &                &              \\
-0.0.19    &                &                &                &              \\
-0.0.20    &                &                &                &              \\
-0.0.21    &                &                &                &              \\
+0.0.1     & 4.75            & 2.75           & 5.00            & 1.25         \\
+0.0.2     & 5.75            & 2.75           & 6.00            & 1.25         \\
+0.0.3     & 6.00            & 2.75           & 6.00            & 1.25         \\
+0.0.4     & 6.25            & 2.75           & 6.25            & 1.25         \\
+0.0.5     & 6.25            & 2.75           & 6.25            & 1.25         \\
+0.0.6     & 7.60            & 3.00           & 7.60            & 1.40         \\
+0.0.7     & 7.60            & 3.00           & 7.60            & 1.40         \\
+0.0.8     & 7.00            & 3.00           & 7.20            & 1.40         \\
+0.0.9     & 7.20            & 3.00           & 7.40            & 1.40         \\
+0.0.10    & 7.60            & 3.00           & 8.00            & 1.40         \\
+0.0.11    & 7.60            & 3.00           & 8.00            & 1.40         \\
+0.0.12    & 7.60            & 3.00           & 8.00            & 1.40         \\
+0.0.13    & 7.80            & 3.00           & 8.20            & 1.40         \\
+0.0.14    & 8.00            & 3.00           & 8.40            & 1.40         \\
+0.0.15    & 8.00            & 3.00           & 8.80            & 1.40         \\
+0.0.16    & 7.16            & 3.16           & 7.83            & 1.50         \\
+0.0.17    & 7.00            & 3.16           & 7.83            & 1.50         \\
+0.0.18    & 7.50            & 3.00           & 8.33            & 1.50         \\
+0.0.19    & 7.83            & 3.00           & 8.66            & 1.50         \\
+0.0.20    & 8.83            & 3.00           & 10.00           & 1.50         \\
+0.0.21    & 8.28            & 3.00           & 9.14            & 1.42         \\
 \hline
 \end{tabular}
+\label{comparacao-metricas}
 \end{table}
 
+Analisando o resultado da tabela é possível notar que ...
 
 \chapter{Conclusão}
 
-... Os resultados obtidos foram satisfatórios e atingiram o objetivo inicial que
-foi possibilitar estração de dados sem necessidade de compilar o software em
-questão, c ...
+Os resultados obtidos foram satisfatórios e atingiram o objetivo inicial que
+foi possibilitar extração de dados sem necessidade de compilar o software em
+questão, c\ldots
 
 A conclusão eu devo escrever por último, deve conter algo assim: "Este trabalho
 tinha objetivo tal e atingiu tal objetivo". Deve ter referencia de como foi
