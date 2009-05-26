@@ -1,31 +1,72 @@
 \chapter{Introdução}
 
-A introdução eu devo escrever por último, deve conter a importancia do projeto,
-devo descrever o problema e a solução: "existe um problema e foi resolvido
-assim". O final da introdução deve descrever a estrutura dos capitulos dando
-uma pincelada rapida em cada um.
+Arquiterura de software define o relacionamento entre os grandes componentes
+estruturais de um projeto \cite{EngenhariaDeSoftwarePressman}, a documentação
+desta arquitetura pode ser útil para possibilitar, por exemplo, a extração de métricas
+como coesão e acoplamento ou para estudar o impacto de possíveis alterações
+de um projeto \cite{mata26-terceiro-projeto-piloto}.
 
-Este projeto consiste na implementação de um novo extrator para o egypt onde a
-análise seja feita direto do código fonte sem necessidade de compilação. Com
-isto será possível analisar projetos que não compilem mais, seja por falhas no
-código ou por possuir dependencias não satisfeitas. Além disso, espera-se que
-este novo extrator traga ainda mais duas vantagens: primeiro, o tempo
-necessário para analisar um projeto cairá e segundo, as informações obtidas
-serão mais precisas já que alguns dados importantes não se perderão como
-acontece por exemplo com macros em projetos C/C++
-\cite{SourceVersusObjectCodeExtraction} que se perdem com o extrator baseado em
-GCC\sigla{GCC}{GNU C Compiler}.
+Uma ferramenta de extração de informações de dependências entre módulos é útil
+para gerar esta documentação a partir do código fonte do próprio projeto.
+Existem ferramentas capazes de realizar esta tarefa, mas entre as opções
+pesquisadas \cite{SourceVersusObjectCodeExtraction} a maioria delas faz uso do
+código objeto como dados de entrada da análise, ou seja, faz uso de dados
+resultantes da compilação do código fonte.
 
-\chapter{Conceitos}
+A desvantagem em fazer essa análise usando código objeto é que fica impossível
+analisar projetos que não compilem mais, seja por falhas no código ou por
+possuir dependencias não satisfeitas. Além disso algumas informações como por
+exemplo macros em projetos C/C++ são perdidas durante a
+compilação \cite{SourceVersusObjectCodeExtraction}.
+
+Este projeto consiste na implementação de uma ferramenta capaz de analisar
+projetos diretamente do código fonte, esta
+ferramenta além de possibilitar analisar projetos que não compilem mais trará
+ainda duas vantagens: primeiro, o tempo necessário para analisar um projeto
+cairá e segundo, as informações obtidas serão mais precisas já que alguns dados
+importantes não se perderão como acontece por exemplo com macros em projetos
+C/C++ \cite{SourceVersusObjectCodeExtraction} que se perdem com o extrator
+baseado em GCC\sigla{GCC}{GNU C Compiler}.
+
+%A introdução eu devo escrever por último, deve conter a importancia do projeto,
+%devo descrever o problema e a solução: "existe um problema e foi resolvido
+%assim". O final da introdução deve descrever a estrutura dos capitulos dando
+%uma pincelada rapida em cada um.
+
+Este trabalho está organizado da seguinte forma. O capítulo~\ref{ch:conceitos}
+são abordados conceitos básicos de arquitetura de software e atributos de
+modularidade como acoplamento e coesão. No capítulo~\ref{ch:implementacao}
+descreve as ferramentas utilizadas e como a implementação da ferramenta foi
+feita. O capítulo~\ref{ch:avaliacao} apresenta a avaliação da ferramenta com um
+estudo de caso utilizando um projeto de software livre para análise e extração
+dos dados. O capítulo~\ref{ch:conclusao} apresenta as conclusões e trabalhos
+futuros.
+
+\chapter{Conceitos} \label{ch:conceitos}
+
+Este problema pode ser solucionado analisando diretamente o código fonte do
+projeto. Esta análise traria uma informação mais próxima da arquitetura do
+projeto conhecida pelos desenvolvedores e adicionalmente possibilitaria
+analisar projetos que por algum motivo não compilem mais, seja por dependências
+antigas ou por pequenas falhas no código fonte.
 
 ... \cite{EngenhariaDeSoftwarePeters} ...
 
+
+
 \section{Arquitetura de Software}
+
+
 \section{Atributos de Modularidade}
+
+Métricas de software são um modo poderoso de prover indicadores de modularidade
+da arquitetura do software \cite{OntheModular}.
+
 \subsection{Acoplamento}
+
 \subsection{Coesão}
 
-\chapter{Implementação do Extrator}
+\chapter{Implementação do Extrator} \label{ch:implementacao}
 
 \section{egypt}
 
@@ -189,7 +230,7 @@ extratores:
  $ egypt --extractor GCC <arquivos>
 \end{Verbatim}
 
-\chapter{Avaliação}
+\chapter{Avaliação} \label{ch:avaliacao}
 
 Com o extrator pronto é necessário avaliar se as informações extraídas estão
 corretas e se há diferenças em relação as informações extraídas pelo extrator
@@ -374,7 +415,7 @@ Média     & Coesão (LCOM4)  & Acoplamento    & Coesão (LCOM4)  & Acoplamento 
 
 Analisando o resultado da tabela é possível notar que ...
 
-\chapter{Conclusão}
+\chapter{Conclusão} \label{ch:conclusao}
 
 Os resultados obtidos foram satisfatórios e atingiram o objetivo inicial que
 foi possibilitar extração de dados sem necessidade de compilar o software em
