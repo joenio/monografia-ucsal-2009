@@ -93,6 +93,9 @@ Acoplamento é a representação de conexões entre os componentes de um sistema
 por exemplo o número de colaboração entre as classes de um determinado
 programa.
 
+É o nível de inter-dependências entre os módulos de um sistema. Quando maior o
+acoplamento menor a cossão.
+
 A métrica para cálculo de acoplamento utilizada neste trabalho será CBO, esta
 métrica é calculada a partir do número de colaborações de uma classe com as
 outras entidades do sistema. Na figura~\ref{fig:exemplo-cbo} a classe
@@ -105,11 +108,15 @@ o ideal é que os valores de CBO sejam baixos.
 
 \subsection{Coesão}
 
-Coesão é e medida que define o quanto um módulo de um programa está focado em solucionar um único problema.
+Coesão é e medida que define o quanto um módulo de um programa está focado em
+solucionar um único problema.
+
+Quando menor a coesão dos módulos maior o acoplamento do sistema.
 
 Porque é importante?
 
-Como se mede? Quais as formas de medir?
+A métrica utilizada neste trabalho será a \bf{Falta de coesão em métodos}
+(\it{lack of cohesion in methods} - LCOM).
 
 \chapter{Implementação do Extrator} \label{ch:implementacao}
 
