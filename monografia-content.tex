@@ -1,15 +1,18 @@
 \chapter{Introdução}
 
-Arquiterura de software define o relacionamento entre os grandes componentes
-estruturais de um projeto \cite{EngenhariaDeSoftwarePressman}, a documentação
-desta arquitetura pode ser útil para possibilitar, por exemplo, a extração de métricas
-como coesão e acoplamento ou para estudar o impacto de possíveis alterações
-de um projeto \cite{mata26-terceiro-projeto-piloto}.
+Arquiterura de software de um programa é a estrutura que define as propriedades
+externamente visíveis e o relacionamento entre os grandes componentes
+estruturais do sistema \cite{engenhariaDeSoftwarePressman}, esta arquitetura
+pode estar ou não documentada em forma de diagramas, grafos, tabelas e etc.
+Todo projeto de software possui uma arquitetura implícita, ter esta arquitetura
+documentada pode ser útil para possibilitar, por exemplo, a extração de
+métricas como coesão e acoplamento ou para estudar o impacto de possíveis
+alterações de um projeto \cite{mata26-terceiro-projeto-piloto}.
 
 Uma ferramenta de extração de informações de dependências entre módulos é útil
-para gerar esta documentação a partir do código fonte do próprio projeto.
+para extrair esta documentação a partir do código fonte do próprio projeto.
 Existem ferramentas capazes de realizar esta tarefa, mas entre as opções
-pesquisadas \cite{SourceVersusObjectCodeExtraction} a maioria delas faz uso do
+pesquisadas \cite{sourceVersusObjectCodeExtraction} a maioria delas faz uso do
 código objeto como dados de entrada da análise, ou seja, faz uso de dados
 resultantes da compilação do código fonte.
 
@@ -17,7 +20,7 @@ A desvantagem em fazer essa análise usando código objeto é que fica impossív
 analisar projetos que não compilem mais, seja por falhas no código ou por
 possuir dependencias não satisfeitas. Além disso algumas informações como por
 exemplo macros em projetos C/C++ são perdidas durante a
-compilação \cite{SourceVersusObjectCodeExtraction}.
+compilação \cite{sourceVersusObjectCodeExtraction}.
 
 Este projeto consiste na implementação de uma ferramenta capaz de analisar
 projetos diretamente do código fonte, esta
@@ -25,13 +28,8 @@ ferramenta além de possibilitar analisar projetos que não compilem mais trará
 ainda duas vantagens: primeiro, o tempo necessário para analisar um projeto
 cairá e segundo, as informações obtidas serão mais precisas já que alguns dados
 importantes não se perderão como acontece por exemplo com macros em projetos
-C/C++ \cite{SourceVersusObjectCodeExtraction} que se perdem com o extrator
+C/C++ \cite{sourceVersusObjectCodeExtraction} que se perdem com o extrator
 baseado em GCC\sigla{GCC}{GNU C Compiler}.
-
-%A introdução eu devo escrever por último, deve conter a importancia do projeto,
-%devo descrever o problema e a solução: "existe um problema e foi resolvido
-%assim". O final da introdução deve descrever a estrutura dos capitulos dando
-%uma pincelada rapida em cada um.
 
 Este trabalho está organizado da seguinte forma. O capítulo~\ref{ch:conceitos}
 são abordados conceitos básicos de arquitetura de software e atributos de
@@ -44,27 +42,74 @@ futuros.
 
 \chapter{Conceitos} \label{ch:conceitos}
 
-Este problema pode ser solucionado analisando diretamente o código fonte do
-projeto. Esta análise traria uma informação mais próxima da arquitetura do
-projeto conhecida pelos desenvolvedores e adicionalmente possibilitaria
-analisar projetos que por algum motivo não compilem mais, seja por dependências
-antigas ou por pequenas falhas no código fonte.
-
-... \cite{EngenhariaDeSoftwarePeters} ...
-
-
+Neste capítulo serão apresentados os conceitos fundamentais utilizados neste
+trabalho para a construção e análise dos resultados da ferramenta desenvolvida.
 
 \section{Arquitetura de Software}
 
+Arquiterura de software de um programa é a estrutura que define as propriedades
+externamente visíveis e o relacionamento entre os grandes componentes
+estruturais do sistema \cite{engenhariaDeSoftwarePressman}.
+
+Porque a arquitetura é importante? Pressman em
+\cite{engenhariaDeSoftwarePressman} enumera 3 razões principais:
+
+\begin{itemize}
+\item Representações da arquitetura de software constituem um facilitador da
+comunicação entre todas as partes interessadas no desenvolvimento de um
+sistema.
+\item A arquitetura destaca decisões iniciais de projeto que terão um impacto
+profundo em todo o trabalho de engenharia de software que se segue.
+\item A arquitetura compõe uma representação de simples entendimento de como o
+sistema é estruturado e como se interrelacionam os seus componentes.
+\end{itemize}
+
+Apesar de Pressman destacar a importancia da arquitetura de software apenas nas
+decisões iniciais do projeto, elas são de suma importancia durante todo o
+processo de desenvilvimento de um projeto. [carece de fontes]
 
 \section{Atributos de Modularidade}
 
-Métricas de software são um modo poderoso de prover indicadores de modularidade
-da arquitetura do software \cite{OntheModular}.
+A medição é um elemento fundamental para qualquer processo de engenharia \cite{engenhariaDeSoftwarePressman}. As métricas de software são um modo poderoso de prover indicadores de modularidade da arquitetura de um sistema \cite{OntheModular}.
+
+Um dos conjuntos de métricas de software OO mais amplamente referenciado foi proposto por Chidamber e Kemerer \cite{engenhariaDeSoftwarePressman}. Eles propuseram seis métricas:
+
+\begin{description}
+\item[WMC\sigla{WMC}{Weighted Methods per Class}] Métodos ponderados por classe (weighted methods per class).
+\item[DIT\sigla{DIT}{Depth of the Inheritance Tree}] Profundidade de árvore de herança (depth of the inheritance tree).
+\item[NOC\sigla{NOC}{Number of Children}] Número de filhos (number of children).
+\item[CBO\sigla{CBO}{Coupling Between Objects classes}] Acoplamento entre as classes de objetos (coupling between objects classes).
+\item[RFC\sigla{RFC}{Response For a Class}] Resposta de uma classe (response for a class).
+\item[LCOM\sigla{LCOM}{Lack of Cohesion in Methods}] Falta de coesão em métodos (lack of cohesion in methods).
+\end{description}
+
+Este trabalho fundamenta-se em apenas 2 das métricas propostas por Chidamber e
+Kemerer, são CBO e LCOM. São métricas que levam em consideração acoplamento e
+coesão.
 
 \subsection{Acoplamento}
 
+Acoplamento é a representação de conexões entre os componentes de um sistema,
+por exemplo o número de colaboração entre as classes de um determinado
+programa.
+
+A métrica para cálculo de acoplamento utilizada neste trabalho será CBO, esta
+métrica é calculada a partir do número de colaborações de uma classe com as
+outras entidades do sistema. Na figura~\ref{fig:exemplo-cbo} a classe
+\it{module1} tem CBO = 2.
+
+Esta métrica pode representar que a reusabilidade de uma classe deminui à
+medida que o CBO aumenta \cite{engenhariaDeSoftwarePressman}, e isto implica
+que a manutenção e testes poderão ser mais complexos de serem feitos. Em geral
+o ideal é que os valores de CBO sejam baixos.
+
 \subsection{Coesão}
+
+Coesão é e medida que define o quanto um módulo de um programa está focado em solucionar um único problema.
+
+Porque é importante?
+
+Como se mede? Quais as formas de medir?
 
 \chapter{Implementação do Extrator} \label{ch:implementacao}
 
@@ -81,7 +126,7 @@ gráficos.
 O egypt é Software Livre e em Janeiro de 2009 começou a ser restruturado por
 Antonio Terceiro o qual o tem mantido
 em\footnote{http://github.com/terceiro/egypt}. As principais mudanças sofridas
-pelo egypt deste então foram \cite{StructuralComplexityEvolution}:
+pelo egypt deste então foram \cite{structuralComplexityEvolution}:
 
 \begin{itemize}
 \item Detecção de uso de variáveis, para identificar que função usa qual
@@ -238,7 +283,7 @@ original do egypt baseado em GCC.
 
 \section{Procedimento}
 
-Em \cite{StructuralComplexityEvolution} foi feita uma análise do
+Em \cite{structuralComplexityEvolution} foi feita uma análise do
 ristretto\footnote{http://goodies.xfce.org/projects/applications/ristretto}, um
 Software Livre escrito em C para visualização de imagens no ambiente Desktop
 Xfce\footnote{http://www.xfce.org}, utilizando o extrator original do egypt, as
