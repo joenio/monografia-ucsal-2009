@@ -6,46 +6,47 @@ estruturais do sistema \cite{engenhariaDeSoftwarePressman}, esta arquitetura
 pode estar ou não documentada em forma de diagramas, grafos, tabelas e etc.
 Todo projeto de software possui uma arquitetura implícita, ter esta arquitetura
 documentada pode ser útil para possibilitar, por exemplo, a extração de
-métricas como coesão e acoplamento ou para estudar o impacto de possíveis
-alterações de um projeto \cite{mata26-terceiro-projeto-piloto}.
+métricas de modularidade ou para estudar o impacto de possíveis alterações de
+um projeto \cite{mata26-terceiro-projeto-piloto}.
 
-Uma ferramenta de extração de informações de dependências entre módulos é útil
-para extrair esta documentação a partir do código fonte do próprio projeto.
-Existem ferramentas capazes de realizar esta tarefa, mas entre as opções
+Existem, hoje, diversas ferramentas capazes de extrair do código fonte ou do
+código objeto a arquitetura de software de um sistema, entre as opções
 pesquisadas \cite{sourceVersusObjectCodeExtraction} a maioria delas faz uso do
-código objeto como dados de entrada da análise, ou seja, faz uso de dados
-resultantes da compilação do código fonte.
+código objeto, ou seja, faz uso de dados resultantes da compilação do código
+fonte.
 
-A desvantagem em fazer essa análise usando código objeto é que fica impossível
+Uma desvantagem em se utilizar código objeto é que fica impossível
 analisar projetos que não compilem mais, seja por falhas no código ou por
 possuir dependencias não satisfeitas. Além disso algumas informações como por
 exemplo macros em projetos C/C++ são perdidas durante a
 compilação \cite{sourceVersusObjectCodeExtraction}.
 
-Este projeto consiste na implementação de uma ferramenta capaz de analisar
-projetos diretamente do código fonte, esta
-ferramenta além de possibilitar analisar projetos que não compilem mais trará
-ainda duas vantagens: primeiro, o tempo necessário para analisar um projeto
-cairá e segundo, as informações obtidas serão mais precisas já que alguns dados
-importantes não se perderão como acontece por exemplo com macros em projetos
-C/C++ \cite{sourceVersusObjectCodeExtraction} que se perdem com o extrator
-baseado em GCC\sigla{GCC}{GNU C Compiler}.
+Este trabalho baseia-se na implementação de uma extensão para o egypt que
+possibilite a extração de informação de dependências entre módulos de programas
+C/C++ baseada em código fonte. O egypt é uma ferramenta originalmente escrita
+com o objetivo de gerar gráficos de chamada entre funções de programas escritos
+em C e que usa como base código objeto, ele será visto com mais detalhes na
+seção\ref{sec:egypt}.
 
-Este trabalho está organizado da seguinte forma. O capítulo~\ref{ch:conceitos}
+Esta extensão para o egypt além de possibilitar analisar projetos que não
+compilem mais trará informações mais precisas já que alguns dados importantes
+não se perderão como acontece por exemplo com macros em projetos C/C++
+\cite{sourceVersusObjectCodeExtraction} que se perdem com o extrator baseado em
+GCC\sigla{GCC}{GNU C Compiler}.
+
+Este trabalho está organizado da seguinte forma. No capítulo~\ref{ch:conceitos}
 são abordados conceitos básicos de arquitetura de software e atributos de
-modularidade como acoplamento e coesão. No capítulo~\ref{ch:implementacao}
-descreve as ferramentas utilizadas e como a implementação da ferramenta foi
-feita. O capítulo~\ref{ch:avaliacao} apresenta a avaliação da ferramenta com um
-estudo de caso utilizando um projeto de software livre para análise e extração
-dos dados. O capítulo~\ref{ch:conclusao} apresenta as conclusões e trabalhos
-futuros.
+modularidade como acoplamento e coesão. No capítulo~\ref{ch:implementacao} será
+demonstrado como a ferramenta foi implementada. No capítulo~\ref{ch:avaliacao}
+os resultados obtidos pela ferramenta são avaliados com um estudo de caso. O
+capítulo~\ref{ch:conclusao} apresenta as conclusões e trabalhos futuros.
 
 % ----------- CONCEITOS -------------
 
 \chapter{Conceitos} \label{ch:conceitos}
 
 Neste capítulo serão apresentados os conceitos fundamentais utilizados neste
-trabalho para a construção e análise dos resultados da ferramenta desenvolvida.
+trabalho para a avaliação dos resultados gerados pela ferramenta desenvolvida.
 
 \section{Arquitetura de Software}
 
@@ -53,8 +54,8 @@ Arquiterura de software de um programa é a estrutura que define as propriedades
 externamente visíveis e o relacionamento entre os grandes componentes
 estruturais do sistema \cite{engenhariaDeSoftwarePressman}.
 
-Pressman em \cite{engenhariaDeSoftwarePressman} destaca 3 razões principais do
-porque a arquitetura de software é importante:
+\citeonline{engenhariaDeSoftwarePressman} destaca 3 razões principais da
+importância da arquitetura de software:
 
 \begin{itemize}
 \item Representações da arquitetura de software constituem um facilitador da
@@ -66,9 +67,14 @@ profundo em todo o trabalho de engenharia de software que se segue.
 sistema é estruturado e como se interrelacionam os seus componentes.
 \end{itemize}
 
-Apesar de Pressman destacar a importancia da arquitetura de software apenas nas
+Apesar de Pressman, aqui, destacar a importancia da arquitetura de software apenas nas
 decisões iniciais do projeto, elas são de suma importancia durante todo o
-processo de desenvilvimento de um projeto. [carece de fontes]
+processo de desenvolvimento de um projeto.
+
+A arquitetura de grandes projetos de software raramente são documentados e
+quando são usualmente estão desatualizados
+\cite{sourceVersusObjectCodeExtraction}, então é importante ter a arquitetura
+documentada como forma apoio para os desenvolvedores e novos colaboradores.
 
 \section{Atributos de Modularidade}
 
@@ -177,7 +183,7 @@ conjuntos.
 
 \chapter{Implementação do Extrator} \label{ch:implementacao}
 
-\section{egypt}
+\section{egypt} \label{sec:egypt}
 
 O egypt foi originalmente desenvolvido por Andreas
 Gustafsson\footnote{http://www.gson.org/egypt} com o objetivo de gerar gráficos
