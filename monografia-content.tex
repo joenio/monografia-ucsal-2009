@@ -137,7 +137,39 @@ de atributos, isto aumenta a complexidade do projeto da classe.
 \label{fig:exemplo-lcom}
 \end{figure}
 
+A falta de coesão pode indicar que é melhor dividir a classe em subclasses
+\cite{observationsOnLCOM}.
+
+Após a definicial inicial de Chidamber e Kemerer para o cálculo de LCOM vários
+autores propuseram modificações deste método, as mais significantes incluindo a
+definição original são \cite{analysisOfLCOM}:
+
+\begin{itemize}
+\item A definição original por Chidamber e Kemerer - LCOM1;
+\item A definição de Li e Henry - LCOM?;
+\item A re-definição do LCOM de Li e Henry por Hitz e Montazerri - LCOM4; e
+\item A re-definição da definição original por Chidamber and Kemerer - LCOM?.
+\end{itemize}
+
 O que é LCOM1, LCOM4, quais limitações, qual é melhor?
+
+A definição original por Chidamber e Kemerer comumente chamada de LCOM1 e a
+redefinição por Hitz e Montazerri conhecida como LCOM4 serão as métricas
+abordadas neste trabalho.
+
+A definição original LCOM1 após sua publicação recebeu várias críticas,
+primeiro para classes muito diferentes ela dá valor zero. Segundo Gupta
+\cite{aCritiqueOfCohesion} LCOM1 não é um caminho válido para medir coesão de
+classes. 
+
+LCOM1 é calculado da seguinte forma:
+
+Considere C1 uma classe com M1, M2, \ldots, Mn métodos e Ii o conjunto de
+atributos (variábeis de instancia) de C1 sendo usado pelo método Mi. Para cada
+método Mi de C1 deve existir um grupo de atributos Ii correspondente.
+
+Então, LCOM = Número distinto de grupos formados pela intersecção dos 'n'
+conjuntos.
 
 \chapter{Implementação do Extrator} \label{ch:implementacao}
 
