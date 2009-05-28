@@ -40,6 +40,8 @@ estudo de caso utilizando um projeto de software livre para análise e extraçã
 dos dados. O capítulo~\ref{ch:conclusao} apresenta as conclusões e trabalhos
 futuros.
 
+% ----------- CONCEITOS -------------
+
 \chapter{Conceitos} \label{ch:conceitos}
 
 Neste capítulo serão apresentados os conceitos fundamentais utilizados neste
@@ -51,8 +53,8 @@ Arquiterura de software de um programa é a estrutura que define as propriedades
 externamente visíveis e o relacionamento entre os grandes componentes
 estruturais do sistema \cite{engenhariaDeSoftwarePressman}.
 
-Porque a arquitetura é importante? Pressman em
-\cite{engenhariaDeSoftwarePressman} enumera 3 razões principais:
+Pressman em \cite{engenhariaDeSoftwarePressman} destaca 3 razões principais do
+porque a arquitetura de software é importante:
 
 \begin{itemize}
 \item Representações da arquitetura de software constituem um facilitador da
@@ -171,6 +173,8 @@ método Mi de C1 deve existir um grupo de atributos Ii correspondente.
 Então, LCOM = Número distinto de grupos formados pela intersecção dos 'n'
 conjuntos.
 
+% ----------- IMPLEMENTACAO -------------
+
 \chapter{Implementação do Extrator} \label{ch:implementacao}
 
 \section{egypt}
@@ -247,6 +251,7 @@ destacar as seguintes:
 \item[MemberDef] Definição de um membro ou símbolo de classe
 \item[FileDef] Definição de um arquivo
 \end{description}
+
 
 \section{Implementação do Extrator usando a API do Doxygen}
 
@@ -335,6 +340,8 @@ extratores:
  $ egypt --extractor GCC <arquivos>
 \end{Verbatim}
 
+% ----------- AVALIACAO -------------
+
 \chapter{Avaliação} \label{ch:avaliacao}
 
 Com o extrator pronto é necessário avaliar se as informações extraídas estão
@@ -361,9 +368,41 @@ possíveis diferenças entre cada um.
 
 \section{Resultados}
 
+O egypt foi executado utilizando o extrator Doxyparse e GCC em cada uma das versões
+do ristretto, o egypt se comportou aparentemente de forma correta e extraiu sem problemas
+e as informações esperadas.
+
 Com os dados extraidos pelo Egypt::Extractor::GCC e Egypt::Extractor::Doxyparse
 foram gerados gráficos de dependencia entre os módulos do projeto ristretto das
 versões 0.0.1 até a 0.0.21.
+
+O resultado dos 2 extratores não foi igual, na figura~\ref{ristretto-0.0.1}
+temos o grafo gerado por cada extrator para o ristretto 0.0.1.
+
+\begin{figure}
+\center
+\subfigure[Egypt::Extractor::Doxyparse]{
+   \includegraphics[scale=0.3]{imagens/ristretto-0_0_1-doxyparse}
+   \label{ristretto-0.0.1-doxyparse}
+}
+\qquad
+\subfigure[Egypt::Extractor::GCC]{
+   \includegraphics[scale=0.3]{imagens/ristretto-0_0_1-gcc}
+   \label{ristretto-0.0.1-gcc}
+}
+\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt}
+\label{ristretto-0.0.1}
+\end{figure}
+
+Na figura~\ref{ristretto-0.0.1-gcc} por exemplo temos que o módulo {\it
+navigator} chama {\it picture\_viewer}, e na
+figura~\ref{ristretto-0.0.1-doxyparse} não temos esta chamada e sim que {\it
+navigator} chama {\it thumbnail\_viewer}.
+
+Na seção~\ref{sec:discussao} discutiremos os detalhes destas direferenças entre
+cada extrator.
+
+\section{Discussão} \label{sec:discussao}
 
 Para comparação entre os dois extratores foram selecionadas 3 versões do
 ristretto, a 0.0.1, 0.0.11 e 0.0.21, nas figuras \ref{ristretto-0.0.1},
@@ -371,18 +410,6 @@ ristretto, a 0.0.1, 0.0.11 e 0.0.21, nas figuras \ref{ristretto-0.0.1},
 entre módulos de cada um. Algumas diferenças entre os gráficos
 gerados pelo GCC e pelo Doxyparse foram notadas. 
 
-\begin{figure}
-\center
-\subfigure[ristretto-0.0.1-doxyparse][Egypt::Extractor::Doxyparse]{
-   \includegraphics[scale=0.3]{imagens/ristretto-0_0_1-doxyparse}
-}
-\qquad
-\subfigure[ristretto-0.0.1-gcc][Egypt::Extractor::GCC]{
-   \includegraphics[scale=0.3]{imagens/ristretto-0_0_1-gcc}
-}
-\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt}
-\label{ristretto-0.0.1}
-\end{figure}
 
 Na figura~\ref{ristretto-0.0.1} nota-se uma diferença interessante entre as
 informaçõe extraídas pelo GCC e o Doxyparse, há uma inversão entre os módulos
@@ -412,12 +439,14 @@ gráfico atualizado após esta correcão.
 
 \begin{figure}
 \center
-\subfigure[ristretto-0.0.11-doxyparse][Egypt::Extractor::Doxyparse]{
+\subfigure[Egypt::Extractor::Doxyparse]{
    \includegraphics[scale=0.3]{imagens/ristretto-0_0_11-doxyparse}
+   \label{ristretto-0.0.11-doxyparse}
 }
 \qquad
-\subfigure[ristretto-0.0.11-gcc][Egypt::Extractor::GCC]{
+\subfigure[Egypt::Extractor::GCC]{
    \includegraphics[scale=0.3]{imagens/ristretto-0_0_11-gcc}
+   \label{ristretto-0.0.11-gcc}
 }
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt}
 \label{ristretto-0.0.11}
@@ -451,12 +480,14 @@ figura~\ref{ristretto-0.0.21-doxyparse-2} o gráfico atualizado.
 
 \begin{figure}
 \center
-\subfigure[ristretto-0.0.21-doxyparse][Egypt::Extractor::Doxyparse]{
+\subfigure[Egypt::Extractor::Doxyparse]{
    \includegraphics[scale=0.3]{imagens/ristretto-0_0_21-doxyparse}
+   \label{ristretto-0.0.21-doxyparse}
 }
 \qquad
-\subfigure[ristretto-0.0.21-gcc][Egypt::Extractor::GCC]{
+\subfigure[Egypt::Extractor::GCC]{
    \includegraphics[scale=0.3]{imagens/ristretto-0_0_21-gcc}
+   \label{ristretto-0.0.21-gcc}
 }
 \caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt}
 \label{ristretto-0.0.21}
@@ -479,46 +510,82 @@ chamada a símbolos estaticos se eles estiverem no mesmo módulo que o simbolo.
 \label{ristretto-0.0.21-doxyparse-2}
 \end{figure}
 
-\section{Discussão}
+Após a análise e interpretação das diferenças básicas encontradas entre o
+Doxyparse e GCC iremos comparar os 2 em nível de métricas e as diferenças
+encontradas e iremos interpretar essas diferenças encontradas.
 
-Na tabela~\ref{comparacao-metricas} temos resumo comparativo entre as métricas calculadas pelo egypt, através de Egypt::Metrics, usando os extratores GCC e Doxyparse.
+Na tabela~\ref{tab:comparacao-metricas} temos resumo comparativo entre as
+métricas calculadas pelo egypt, através de Egypt::Metrics, usando os extratores
+GCC e Doxyparse em cada versão do ristretto. Onde é apresentado a média de
+acoplamento e falta de coesão para cada versão. A métrica utilizada aqui em em
+todo este trabalho para falta de coesão é a LCOM4.
 
 \begin{table}
-\caption{Resumo de comparação entre os extrator GCC e Doxyparse}
+\caption{Métricas calculadas usando os extratores GCC e Doxyparse}
 \centering
 \begin{tabular}{| l | c c | c c |}
 \hline
-Extrator  & \multicolumn{2}{|c|}{Egypt::Extractor::GCC} & \multicolumn{2}{|c|}{Egypt::Extractor::Doxyparse} \\
+Extrator  & \multicolumn{2}{|c|}{GCC}        & \multicolumn{2}{|c|}{Doxyparse} \\
 \hline
-Média     & Coesão (LCOM4)  & Acoplamento    & Coesão (LCOM4)  & Acoplamento  \\
+Média     & Falta de Coesão & Acoplamento    & Falta de Coesão & Acoplamento   \\
 \hline
-0.0.1     & 4.75            & 2.75           & 5.00            & 1.25         \\
-0.0.2     & 5.75            & 2.75           & 6.00            & 1.25         \\
-0.0.3     & 6.00            & 2.75           & 6.00            & 1.25         \\
-0.0.4     & 6.25            & 2.75           & 6.25            & 1.25         \\
-0.0.5     & 6.25            & 2.75           & 6.25            & 1.25         \\
-0.0.6     & 7.60            & 3.00           & 7.60            & 1.40         \\
-0.0.7     & 7.60            & 3.00           & 7.60            & 1.40         \\
-0.0.8     & 7.00            & 3.00           & 7.20            & 1.40         \\
-0.0.9     & 7.20            & 3.00           & 7.40            & 1.40         \\
-0.0.10    & 7.60            & 3.00           & 8.00            & 1.40         \\
-0.0.11    & 7.60            & 3.00           & 8.00            & 1.40         \\
-0.0.12    & 7.60            & 3.00           & 8.00            & 1.40         \\
-0.0.13    & 7.80            & 3.00           & 8.20            & 1.40         \\
-0.0.14    & 8.00            & 3.00           & 8.40            & 1.40         \\
-0.0.15    & 8.00            & 3.00           & 8.80            & 1.40         \\
-0.0.16    & 7.16            & 3.16           & 7.83            & 1.50         \\
-0.0.17    & 7.00            & 3.16           & 7.83            & 1.50         \\
-0.0.18    & 7.50            & 3.00           & 8.33            & 1.50         \\
-0.0.19    & 7.83            & 3.00           & 8.66            & 1.50         \\
-0.0.20    & 8.83            & 3.00           & 10.00           & 1.50         \\
-0.0.21    & 8.28            & 3.00           & 9.14            & 1.42         \\
+0.0.1     & 4.75            & 2.75           & 5.00            & 1.25          \\
+0.0.2     & 5.75            & 2.75           & 6.00            & 1.25          \\
+0.0.3     & 6.00            & 2.75           & 6.00            & 1.25          \\
+0.0.4     & 6.25            & 2.75           & 6.25            & 1.25          \\
+0.0.5     & 6.25            & 2.75           & 6.25            & 1.25          \\
+0.0.6     & 7.60            & 3.00           & 7.60            & 1.40          \\
+0.0.7     & 7.60            & 3.00           & 7.60            & 1.40          \\
+0.0.8     & 7.00            & 3.00           & 7.20            & 1.40          \\
+0.0.9     & 7.20            & 3.00           & 7.40            & 1.40          \\
+0.0.10    & 7.60            & 3.00           & 8.00            & 1.40          \\
+0.0.11    & 7.60            & 3.00           & 8.00            & 1.40          \\
+0.0.12    & 7.60            & 3.00           & 8.00            & 1.40          \\
+0.0.13    & 7.80            & 3.00           & 8.20            & 1.40          \\
+0.0.14    & 8.00            & 3.00           & 8.40            & 1.40          \\
+0.0.15    & 8.00            & 3.00           & 8.80            & 1.40          \\
+0.0.16    & 7.16            & 3.16           & 7.83            & 1.50          \\
+0.0.17    & 7.00            & 3.16           & 7.83            & 1.50          \\
+0.0.18    & 7.50            & 3.00           & 8.33            & 1.50          \\
+0.0.19    & 7.83            & 3.00           & 8.66            & 1.50          \\
+0.0.20    & 8.83            & 3.00           & 10.00           & 1.50          \\
+0.0.21    & 8.28            & 3.00           & 9.14            & 1.42          \\
 \hline
 \end{tabular}
-\label{comparacao-metricas}
+\label{tab:comparacao-metricas}
 \end{table}
 
-Analisando o resultado da tabela é possível notar que ...
+Analisando a tabela é possível notar que o acoplamento calculado pelo Doxyparse
+se mantém menor do que o GCC em todas as versões do ristretto, já a métrica de
+Falta de Coesão LCOM4 se mantém ligeiramente maior também em todas as versões,
+embora a diferença entre o Doxyparse e GCC seja pequena neste caso.
+
+Qual será a causa destas diferenças? Vamos tentar explicar! Vamos analisar os
+dados de cada módulo do ristretto 0.0.1. Na
+tabela~\ref{tab:comparacao-metricas-ristretto-0.0.1} a métrica utilizada na
+coluna falda de coesão é LCOM4.
+
+\begin{table}
+\caption{Métricas usando os extratores GCC e Doxyparse para o ristretto 0.0.1}
+\centering
+\begin{tabular}{| l | c c | c c |}
+\hline
+Extrator          & \multicolumn{2}{|c|}{GCC}        & \multicolumn{2}{|c|}{Doxyparse} \\
+\hline
+                  & Falta de Coesão & Acoplamento    & Falta de Coesão & Acoplamento   \\
+\hline
+main              & 1               & 4              & 1               & 3             \\
+navigator         & 13              & 2              & 14              & 0             \\
+picture\_viewer   & 2               & 2              & 2               & 1             \\
+thumbnail\_viewer & 3               & 3              & 3               & 1             \\
+\hline
+\end{tabular}
+\label{tab:comparacao-metricas-ristretto-0.0.1}
+\end{table}
+
+A diferença entre o acoplamento do módulo {\it navigator} é claramente
+verificado pela figura~\ref{ristretto-0.0.1-doxyparse-2} onde verifica-se que
+este módulo não chama nenhum outro módulo.
 
 \chapter{Conclusão} \label{ch:conclusao}
 
