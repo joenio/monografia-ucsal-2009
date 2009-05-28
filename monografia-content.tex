@@ -101,6 +101,13 @@ métrica é calculada a partir do número de colaborações de uma classe com as
 outras entidades do sistema. Na figura~\ref{fig:exemplo-cbo} a classe
 {\it module1} tem CBO = 2.
 
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.4]{imagens/exemplo-cbo}
+\caption{Diagrama de classes exemplo para cálculo de CBO}
+\label{fig:exemplo-cbo}
+\end{figure}
+
 Esta métrica pode representar que a reusabilidade de uma classe deminui à
 medida que o CBO aumenta \cite{engenhariaDeSoftwarePressman}, e isto implica
 que a manutenção e testes poderão ser mais complexos de serem feitos. Em geral
@@ -116,7 +123,19 @@ Quando menor a coesão dos módulos maior o acoplamento do sistema.
 Porque é importante?
 
 A métrica utilizada neste trabalho será a {\bf Falta de coesão em métodos}
-({\it lack of cohesion in methods} - LCOM).
+({\it lack of cohesion in methods} - LCOM). LCOM é o número de métodos que
+compartilham mesmos atributos. Se nenhum método tem acesso ao mesmo atributo
+LCOM = 0. Na figura~\ref{fig:exemplo-lcom} a classe {\it module1} tem LCOM = 2.
+Neste exemplo os métodos {\it imprime} e {\it exporta} compartilham a variável
+{\it nome}. Se LCOM é alto métodos podem estar acoplados uns aos outros através
+de atributos, isto aumenta a complexidade do projeto da classe.
+
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.4]{imagens/exemplo-lcom}
+\caption{Exemplo de troca de mensagens internas de module1 para cálculo de LCOM}
+\label{fig:exemplo-lcom}
+\end{figure}
 
 \chapter{Implementação do Extrator} \label{ch:implementacao}
 
