@@ -26,9 +26,9 @@ possibilite a extração de informação de dependências entre módulos de prog
 C/C++ baseada em código fonte. O egypt é uma ferramenta originalmente escrita
 com o objetivo de gerar gráficos de chamada entre funções de programas escritos
 em C e que usa como base código objeto, ele será visto com mais detalhes na
-seção\ref{sec:egypt}.
+seção~\ref{sec:egypt} do capítulo~\ref{ch:implementacao}.
 
-Esta extensão para o egypt além de possibilitar analisar projetos que não
+Essa extensão para o egypt além de possibilitar analisar projetos que não
 compilem mais trará informações mais precisas já que alguns dados importantes
 não se perderão como acontece por exemplo com macros em projetos C/C++
 \cite{sourceVersusObjectCodeExtraction} que se perdem com o extrator baseado em
@@ -50,11 +50,11 @@ trabalho para a avaliação dos resultados gerados pela ferramenta desenvolvida.
 
 \section{Arquitetura de Software}
 
-Arquiterura de software de um programa é a estrutura que define as propriedades
+Arquitetura de software de um programa é a estrutura que define as propriedades
 externamente visíveis e o relacionamento entre os grandes componentes
 estruturais do sistema \cite{engenhariaDeSoftwarePressman}.
 
-\citeonline{engenhariaDeSoftwarePressman} destaca 3 razões principais da
+\citeonline{engenhariaDeSoftwarePressman} destaca 3 razões principais sobre a
 importância da arquitetura de software:
 
 \begin{itemize}
@@ -67,20 +67,31 @@ profundo em todo o trabalho de engenharia de software que se segue.
 sistema é estruturado e como se interrelacionam os seus componentes.
 \end{itemize}
 
-Apesar de Pressman, aqui, destacar a importancia da arquitetura de software apenas nas
-decisões iniciais do projeto, elas são de suma importancia durante todo o
-processo de desenvolvimento de um projeto.
+Apesar de Pressman, aqui, destacar apenas a importancia da arquitetura de
+software nas decisões iniciais do projeto, ela é de suma importancia durante
+todo o processo de desenvolvimento de um projeto.
 
 A arquitetura de grandes projetos de software raramente são documentados e
 quando são usualmente estão desatualizados
-\cite{sourceVersusObjectCodeExtraction}, então é importante ter a arquitetura
-documentada como forma apoio para os desenvolvedores e novos colaboradores.
+\cite{sourceVersusObjectCodeExtraction}, ter a arquitetura documentada e
+atualizada é importante, por exemplo, como forma apoio para os desenvolvedores e novos
+colaboradores.
+
+Neste trabalho a extração da arquitetura de software de um programa será
+utilizada para cálculo de métricas que possibilitem avaliar a qualidade do
+sistema em relação aos seus atributos de modularidade.
 
 \section{Atributos de Modularidade}
 
-A medição é um elemento fundamental para qualquer processo de engenharia \cite{engenhariaDeSoftwarePressman}. As métricas de software são um modo poderoso de prover indicadores de modularidade da arquitetura de um sistema \cite{OntheModular}.
+A medição é um elemento fundamental para qualquer processo de engenharia
+\cite{engenhariaDeSoftwarePressman}. As métricas de software são um modo
+poderoso de prover indicadores de modularidade da arquitetura de um sistema
+\cite{OntheModular}.
 
-Um dos conjuntos de métricas de software OO mais amplamente referenciado foi proposto por Chidamber e Kemerer \cite{engenhariaDeSoftwarePressman}. Eles propuseram seis métricas:
+%Um dos conjuntos de métricas de software OO mais amplamente referenciado foi
+Um dos conjuntos de métricas de software mais amplamente referenciado foi
+proposto por Chidamber e Kemerer \cite{engenhariaDeSoftwarePressman}, eles
+propuseram seis métricas:
 
 \begin{description}
 \item[WMC\sigla{WMC}{Weighted Methods per Class}] Métodos ponderados por classe (weighted methods per class).
@@ -91,23 +102,26 @@ Um dos conjuntos de métricas de software OO mais amplamente referenciado foi pr
 \item[LCOM\sigla{LCOM}{Lack of Cohesion in Methods}] Falta de coesão em métodos (lack of cohesion in methods).
 \end{description}
 
-Este trabalho fundamenta-se em apenas 2 das métricas propostas por Chidamber e
-Kemerer, são CBO e LCOM. São métricas que levam em consideração acoplamento e
-coesão.
+Este trabalho fundamenta-se em apenas 2 das métricas acima, CBO e LCOM, que são
+métricas que levam em consideração atributos de acoplamento e coesão.
 
 \subsection{Acoplamento}
 
-Acoplamento é a representação de conexões entre os componentes de um sistema,
-por exemplo o número de colaboração entre as classes de um determinado
-programa.
+Acoplamento é a medida qualitativa de conexões entre os componentes de um
+sistema, ou simplesmente o número de colaborações entre as classes de um
+determinado programa. Ele representa o nível de interdependências entre os
+módulos de um sistema, quando maior o acoplamento maior a complexidade do
+sistema.
 
-É o nível de inter-dependências entre os módulos de um sistema. Quando maior o
-acoplamento menor a cossão.
+É importante lembrar que apesar ser desejável baixo acoplamento o sistema deve
+se comunicar interna e externamente, então o acoplamento é inevitável e em
+alguns momentos não será possível diminuí-lo, nestes casos o importante é que
+o projetista entenda as implicações disso.
 
 A métrica para cálculo de acoplamento utilizada neste trabalho será CBO, esta
-métrica é calculada a partir do número de colaborações de uma classe com as
-outras entidades do sistema. Na figura~\ref{fig:exemplo-cbo} a classe
-{\it module1} tem CBO = 2.
+métrica é calculada contando-se o número de colaborações de uma classe com as
+outras entidades do sistema. Na figura~\ref{fig:exemplo-cbo} a classe {\it
+module1} tem CBO = 2.
 
 \begin{figure}[h]
 \center
@@ -116,10 +130,10 @@ outras entidades do sistema. Na figura~\ref{fig:exemplo-cbo} a classe
 \label{fig:exemplo-cbo}
 \end{figure}
 
-Esta métrica pode representar que a reusabilidade de uma classe deminui à
-medida que o CBO aumenta \cite{engenhariaDeSoftwarePressman}, e isto implica
-que a manutenção e testes poderão ser mais complexos de serem feitos. Em geral
-o ideal é que os valores de CBO sejam baixos.
+Valores de CBO altos podem significar que a reusabilidade de uma classe é
+pequena \cite{engenhariaDeSoftwarePressman}, além de implicar em maior
+complexidade na manutenção e testes.  Em geral o ideal é que os valores de CBO
+sejam baixos.
 
 \subsection{Coesão}
 
