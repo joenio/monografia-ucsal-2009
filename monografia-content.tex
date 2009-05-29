@@ -143,12 +143,14 @@ coesão da seguinte forma: ''{\it coesão} implica que um componente ou classe
 encapsule somente os atributos e operações muito relacionados entre si e com a
 classe ou componente propriamente dito''.
 
-A métrica utilizada neste trabalho será a {\bf Falta de coesão em métodos}
-({\it lack of cohesion in methods} - LCOM). LCOM é o número de métodos num
-mesmo componente que compartilham os mesmos atributos, se nenhum método tem
-acesso ao mesmo atributo então LCOM = 0. Na figura~\ref{fig:exemplo-lcom} a
-classe {\it module1} tem LCOM = 2, onde a variável {\it nome} é compartilhada
-entre os métodos {\it imprime} e {\it exporta}.
+A métrica utilizada neste trabalho será a {\bf falta de coesão em métodos}
+({\it lack of cohesion in methods} - LCOM).Em sua definição original, LCOM é
+o número de métodos num mesmo componente que compartilham atributos menos o
+número de métodos que não compartilham atributos, se nenhum método compartilha
+atributos então LCOM é 0. Na figura~\ref{fig:exemplo-lcom} a classe {\it
+module1} tem $LCOM 2 - 1 = 1$, a variável {\it nome} é compartilhada entre
+os métodos {\it imprime} e {\it exporta} e o método {\it aniversario} não
+compartilha nenhuma variável com nenhum outro método.
 
 \begin{figure}[h]
 \center
@@ -160,29 +162,29 @@ entre os métodos {\it imprime} e {\it exporta}.
 É desejável que a coesão dos componentes de um sistema seja alta, isto garante
 que o acoplamento do sistema seja baixo e como consequência a complexidade do
 sistema cai facilitando a manutenção e o desenvolvimento. LCOM mede a falta de
-coesão, então valores baixos significam boa coesão, se LCOM é alto métodos podem
+coesão, então valores baixos significam boa coesão. Se LCOM é alto, métodos podem
 estar acoplados uns aos outros através de atributos, isto pode significar que é
 melhor dividir a classe em subclasses \cite{observationsOnLCOM}.
 
 Após a definição inicial de Chidamber e Kemerer para o cálculo de LCOM vários
 autores propuseram modificações e melhorias deste método, as mais significantes
-incluindo a definição original são \cite{analysisOfLCOM}:
+incluindo a definição original são \cite{principalComponentAnalysisOfLCOM}:
 
 \begin{itemize}
 \item A definição original por Chidamber e Kemerer - LCOM1;
 \item A definição de Li e Henry - LCOM?;
-\item A redefinição do LCOM de Li e Henry por Hitz e Montazerri - LCOM4; e
+\item A redefinição do LCOM de Li e Henry por Hitz e Montazeri - LCOM4; e
 \item A redefinição da proposta original pelos próprios Chidamber and Kemerer - LCOM?.
 \end{itemize}
 
 O que é LCOM1, LCOM4, quais limitações, qual é melhor?
 
 A definição original por Chidamber e Kemerer comumente chamada de LCOM1 e a
-redefinição por Hitz e Montazerri conhecida como LCOM4 serão as métricas
+redefinição por Hitz e Montazeri conhecida como LCOM4 serão as métricas
 abordadas neste trabalho.
 
 A definição original LCOM1 após sua publicação recebeu algumas críticas, uma
-delas feitar por \citeonline{aCritiqueOfCohesion} onde ele diz: ''LCOM1 não é
+delas feitar por \citeonline{aCritiqueOfCohesion} onde diz: ''LCOM1 não é
 um caminho válido para medir coesão de classes, sua definição é baseada em
 iterações entre método e dados, o que pode não ser um bom caminho para definir
 coesão no mundo da orientação a objetos. Além disso, para classes muito
@@ -196,21 +198,89 @@ intersecção dos 'n' conjuntos.
 
 \begin{figure}[h]
 \center
-\includegraphics[scale=0.4]{imagens/exemplo-lcom1-hitz-e-montazerri}
+\includegraphics[scale=0.4]{imagens/exemplo-lcom1-hitz-e-montazeri}
 \caption{Exemplo LCOM1 \cite{measuringCouplingAndCohesion}}
 \label{fig:exemplo-lcom1}
 \end{figure}
 
 Por exemplo, na classe da figura~\ref{fig:exemplo-lcom1}, existem 2 pares de
-métodos que não compartilham nenhuma variável ($<$f, g$>$ e $<$f, h$>$) e exatamente um par que compartilha a variável E ($<$g, h$>$). Portanto, LCOM é 2 - 1 = 1.
+métodos que não compartilham nenhuma variável ($<f, g>$ e $<f, h>$) e
+exatamente um par que compartilha a variável E ($<g, h>$). Portanto, LCOM1 é $2
+- 1 = 1$.
 
-%   Although the principle idea behind this definition seems
-%very sensible, the resulting cohesion metric exhibits several
-%anomalies with respect to the intuitive understanding7 of the
-%attribute, the most important of which will be explained be-
-%low.
-%   Consider the following two designs (each Venn diagram re-
-%presents a method by the set of instance variables it employs):
+De acordo com os estudos de \citeonline{measuringCouplingAndCohesion} LCOM1
+eles chegam a conclusão que apesar de este cálculo ser baseado numa idéia muito
+sensata ele traz em algumas anomalias nos resultados, como no exemplo da
+figura~\ref{fig:exemplo-anomalia-lcom1}. Neste estudo os autores concluem que
+os 2 casos são igualmente não-coesivos, diferentemente do resultado obtido pelo
+cálculo de LCOM1.
+
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.4]{imagens/exemplo-anomalia-lcom1-hitz-e-montazeri}
+\caption{Exemplo anomalia LCOM1 \cite{measuringCouplingAndCohesion}}
+\label{fig:exemplo-anomalia-lcom1}
+\end{figure}
+
+\citeonline{principalComponentAnalysisOfLCOM} propuseram uma melhoria deste
+cálculo e propuseram uma nova definição para LCOM: ''LCOM é o número de grupos
+de métodos locais distintos.  Cada grupo tem um ou mais métodos de classe
+locais, e ao menos 2 métodos no grupo acessam pelo menos um atributo de classe
+em comum; o número de atributos comuns varia de 0 à N (onde N é um inteiro
+maior que 0)''.
+
+Com esta definição, um valor $K > 1$ para LCOM sinaliza a possibilidade de
+dividir X em k classes menores e mais coesivas. Aplicando esta definição aos
+casos 0, I e II acima produzem valor 2 em todos os casos de acordo com a noção
+intuitiva de coesão. Em todas instancias do caso III, o valor de LCOM é 1, que
+parece novamente ter mais sentido \cite{measuringCouplingAndCohesion}.
+
+Com base nesta proposta de cálculo de
+\citeonline{principalComponentAnalysisOfLCOM}
+\citeonline{measuringCouplingAndCohesion} propôs uma nova definição usando uma
+representação de teoria dos grafos, como se segue:
+
+''Seja X uma classe, IX um grupo de variáveis de instancia de X, e MX um grupo de seus métodos. Considere um simples grafo indireto $GX(V, E)$ onde:
+$$V = MX$$
+$$E = \{<m, n> \in V \times V \mid \exists i \in IX: (m accesses i) (n accesses i)\}$$.
+
+LCOM(X) é então definido como o número de componentes conectados de GX $(1 \leq LCOM(X) \leq |MX|)$.''
+
+%   Let X denote a class, IX the set of its instance variables of
+%X, and MX the set of its methods. Consider a simple, undi-
+%rected graph GX(V, E) with V = MX and E = {<m, n> ∈V×V | ∃ i∈IX: (m accesses i)
+%                                                ∧ (n accesses i)}.
+%LCOM(X) is then defined as the number of connected compo-
+%nents of GX (1≤LCOM(X)≤|MX|).
+
+%   In addition to this mere formal improvement of the defini-
+%tion of LCOM, we would like to get rid of a more semantic
+%flaws in the definition of LCOM: Firstly, the not uncommon
+%design principle to restrict accesses to instance variables to
+%special purpose read/write methods introduces an anomaly of
+%this measure: An otherwise cohesive class would yield very
+%high LCOM-values, as all of the “real” methods would yield
+%isolated nodes in the graph, as they do not directly share any
+%instance variable anymore. Secondly, there are many practical
+%cases in which methods exist which do not at all access in-
+%stance variables (neither directly nor via mere access meth-
+%ods) but are coded entirely in terms of other (more basic)
+%methods of their class. For example, in a class LIST method
+%size() might be recursively defined in C++ as
+%    int size() const { return empty() ? 0 : 1 + tail().size(); }
+%Although such methods can certainly be considered very co-
+%hesive, according to the above definitions of LCOM they are
+%classified as “structurally unrelated” to the rest of the class.
+%   To avoid these anomalies, the definition of GX could be
+%changed as follows:
+%   E = {<m, n>∈V×V | (∃ i∈IX: (m accesses i)∧(n accesses i))
+%                                     ∨ (m calls n) ∨ (n calls m)}
+%   In the cases where LCOM = 1, there are still more and less
+%cohesive classes possible. Especially for big classes, it might
+%be desirable to find a finer grained measure to tell the struc-
+%tural difference between the members of the set of classes
+%with LCOM = 1. For this purpose, let us consider the two ex-
+%treme cases of connected components:
 
 
 
