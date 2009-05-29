@@ -131,26 +131,24 @@ module1} tem CBO = 2.
 \end{figure}
 
 Valores de CBO altos podem significar que a reusabilidade de uma classe é
-pequena \cite{engenhariaDeSoftwarePressman}, além de implicar em maior
-complexidade na manutenção e testes.  Em geral o ideal é que os valores de CBO
-sejam baixos.
+pequena \cite{engenhariaDeSoftwarePressman}, além de implicar que a manutenção
+e os testes serão mais complexos de serem feitos. Em geral o ideal é que os
+valores de CBO sejam baixos.
 
 \subsection{Coesão}
 
 Coesão é e medida que define o quanto um módulo de um programa está focado em
-solucionar um único problema.
-
-Quando menor a coesão dos módulos maior o acoplamento do sistema.
-
-Porque é importante?
+solucionar um único problema. \citeonline{engenhariaDeSoftwarePressman} define
+coesão da seguinte forma: ''{\it coesão} implica que um componente ou classe
+encapsule somente os atributos e operações muito relacionados entre si e com a
+classe ou componente propriamente dito''.
 
 A métrica utilizada neste trabalho será a {\bf Falta de coesão em métodos}
-({\it lack of cohesion in methods} - LCOM). LCOM é o número de métodos que
-compartilham mesmos atributos. Se nenhum método tem acesso ao mesmo atributo
-LCOM = 0. Na figura~\ref{fig:exemplo-lcom} a classe {\it module1} tem LCOM = 2.
-Neste exemplo os métodos {\it imprime} e {\it exporta} compartilham a variável
-{\it nome}. Se LCOM é alto métodos podem estar acoplados uns aos outros através
-de atributos, isto aumenta a complexidade do projeto da classe.
+({\it lack of cohesion in methods} - LCOM). LCOM é o número de métodos num
+mesmo componente que compartilham os mesmos atributos, se nenhum método tem
+acesso ao mesmo atributo então LCOM = 0. Na figura~\ref{fig:exemplo-lcom} a
+classe {\it module1} tem LCOM = 2, onde a variável {\it nome} é compartilhada
+entre os métodos {\it imprime} e {\it exporta}.
 
 \begin{figure}[h]
 \center
@@ -158,6 +156,13 @@ de atributos, isto aumenta a complexidade do projeto da classe.
 \caption{Exemplo de troca de mensagens internas de module1 para cálculo de LCOM}
 \label{fig:exemplo-lcom}
 \end{figure}
+
+É desejável que a coesão dos componentes de um sistema seja alta, isto garante
+que o acoplamento do sistema seja baixo e como consequência a complexidade do
+sistema cai facilitando a manutenção e o desenvolvimento. LCOM mede a falta de
+coesão então valores baixos significam boa coesão, se LCOM é alto métodos podem
+estar acoplados uns aos outros através de atributos, isto aumenta a
+complexidade do projeto da classe.
 
 A falta de coesão pode indicar que é melhor dividir a classe em subclasses
 \cite{observationsOnLCOM}.
