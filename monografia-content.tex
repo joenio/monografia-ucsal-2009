@@ -160,10 +160,9 @@ entre os métodos {\it imprime} e {\it exporta}.
 É desejável que a coesão dos componentes de um sistema seja alta, isto garante
 que o acoplamento do sistema seja baixo e como consequência a complexidade do
 sistema cai facilitando a manutenção e o desenvolvimento. LCOM mede a falta de
-coesão então valores baixos significam boa coesão, se LCOM é alto métodos podem
-estar acoplados uns aos outros através de atributos, isto aumenta a
-complexidade do projeto da classe. LCOM alto pode significar que é melhor dividir
-a classe em subclasses \cite{observationsOnLCOM}.
+coesão, então valores baixos significam boa coesão, se LCOM é alto métodos podem
+estar acoplados uns aos outros através de atributos, isto pode significar que é
+melhor dividir a classe em subclasses \cite{observationsOnLCOM}.
 
 Após a definição inicial de Chidamber e Kemerer para o cálculo de LCOM vários
 autores propuseram modificações e melhorias deste método, as mais significantes
@@ -182,19 +181,38 @@ A definição original por Chidamber e Kemerer comumente chamada de LCOM1 e a
 redefinição por Hitz e Montazerri conhecida como LCOM4 serão as métricas
 abordadas neste trabalho.
 
-A definição original LCOM1 após sua publicação recebeu várias críticas,
-primeiro para classes muito diferentes ela dá valor zero. Segundo Gupta
-\cite{aCritiqueOfCohesion} LCOM1 não é um caminho válido para medir coesão de
-classes. 
+A definição original LCOM1 após sua publicação recebeu algumas críticas, uma
+delas feitar por \citeonline{aCritiqueOfCohesion} onde ele diz: ''LCOM1 não é
+um caminho válido para medir coesão de classes, sua definição é baseada em
+iterações entre método e dados, o que pode não ser um bom caminho para definir
+coesão no mundo da orientação a objetos. Além disso, para classes muito
+diferentes ela dar valores de LCOM1 iguais''.
 
-LCOM1 é calculado da seguinte forma:
+LCOM1 é calculado da seguinte forma, considere C1 uma classe com M1, M2,
+\ldots, Mn métodos e Ii o conjunto de atributos (variábeis de instancia) de C1
+sendo usado pelo método Mi. Para cada método Mi de C1 deve existir um grupo de
+atributos Ii correspondente. LCOM é Número distinto de grupos formados pela
+intersecção dos 'n' conjuntos.
 
-Considere C1 uma classe com M1, M2, \ldots, Mn métodos e Ii o conjunto de
-atributos (variábeis de instancia) de C1 sendo usado pelo método Mi. Para cada
-método Mi de C1 deve existir um grupo de atributos Ii correspondente.
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.4]{imagens/exemplo-lcom1-hitz-e-montazerri}
+\caption{Exemplo LCOM1 \cite{measuringCouplingAndCohesion}}
+\label{fig:exemplo-lcom1}
+\end{figure}
 
-Então, LCOM = Número distinto de grupos formados pela intersecção dos 'n'
-conjuntos.
+Por exemplo, na classe da figura~\ref{fig:exemplo-lcom1}, existem 2 pares de
+métodos que não compartilham nenhuma variável ($<$f, g$>$ e $<$f, h$>$) e exatamente um par que compartilha a variável E ($<$g, h$>$). Portanto, LCOM é 2 - 1 = 1.
+
+%   Although the principle idea behind this definition seems
+%very sensible, the resulting cohesion metric exhibits several
+%anomalies with respect to the intuitive understanding7 of the
+%attribute, the most important of which will be explained be-
+%low.
+%   Consider the following two designs (each Venn diagram re-
+%presents a method by the set of instance variables it employs):
+
+
 
 % ----------- IMPLEMENTACAO -------------
 
