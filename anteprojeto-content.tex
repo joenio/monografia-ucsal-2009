@@ -1,7 +1,7 @@
 \chapter{Justificativa}
 
 A arquiterura de software define o relacionamento entre os grandes componentes
-estruturais de um projeto \cite{EngenhariaDeSoftwarePressman}. A documentação
+estruturais de um projeto \cite{engenhariaDeSoftwarePressman}. A documentação
 desta arquitetura é útil para possibilitar, por exemplo, a extração de métricas
 como coesão e acoplamento ou para estudar o impacto de possíveis alterações
 (rastreabilidade) de um projeto \cite{mata26-terceiro-projeto-piloto}.
@@ -9,14 +9,14 @@ como coesão e acoplamento ou para estudar o impacto de possíveis alterações
 Uma ferramenta de extração de informações de dependências entre módulos é útil
 para gerar esta documentação a partir do código fonte do próprio projeto.
 Existem ferramentas capazes de realizar esta tarefa, mas entre as opções
-pesquisadas \cite{SourceVersusObjectCodeExtraction} a maioria delas faz uso do
+pesquisadas \cite{sourceVersusObjectCodeExtraction} a maioria delas faz uso do
 código objeto como dados de entrada da análise, ou seja, faz uso de dados
 resultante da compilação do código fonte.
 
 Um problema em extrair estas informações do código objeto é que algumas
 informações conhecidas pelos desenvolvedores do projeto não estão presentes,
 como por exemplo macros em projetos C/C++ que são substituidas pelo
-preprocessador \cite{SourceVersusObjectCodeExtraction} durante a compilação.
+preprocessador \cite{sourceVersusObjectCodeExtraction} durante a compilação.
 
 Este problema pode ser solucionado analisando diretamente o código fonte do
 projeto. Esta análise traria uma informação mais próxima da arquitetura do
