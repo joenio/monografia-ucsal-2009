@@ -499,60 +499,55 @@ extrator GCC como demonstram os grafos das figuras \ref{ristretto-0.0.1},
 \label{ristretto-0.0.21}
 \end{figure}
 
-O egypt foi executado utilizando o extrator Doxyparse e GCC em cada uma das versões
-do {\it ristretto}, o egypt se comportou aparentemente de forma correta e extraiu sem problemas
-e as informações esperadas.
+Vamos avaliar as diferenças encontradas em cada versão do ristretto nas seções que se seguem.
 
-Com os dados extraidos pelo Egypt::Extractor::GCC e Egypt::Extractor::Doxyparse
-foram gerados gráficos de dependencia entre os módulos do projeto {\it ristretto} das
-versões 0.0.1 até a 0.0.21.
+\subsection{ristretto 0.0.1} \label{sec:ristretto-0.0.1}
 
-O resultado dos 2 extratores não foi igual, na figura~\ref{ristretto-0.0.1}
-temos o grafo gerado por cada extrator para o {\it ristretto} 0.0.1.
-
-
-Na figura~\ref{ristretto-0.0.1-gcc} por exemplo temos que o módulo {\it
-navigator} chama {\it picture\_viewer}, e na
-figura~\ref{ristretto-0.0.1-doxyparse} não temos esta chamada e sim que {\it
-navigator} chama {\it thumbnail\_viewer}.
-
-Na seção~\ref{sec:discussao} discutiremos os detalhes destas direferenças entre
-cada extrator.
-
-\section{Discussão} \label{sec:discussao}
-
-Para comparação entre os dois extratores foram selecionadas 3 versões do
-{\it ristretto}, a 0.0.1, 0.0.11 e 0.0.21, nas figuras \ref{ristretto-0.0.1},
-\ref{ristretto-0.0.11} e \ref{ristretto-0.0.21} estão gráficos de chamadas
-entre módulos de cada um. Algumas diferenças entre os gráficos
-gerados pelo GCC e pelo Doxyparse foram notadas. 
-
+Na figura~\ref{ristretto-0.0.1-gcc} vemos que o extrator GCC encontra uma chamada do o módulo {\it navigator} para o módulo {\it picture\_viewer}, e na figura~\ref{ristretto-0.0.1-doxyparse} o extrator Doxyparse não encontra esta chamada e sim uma chamada de {\it navigator} para {\it thumbnail\_viewer}.
 
 Na figura~\ref{ristretto-0.0.1} nota-se uma diferença interessante entre as
 informaçõe extraídas pelo GCC e o Doxyparse, há uma inversão entre os módulos
 thumbnailer\_viewer e picture\_viewer. Enquanto o Doxyparse diz que o
-picture\_viewer chama o thumbnailer\_viewer no GCC temos o contrário, após uma
-verificação ao código fonte do {\it ristretto} 0.0.1 nota-se que nenhum dos 2 módulos
-se referenciam, então os dois extratores estão dando informações incorretas.
+picture\_viewer chama o thumbnailer\_viewer no GCC temos o contrário.
 
-O problema pode estar na interpretação dos dados pelo extrator ou nos dados
+\subsection{ristretto 0.0.11}
+
+\subsection{ristretto 0.0.21}
+
+Na seção~\ref{sec:discussao} discutiremos os detalhes destas diferenças entre cada extrator.
+
+\section{Discussão} \label{sec:discussao}
+
+Ao executar o egypt em cada versão do ristretto e analisar as diferenças entre
+os grafos de colaboração entre eles foi importante pois eu notei que após
+investigar a causa das diferenças o extrator egypt e o doxyparse precisavam de
+algumas modificações. Nesta seção vamos discutir cada uma dessas diferenças e
+esclarecer como foi corrigidas.
+
+Ao verificar o código fonte do {\it ristretto} 0.0.1 na busca tentativa de descobrir a diferença demonstrada na seção~\ref{sec:ristretto-0.0.1} 
+nota-se que nenhum dos 2 módulos se referenciam, então os dois extratores estão dando informações incorretas.
+
+Neste cado o problema pode estar na interpretação dos dados pelo extrator ou nos dados
 gerados pelo doxyparse. Ao investigar o problema foi possível notar que os
-dados gerados pelo doxyparse estão corretos então o problema está no extrator. O
-egypt armazena as informações usando como chave, ou seja, como identificador
+dados gerados pelo doxyparse estão corretos então o problema está no extrator.
+
+O egypt armazena as informações usando como chave, ou seja, como identificador
 único, o nome do símbolo em questão mas alguns módulos possuem símbolos com o
 mesmo nome, isto faz com que o egypt confunda o uso e chamada destes símbolos.
 
 A solução adotada para este problema foi armazenar o nome do módulo junto ao
 nome do símbolo, por exemplo ao invés de guardar apenas parent\_class guarda-se
 main::parent\_class. Na figura \ref{ristretto-0.0.1-doxyparse-2} temos o
-gráfico atualizado após esta correcão.
+grafo atualizado após esta correção.
 
 \begin{figure}[h]
 \center
 \includegraphics[scale=0.3]{imagens/ristretto-0_0_1-doxyparse-2}
-\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt::Extractor::Doxyparse atualizado}
+\caption{grafo de colaboração do ristretto 0.0.1 atualizado}
 \label{ristretto-0.0.1-doxyparse-2}
 \end{figure}
+
+---
 
 Na figura~\ref{ristretto-0.0.11} o GCC diz que o módulo main\_window chama
 main, já no Doxyparse não há esta chamada. E de fato, analisando o código fonte
