@@ -240,53 +240,23 @@ Com base nesta proposta de cálculo de
 \citeonline{measuringCouplingAndCohesion} propôs uma nova definição usando uma
 representação de teoria dos grafos, como se segue:
 
-''Seja X uma classe, IX um grupo de variáveis de instancia de X, e MX um grupo de seus métodos. Considere um simples grafo indireto $GX(V, E)$ onde:
-$$V = MX$$
-$$E = \{<m, n> \in V \times V \mid \exists i \in IX: (m accesses i) (n accesses i)\}$$.
+\begin{quotation}
+Seja X uma classe, IX um grupo de variáveis de instancia de X, e MX um grupo
+de seus métodos. Considere um simples grafo indireto $GX(V, E)$, onde: $$V =
+MX$$ $$E = \{<m, n> \in V \times V \mid \exists i \in IX: (m \; acessos \; a \;
+i) (n acessos a i)\}$$ LCOM(X) é então definido como o número de componentes
+conectados de GX $(1 \leq LCOM(X) \leq |MX|)$.
+\end{quotation}
 
-LCOM(X) é então definido como o número de componentes conectados de GX $(1 \leq LCOM(X) \leq |MX|)$.''
-
-%   Let X denote a class, IX the set of its instance variables of
-%X, and MX the set of its methods. Consider a simple, undi-
-%rected graph GX(V, E) with V = MX and E = {<m, n> ∈V×V | ∃ i∈IX: (m accesses i)
-%                                                ∧ (n accesses i)}.
-%LCOM(X) is then defined as the number of connected compo-
-%nents of GX (1≤LCOM(X)≤|MX|).
-
-%   In addition to this mere formal improvement of the defini-
-%tion of LCOM, we would like to get rid of a more semantic
-%flaws in the definition of LCOM: Firstly, the not uncommon
-%design principle to restrict accesses to instance variables to
-%special purpose read/write methods introduces an anomaly of
-%this measure: An otherwise cohesive class would yield very
-%high LCOM-values, as all of the “real” methods would yield
-%isolated nodes in the graph, as they do not directly share any
-%instance variable anymore. Secondly, there are many practical
-%cases in which methods exist which do not at all access in-
-%stance variables (neither directly nor via mere access meth-
-%ods) but are coded entirely in terms of other (more basic)
-%methods of their class. For example, in a class LIST method
-%size() might be recursively defined in C++ as
-%    int size() const { return empty() ? 0 : 1 + tail().size(); }
-%Although such methods can certainly be considered very co-
-%hesive, according to the above definitions of LCOM they are
-%classified as “structurally unrelated” to the rest of the class.
-%   To avoid these anomalies, the definition of GX could be
-%changed as follows:
-%   E = {<m, n>∈V×V | (∃ i∈IX: (m accesses i)∧(n accesses i))
-%                                     ∨ (m calls n) ∨ (n calls m)}
-%   In the cases where LCOM = 1, there are still more and less
-%cohesive classes possible. Especially for big classes, it might
-%be desirable to find a finer grained measure to tell the struc-
-%tural difference between the members of the set of classes
-%with LCOM = 1. For this purpose, let us consider the two ex-
-%treme cases of connected components:
-
-
+Esta proposta de LCOM é conhecida como LCOM4 e será a segunda métrica considerada
+e utilizada neste trabalho no capítulo~\ref{ch:avaliacao}.
 
 % ----------- IMPLEMENTACAO -------------
 
 \chapter{Implementação do Extrator} \label{ch:implementacao}
+
+Neste capítulo será apresentado como o extrator foi implementado e as
+ferramentas utilizadas como base para a implementação.
 
 \section{egypt} \label{sec:egypt}
 
