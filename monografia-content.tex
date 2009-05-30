@@ -432,7 +432,7 @@ original do egypt baseado em GCC.
 \section{Procedimento}
 
 Em \cite{structuralComplexityEvolution} foi feita uma análise do
-ristretto\footnote{http://goodies.xfce.org/projects/applications/ristretto}, um
+{\it ristretto}\footnote{http://goodies.xfce.org/projects/applications/ristretto}, um
 Software Livre escrito em C para visualização de imagens no ambiente Desktop
 Xfce\footnote{http://www.xfce.org}, utilizando o extrator original do egypt, as
 informações geradas por esta análise serão utilizadas aqui para comparação com
@@ -443,22 +443,16 @@ gerada pelo doxyparse, o parser baseado no Doxygen, será analisada em
 comparação com o código fonte em busca de inconsistências em relação a
 declaração e uso de símbolos encontrados.
 
-E por fim as métricas de coesão e acomplamento calculadas pelo egypt, usando
-cada um dos dois extratores, serão analisadas com objetivo de identificar
-possíveis diferenças entre cada um.
+Por fim veremos um resumo comparativo onde iremos analisar e interpretar as
+diferenças encontradas entre as métricas de coesão e acomplamento calculadas
+pelo egypt usando cada um dos extratores.
 
 \section{Resultados}
 
-O egypt foi executado utilizando o extrator Doxyparse e GCC em cada uma das versões
-do ristretto, o egypt se comportou aparentemente de forma correta e extraiu sem problemas
-e as informações esperadas.
-
-Com os dados extraidos pelo Egypt::Extractor::GCC e Egypt::Extractor::Doxyparse
-foram gerados gráficos de dependencia entre os módulos do projeto ristretto das
-versões 0.0.1 até a 0.0.21.
-
-O resultado dos 2 extratores não foi igual, na figura~\ref{ristretto-0.0.1}
-temos o grafo gerado por cada extrator para o ristretto 0.0.1.
+Os dados obtidos pelo extrator Doxyparse apresentaram diferenças em relação ao
+extrator GCC como demonstram os grafos das figuras \ref{ristretto-0.0.1},
+\ref{ristretto-0.0.11} e \ref{ristretto-0.0.21} referentes as versões 0.0.1,
+0.0.11 e 0.0.21 do {\it ristretto}, respectivamente.
 
 \begin{figure}
 \center
@@ -471,9 +465,51 @@ temos o grafo gerado por cada extrator para o ristretto 0.0.1.
    \includegraphics[scale=0.3]{imagens/ristretto-0_0_1-gcc}
    \label{ristretto-0.0.1-gcc}
 }
-\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.1} gerado pelo Egypt}
+\caption{grafo de colaboração do ristretto 0.0.1}
 \label{ristretto-0.0.1}
 \end{figure}
+
+\begin{figure}
+\center
+\subfigure[Egypt::Extractor::Doxyparse]{
+   \includegraphics[scale=0.3]{imagens/ristretto-0_0_11-doxyparse}
+   \label{ristretto-0.0.11-doxyparse}
+}
+\qquad
+\subfigure[Egypt::Extractor::GCC]{
+   \includegraphics[scale=0.3]{imagens/ristretto-0_0_11-gcc}
+   \label{ristretto-0.0.11-gcc}
+}
+\caption{grafo de colaboração do ristretto 0.0.11}
+\label{ristretto-0.0.11}
+\end{figure}
+
+\begin{figure}
+\center
+\subfigure[Egypt::Extractor::Doxyparse]{
+   \includegraphics[scale=0.3]{imagens/ristretto-0_0_21-doxyparse}
+   \label{ristretto-0.0.21-doxyparse}
+}
+\qquad
+\subfigure[Egypt::Extractor::GCC]{
+   \includegraphics[scale=0.3]{imagens/ristretto-0_0_21-gcc}
+   \label{ristretto-0.0.21-gcc}
+}
+\caption{grafo de colaboração do ristretto 0.0.21}
+\label{ristretto-0.0.21}
+\end{figure}
+
+O egypt foi executado utilizando o extrator Doxyparse e GCC em cada uma das versões
+do {\it ristretto}, o egypt se comportou aparentemente de forma correta e extraiu sem problemas
+e as informações esperadas.
+
+Com os dados extraidos pelo Egypt::Extractor::GCC e Egypt::Extractor::Doxyparse
+foram gerados gráficos de dependencia entre os módulos do projeto {\it ristretto} das
+versões 0.0.1 até a 0.0.21.
+
+O resultado dos 2 extratores não foi igual, na figura~\ref{ristretto-0.0.1}
+temos o grafo gerado por cada extrator para o {\it ristretto} 0.0.1.
+
 
 Na figura~\ref{ristretto-0.0.1-gcc} por exemplo temos que o módulo {\it
 navigator} chama {\it picture\_viewer}, e na
@@ -486,7 +522,7 @@ cada extrator.
 \section{Discussão} \label{sec:discussao}
 
 Para comparação entre os dois extratores foram selecionadas 3 versões do
-ristretto, a 0.0.1, 0.0.11 e 0.0.21, nas figuras \ref{ristretto-0.0.1},
+{\it ristretto}, a 0.0.1, 0.0.11 e 0.0.21, nas figuras \ref{ristretto-0.0.1},
 \ref{ristretto-0.0.11} e \ref{ristretto-0.0.21} estão gráficos de chamadas
 entre módulos de cada um. Algumas diferenças entre os gráficos
 gerados pelo GCC e pelo Doxyparse foram notadas. 
@@ -496,7 +532,7 @@ Na figura~\ref{ristretto-0.0.1} nota-se uma diferença interessante entre as
 informaçõe extraídas pelo GCC e o Doxyparse, há uma inversão entre os módulos
 thumbnailer\_viewer e picture\_viewer. Enquanto o Doxyparse diz que o
 picture\_viewer chama o thumbnailer\_viewer no GCC temos o contrário, após uma
-verificação ao código fonte do ristretto 0.0.1 nota-se que nenhum dos 2 módulos
+verificação ao código fonte do {\it ristretto} 0.0.1 nota-se que nenhum dos 2 módulos
 se referenciam, então os dois extratores estão dando informações incorretas.
 
 O problema pode estar na interpretação dos dados pelo extrator ou nos dados
@@ -518,24 +554,9 @@ gráfico atualizado após esta correcão.
 \label{ristretto-0.0.1-doxyparse-2}
 \end{figure}
 
-\begin{figure}
-\center
-\subfigure[Egypt::Extractor::Doxyparse]{
-   \includegraphics[scale=0.3]{imagens/ristretto-0_0_11-doxyparse}
-   \label{ristretto-0.0.11-doxyparse}
-}
-\qquad
-\subfigure[Egypt::Extractor::GCC]{
-   \includegraphics[scale=0.3]{imagens/ristretto-0_0_11-gcc}
-   \label{ristretto-0.0.11-gcc}
-}
-\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.11} gerado pelo Egypt}
-\label{ristretto-0.0.11}
-\end{figure}
-
 Na figura~\ref{ristretto-0.0.11} o GCC diz que o módulo main\_window chama
 main, já no Doxyparse não há esta chamada. E de fato, analisando o código fonte
-do ristretto 0.0.11 não foi encontrada nenhuma chamada de main\_window para
+do {\it ristretto} 0.0.11 não foi encontrada nenhuma chamada de main\_window para
 main, então o Doxyparse está correto neste caso. Mas ele confunde alguns
 símbolos como na figura~\ref{ristretto-0.0.1}, veja na
 figura~\ref{ristretto-0.0.11-doxyparse-2} o gráfico atualizado após a correção.
@@ -550,7 +571,7 @@ figura~\ref{ristretto-0.0.11-doxyparse-2} o gráfico atualizado após a correç�
 Na figura~\ref{ristretto-0.0.21} temos outra diferença interessante, o GCC
 informa que o módulo save\_dialog é chamado pelos módulos main\_window,
 thumbnail, navigator, picture\_viewer e thumbnail\_bar sendo que no código
-fonte do ristretto 0.0.21 não há indícios de que todos esses módulos chamem o
+fonte do {\it ristretto} 0.0.21 não há indícios de que todos esses módulos chamem o
 módulo save\_dialog, com excessão de main\_window. Já o Doxyparse dá uma
 informação mais coerente onde apenas main\_window chama save\_dialog, mas o
 Doxyparse dá uma informação controversa onde o save\_dialog chama
@@ -559,23 +580,8 @@ Mas este problema foi causado pelo mesmo problema já corrigido nos exemplos
 citados acima para as versões 0.0.1 e 0.0.11, veja na
 figura~\ref{ristretto-0.0.21-doxyparse-2} o gráfico atualizado.
 
-\begin{figure}
-\center
-\subfigure[Egypt::Extractor::Doxyparse]{
-   \includegraphics[scale=0.3]{imagens/ristretto-0_0_21-doxyparse}
-   \label{ristretto-0.0.21-doxyparse}
-}
-\qquad
-\subfigure[Egypt::Extractor::GCC]{
-   \includegraphics[scale=0.3]{imagens/ristretto-0_0_21-gcc}
-   \label{ristretto-0.0.21-gcc}
-}
-\caption{gráfico de chamada entre módulos do {\bf Ristretto 0.0.21} gerado pelo Egypt}
-\label{ristretto-0.0.21}
-\end{figure}
-
 Além destas correções no extrator foi necessário corrigir no doxyparse a
-identificação dos símbolos estáticos, nesta avaliação feita com o ristretto o
+identificação dos símbolos estáticos, nesta avaliação feita com o {\it ristretto} o
 doxyparse confunde o uso do simbolo parent\_class, uma variavei estática
 definida por todos os módulos do projeto. O doxyparse registra a declaração
 deste símbolo apenas na primeira vez que é encontrado e nas ocorrências de uso
@@ -597,7 +603,7 @@ encontradas e iremos interpretar essas diferenças encontradas.
 
 Na tabela~\ref{tab:comparacao-metricas} temos resumo comparativo entre as
 métricas calculadas pelo egypt, através de Egypt::Metrics, usando os extratores
-GCC e Doxyparse em cada versão do ristretto. Onde é apresentado a média de
+GCC e Doxyparse em cada versão do {\it ristretto}. Onde é apresentado a média de
 acoplamento e falta de coesão para cada versão. A métrica utilizada aqui em em
 todo este trabalho para falta de coesão é a LCOM4.
 
@@ -637,12 +643,12 @@ Média     & Falta de Coesão & Acoplamento    & Falta de Coesão & Acoplamento 
 \end{table}
 
 Analisando a tabela é possível notar que o acoplamento calculado pelo Doxyparse
-se mantém menor do que o GCC em todas as versões do ristretto, já a métrica de
+se mantém menor do que o GCC em todas as versões do {\it ristretto}, já a métrica de
 Falta de Coesão LCOM4 se mantém ligeiramente maior também em todas as versões,
 embora a diferença entre o Doxyparse e GCC seja pequena neste caso.
 
 Qual será a causa destas diferenças? Vamos tentar explicar! Vamos analisar os
-dados de cada módulo do ristretto 0.0.1. Na
+dados de cada módulo do {\it ristretto} 0.0.1. Na
 tabela~\ref{tab:comparacao-metricas-ristretto-0.0.1} a métrica utilizada na
 coluna falda de coesão é LCOM4.
 
