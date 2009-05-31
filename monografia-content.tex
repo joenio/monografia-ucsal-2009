@@ -516,14 +516,14 @@ encontra uma chamada do módulo {\it main\_window} para o módulo {\it main}, j�
 no Doxyparse não há nenhuma chamada para o módulo {\it main} como visto na
 figura~\ref{fig:ristretto-0.0.11-doxyparse}. 
 
-\item Na figura~\ref{fig:ristretto-0.0.21} temos outra diferença interessante, o GCC
-informa que o módulo save\_dialog é chamado pelos módulos main\_window,
-thumbnail, navigator, picture\_viewer e thumbnail\_bar sendo que no código
+\item {\it ristretto 0.0.21} - Na figura~\ref{fig:ristretto-0.0.21} temos outra diferença interessante, o GCC
+informa que o módulo {\it save\_dialog} é chamado pelos módulos {\it main\_window},
+{\it thumbnail}, {\it navigator}, {\it picture\_viewer} e {\it thumbnail\_bar} sendo que no código
 fonte do {\it ristretto} 0.0.21 não há indícios de que todos esses módulos chamem o
-módulo save\_dialog, com excessão de main\_window. Já o Doxyparse dá uma
-informação mais coerente onde apenas main\_window chama save\_dialog, mas o
-Doxyparse dá uma informação controversa onde o save\_dialog chama
-thumbnail\_bar e isto precisa ser verificado.
+módulo {\it save\_dialog}, com exceção de {\it main\_window}. Já o Doxyparse dá uma
+informação mais coerente onde apenas {\it main\_window} chama {\it save\_dialog}, mas o
+Doxyparse dá uma informação controversa onde o {\it save\_dialog} chama
+{\it thumbnail\_bar} e isto precisa ser verificado.
 
 \end{itemize}
 
@@ -531,12 +531,12 @@ Na seção~\ref{sec:discussao} discutiremos os detalhes destas diferenças entre
 
 \subsection{Métricas}
 
-Além destas diferenças básicas encontradas entre o
-Doxyparse e GCC vamos veriricar as métricas. Na tabela~\ref{tab:comparacao-metricas} temos resumo comparativo entre as
-métricas calculadas pelo egypt, através de Egypt::Metrics, usando os extratores
+Além destas diferenças nos grafos de colaboração entre o
+Doxyparse e GCC vamos verificar as métricas. Na tabela~\ref{tab:comparacao-metricas} temos resumo comparativo entre as
+métricas calculadas pelo egypt usando os extratores
 GCC e Doxyparse em cada versão do {\it ristretto}. Onde é apresentado a média de
 acoplamento e falta de coesão para cada versão. A métrica utilizada aqui em em
-todo este trabalho para falta de coesão é a LCOM4.
+todo este trabalho para acoplamento e falta de coesão são LCOM4 e CBO respectivamente.
 
 \begin{table}
 \caption{Resumo comparativo das métricas do ristretto}
