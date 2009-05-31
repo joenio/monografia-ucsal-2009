@@ -177,8 +177,6 @@ incluindo a definição original são \cite{principalComponentAnalysisOfLCOM}:
 \item A redefinição da proposta original pelos próprios Chidamber and Kemerer - LCOM?.
 \end{itemize}
 
-O que é LCOM1, LCOM4, quais limitações, qual é melhor?
-
 A definição original por Chidamber e Kemerer comumente chamada de LCOM1 e a
 redefinição por Hitz e Montazeri conhecida como LCOM4 serão as métricas
 abordadas neste trabalho.
@@ -333,7 +331,6 @@ destacar as seguintes:
 \item[FileDef] Definição de um arquivo
 \end{description}
 
-
 \section{Implementação do Extrator usando a API do Doxygen}
 
 O Doxygen apesar de oferecer todos os recursos necessários para
@@ -449,14 +446,16 @@ pelo egypt usando cada um dos extratores.
 
 \section{Resultados}
 
-Vamos avaliar os resultados dos grafos de colaboração e de métricas.
+Vamos avaliar os resultados dos grafos de colaboração e de métricas nas seções
+que se seguem.
 
 \subsection{Grafos de colaboração}
 
-Os dados obtidos pelo extrator Doxyparse apresentaram diferenças em relação ao
-extrator GCC como demonstram os grafos das figuras \ref{fig:ristretto-0.0.1},
-\ref{fig:ristretto-0.0.11} e \ref{fig:ristretto-0.0.21} referentes as versões 0.0.1,
-0.0.11 e 0.0.21 do {\it ristretto}, respectivamente.
+Os grafos gerados pelo egypt usando o extrator Doxyparse apresentaram
+diferenças em relação ao extrator GCC como demonstram as figuras
+\ref{fig:ristretto-0.0.1}, \ref{fig:ristretto-0.0.11} e
+\ref{fig:ristretto-0.0.21} referentes as versões 0.0.1, 0.0.11 e 0.0.21 do {\it
+ristretto}, respectivamente.
 
 \begin{figure}
 \center
@@ -503,25 +502,19 @@ extrator GCC como demonstram os grafos das figuras \ref{fig:ristretto-0.0.1},
 \label{fig:ristretto-0.0.21}
 \end{figure}
 
-Vamos avaliar as diferenças encontradas em cada versão do ristretto nas seções que se seguem.
-
-%\subsection{ristretto 0.0.1} \label{sec:ristretto-0.0.1}
+Vamos avaliar as diferenças encontradas em cada uma dessas versões:
 
 \begin{itemize}
 
-\item Na figura~\ref{fig:ristretto-0.0.1-gcc} vemos que o extrator GCC encontra uma chamada do o módulo {\it navigator} para o módulo {\it picture\_viewer}, e na figura~\ref{fig:ristretto-0.0.1-doxyparse} o extrator Doxyparse não encontra esta chamada e sim uma chamada de {\it navigator} para {\it thumbnail\_viewer}.
+\item {\it ristretto 0.0.1} - Na figura~\ref{fig:ristretto-0.0.1-gcc} o
+extrator GCC encontra uma chamada do módulo {\it navigator} para o módulo {\it
+picture\_viewer}, já na figura~\ref{fig:ristretto-0.0.1-doxyparse} o Doxyparse
+encontra apenas uma chamada de {\it navigator} para {\it thumbnail\_viewer}.
 
-Na figura~\ref{fig:ristretto-0.0.1} nota-se uma diferença interessante entre as
-informaçõe extraídas pelo GCC e o Doxyparse, há uma inversão entre os módulos
-thumbnailer\_viewer e picture\_viewer. Enquanto o Doxyparse diz que o
-picture\_viewer chama o thumbnailer\_viewer no GCC temos o contrário.
-
-%\subsection{ristretto 0.0.11} \label{sec:ristretto-0.0.11}
-
-\item Na figura~\ref{fig:ristretto-0.0.11-gcc} o GCC diz que o módulo main\_window chama
-main, já no Doxyparse não há esta chamada como visto na figura~\ref{fig:ristretto-0.0.11-doxyparse}. 
-
-%\subsection{ristretto 0.0.21} \label{sec:ristretto-0.0.21}
+\item {\it ristretto 0.0.11} - Na figura~\ref{fig:ristretto-0.0.11-gcc} o GCC
+encontra uma chamada do módulo {\it main\_window} para o módulo {\it main}, já
+no Doxyparse não há nenhuma chamada para o módulo {\it main} como visto na
+figura~\ref{fig:ristretto-0.0.11-doxyparse}. 
 
 \item Na figura~\ref{fig:ristretto-0.0.21} temos outra diferença interessante, o GCC
 informa que o módulo save\_dialog é chamado pelos módulos main\_window,
@@ -585,7 +578,7 @@ se mantém menor do que o GCC em todas as versões do {\it ristretto}, já a mé
 Falta de Coesão LCOM4 se mantém ligeiramente maior também em todas as versões,
 embora a diferença entre o Doxyparse e GCC seja pequena neste caso.
 
-Vamos analisar e interpretar estes dados na póxima seção.
+Vamos analisar e interpretar estes dados na próxima seção.
 
 \section{Discussão} \label{sec:discussao}
 
@@ -597,7 +590,7 @@ esclarecer como foi corrigidas.
 
 \subsection{Grafos de colaboração}
 
-Ao verificar o código fonte do {\it ristretto} 0.0.1 na busca tentativa de descobrir a diferença demonstrada na seção~\ref{sec:ristretto-0.0.1} 
+Ao verificar o código fonte do {\it ristretto} 0.0.1 na busca tentativa de descobrir a diferença demonstrada na figura~\ref{fig:ristretto-0.0.1} 
 nota-se que nenhum dos 2 módulos se referenciam, então os dois extratores estão dando informações incorretas.
 
 Neste cado o problema pode estar na interpretação dos dados pelo extrator ou nos dados
@@ -620,7 +613,7 @@ grafo atualizado após esta correção.
 \label{fig:ristretto-0.0.1-doxyparse-2}
 \end{figure}
 
-Na seção~\ref{sec:ristretto-0.0.11} referente ao {\it ristretto 0.0.11} o GCC diz que o módulo main\_window chama
+Na figura~\ref{fig:ristretto-0.0.11} referente ao {\it ristretto 0.0.11} o GCC diz que o módulo main\_window chama
 main, já no Doxyparse não há esta chamada. E de fato, analisando o código fonte
 do {\it ristretto} 0.0.11 não foi encontrada nenhuma chamada de main\_window para
 main, então o Doxyparse está correto neste caso. Mas ele confunde alguns
@@ -669,13 +662,13 @@ tabela~\ref{tab:comparacao-metricas-ristretto-0.0.1} a métrica utilizada na
 coluna falda de coesão é LCOM4.
 
 \begin{table}
-\caption{Métricas usando os extratores GCC e Doxyparse para o ristretto 0.0.1}
+\caption{Métricas do ristretto 0.0.1}
 \centering
 \begin{tabular}{| l | c c | c c |}
 \hline
 Extrator          & \multicolumn{2}{|c|}{GCC}        & \multicolumn{2}{|c|}{Doxyparse} \\
 \hline
-                  & Falta de Coesão & Acoplamento    & Falta de Coesão & Acoplamento   \\
+Módulo            & Falta de Coesão & Acoplamento    & Falta de Coesão & Acoplamento   \\
 \hline
 main              & 1               & 4              & 1               & 3             \\
 navigator         & 13              & 2              & 14              & 0             \\
