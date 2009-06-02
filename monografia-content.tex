@@ -148,20 +148,21 @@ valores de CBO sejam baixos.
 
 \subsection{Coesão}
 
-Coesão é e medida que define o quanto um módulo de um programa está focado em
+Coesão é a medida que define o quanto um módulo de um programa está focado em
 solucionar um único problema. \citeonline{engenhariaDeSoftwarePressman} define
 coesão da seguinte forma: ''{\it coesão} implica que um componente ou classe
 encapsule somente os atributos e operações muito relacionados entre si e com a
 classe ou componente propriamente dito''.
 
-A métrica utilizada neste trabalho será a {\bf falta de coesão em métodos}
-({\it lack of cohesion in methods} - LCOM).Em sua definição original, LCOM é
-o número de métodos num mesmo componente que compartilham atributos menos o
-número de métodos que não compartilham atributos, se nenhum método compartilha
-atributos então LCOM é 0. Na figura~\ref{fig:exemplo-lcom} a classe {\it
-module1} tem $LCOM 2 - 1 = 1$, a variável {\it nome} é compartilhada entre
-os métodos {\it imprime} e {\it exporta} e o método {\it aniversario} não
-compartilha nenhuma variável com nenhum outro método.
+A métrica utilizada neste trabalho será a falta de coesão em métodos ({\it lack
+of cohesion in methods} - LCOM), proposta por \citeonline{aMetricsSuiteForOO}.
+LCOM é a diferença entre o número de métodos num mesmo componente que
+compartilham atributos e o número de métodos que não compartilham
+atributos, se nenhum método compartilha atributos então LCOM é 0. Na
+figura~\ref{fig:exemplo-lcom} a classe {\it module1} tem $LCOM = 2 - 1 = 1$, a
+variável {\it nome} é compartilhada entre os métodos {\it imprime} e {\it
+exporta} e o método {\it aniversario} não compartilha nenhuma variável com
+nenhum outro método.
 
 \begin{figure}[h]
 \center
@@ -173,11 +174,11 @@ compartilha nenhuma variável com nenhum outro método.
 É desejável que a coesão dos componentes de um sistema seja alta, isto garante
 que o acoplamento do sistema seja baixo e como consequência a complexidade do
 sistema cai facilitando a manutenção e o desenvolvimento. LCOM mede a falta de
-coesão, então valores baixos significam boa coesão. Se LCOM é alto, métodos podem
-estar acoplados uns aos outros através de atributos, isto pode significar que é
-melhor dividir a classe em subclasses \cite{observationsOnLCOM}.
+coesão, então valores baixos significam boa coesão, e valores altos significam
+que métodos podem estar acoplados uns aos outros através de atributos, e que é
+melhor dividir o módulo em submódulos\cite{observationsOnLCOM}.
 
-Após a definição inicial de Chidamber e Kemerer para o cálculo de LCOM vários
+Após a publicação de \citeonline{aMetricsSuiteForOO} para o cálculo de LCOM vários
 autores propuseram modificações e melhorias deste método, as mais significantes
 incluindo a definição original são \cite{principalComponentAnalysisOfLCOM}:
 
@@ -188,16 +189,13 @@ incluindo a definição original são \cite{principalComponentAnalysisOfLCOM}:
 \item A redefinição da proposta original pelos próprios Chidamber and Kemerer - LCOM?.
 \end{itemize}
 
-A definição original por Chidamber e Kemerer comumente chamada de LCOM1 e a
-redefinição por Hitz e Montazeri conhecida como LCOM4 serão as métricas
-abordadas neste trabalho.
-
-A definição original LCOM1 após sua publicação recebeu algumas críticas, uma
-delas feitar por \citeonline{aCritiqueOfCohesion} onde diz: ''LCOM1 não é
-um caminho válido para medir coesão de classes, sua definição é baseada em
-iterações entre método e dados, o que pode não ser um bom caminho para definir
-coesão no mundo da orientação a objetos. Além disso, para classes muito
-diferentes ela dar valores de LCOM1 iguais''.
+A definição original por \citeonline{principalComponentAnalysisOfLCOM},
+conhecida como LCOM1, após sua publicação recebeu algumas críticas, uma delas
+feita por \citeonline{aCritiqueOfCohesion} onde diz: ''LCOM1 não é um caminho
+válido para medir coesão de classes, sua definição é baseada em iterações entre
+método e dados, o que pode não ser um bom caminho para definir coesão no mundo
+da orientação a objetos. Além disso, para classes muito diferentes ela dar
+valores de LCOM1 iguais''.
 
 LCOM1 é calculado da seguinte forma, considere C1 uma classe com M1, M2,
 \ldots, Mn métodos e Ii o conjunto de atributos (variábeis de instancia) de C1
@@ -217,12 +215,12 @@ métodos que não compartilham nenhuma variável ($<f, g>$ e $<f, h>$) e
 exatamente um par que compartilha a variável E ($<g, h>$). Portanto, LCOM1 é $2
 - 1 = 1$.
 
-De acordo com os estudos de \citeonline{measuringCouplingAndCohesion} LCOM1
-eles chegam a conclusão que apesar de este cálculo ser baseado numa idéia muito
-sensata ele traz em algumas anomalias nos resultados, como no exemplo da
-figura~\ref{fig:exemplo-anomalia-lcom1}. Neste estudo os autores concluem que
-os 2 casos são igualmente não-coesivos, diferentemente do resultado obtido pelo
-cálculo de LCOM1.
+De acordo com os estudos de \citeonline{measuringCouplingAndCohesion} sobre
+LCOM1 eles chegam a conclusão que apesar deste cálculo ser baseado numa idéia
+muito sensata ele traz algumas anomalias nos resultados, como no exemplo da
+figura~\ref{fig:exemplo-anomalia-lcom1}, onde os autores concluem que os 2
+casos são igualmente não-coesivos e deveriam ter valores de LCOM iguais, mas
+o cálculo de LCOM1 traz resultados diferentes.
 
 \begin{figure}[h]
 \center
@@ -231,34 +229,34 @@ cálculo de LCOM1.
 \label{fig:exemplo-anomalia-lcom1}
 \end{figure}
 
-\citeonline{principalComponentAnalysisOfLCOM} propuseram uma melhoria deste
-cálculo e propuseram uma nova definição para LCOM: ''LCOM é o número de grupos
-de métodos locais distintos.  Cada grupo tem um ou mais métodos de classe
-locais, e ao menos 2 métodos no grupo acessam pelo menos um atributo de classe
-em comum; o número de atributos comuns varia de 0 à N (onde N é um inteiro
-maior que 0)''.
+Eles então se baseiam numa proposta de
+\citeonline{principalComponentAnalysisOfLCOM} para uma nova definição de LCOM
+que diz: ''LCOM é o número de grupos de métodos locais distintos, onde cada
+grupo tem um ou mais métodos de classe locais, e ao menos 2 desses métodos
+acessam pelo menos um atributo de classe em comum; o número de atributos comuns
+pode variar de 0 à N (onde N é um inteiro maior que 0)''.
 
-Com esta definição, um valor $K > 1$ para LCOM sinaliza a possibilidade de
-dividir X em k classes menores e mais coesivas. Aplicando esta definição aos
-casos 0, I e II acima produzem valor 2 em todos os casos de acordo com a noção
-intuitiva de coesão. Em todas instancias do caso III, o valor de LCOM é 1, que
-parece novamente ter mais sentido \cite{measuringCouplingAndCohesion}.
+Com esta definição, um valor $K > 1$ para $LCOM(X)$ sinaliza a possibilidade de
+dividir X em k módulos menores e mais coesos. Aplicando esta definição aos
+casos I e II da figura acima produzem valor 2 em todos os casos, que de acordo
+com os autores faz mais sentido\cite{measuringCouplingAndCohesion}.
 
 Com base nesta proposta de cálculo de
 \citeonline{principalComponentAnalysisOfLCOM}
-\citeonline{measuringCouplingAndCohesion} propôs uma nova definição usando uma
+\citeonline{measuringCouplingAndCohesion} propõem uma nova definição usando
 representação de teoria dos grafos, como se segue:
 
 \begin{quotation}
 Seja X uma classe, IX um grupo de variáveis de instancia de X, e MX um grupo
 de seus métodos. Considere um simples grafo indireto $GX(V, E)$, onde: $$V =
 MX$$ $$E = \{<m, n> \in V \times V \mid \exists i \in IX: (m \; acessos \; a \;
-i) (n acessos a i)\}$$ LCOM(X) é então definido como o número de componentes
+i) (n \; acessos \; a \; i)\}$$ LCOM(X) é então definido como o número de componentes
 conectados de GX $(1 \leq LCOM(X) \leq |MX|)$.
 \end{quotation}
 
-Esta proposta de LCOM é conhecida como LCOM4 e será a segunda métrica considerada
-e utilizada neste trabalho no capítulo~\ref{ch:avaliacao}.
+Esta definição por \citeonline{measuringCouplingAndCohesion} conhecida como
+LCOM4 será junto a métrica de acoplamento CBO as métricas abordadas neste
+trabalho no capítulo~\ref{ch:avaliacao}.
 
 % ----------- IMPLEMENTACAO -------------
 
