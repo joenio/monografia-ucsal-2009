@@ -1,13 +1,19 @@
 \chapter{Introdução}
 
-Arquiterura de software de um programa é a estrutura que define as propriedades
+Arquitetura de software de um programa é a estrutura que define as propriedades
 externamente visíveis e o relacionamento entre os grandes componentes
-estruturais do sistema \cite{engenhariaDeSoftwarePressman}, esta arquitetura
-pode estar ou não documentada em forma de diagramas, grafos, tabelas e etc.
+estruturais de um sistema \cite{engenhariaDeSoftwarePressman}, esta arquitetura
+pode estar ou não documentada em forma de diagramas, grafos, tabelas ou documentos.
 Todo projeto de software possui uma arquitetura implícita, ter esta arquitetura
 documentada pode ser útil para possibilitar, por exemplo, a extração de
 métricas de modularidade ou para estudar o impacto de possíveis alterações de
 um projeto \cite{mata26-terceiro-projeto-piloto}.
+
+A arquitetura de grandes projetos de software raramente são documentados e
+quando são usualmente estão desatualizados
+\cite{sourceVersusObjectCodeExtraction}, ter a arquitetura documentada e
+atualizada é importante, por exemplo, como forma apoio para os desenvolvedores
+e novos colaboradores.
 
 Existem, hoje, diversas ferramentas capazes de extrair do código fonte ou do
 código objeto a arquitetura de software de um sistema, entre as opções
@@ -31,8 +37,7 @@ seção~\ref{sec:egypt} do capítulo~\ref{ch:implementacao}.
 Essa extensão para o egypt além de possibilitar analisar projetos que não
 compilem mais trará informações mais precisas já que alguns dados importantes
 não se perderão como acontece por exemplo com macros em projetos C/C++
-\cite{sourceVersusObjectCodeExtraction} que se perdem com o extrator baseado em
-GCC\sigla{GCC}{GNU C Compiler}.
+\cite{sourceVersusObjectCodeExtraction} que se perdem durante a compilação.
 
 Este trabalho está organizado da seguinte forma. No capítulo~\ref{ch:conceitos}
 são abordados conceitos básicos de arquitetura de software e atributos de
@@ -58,28 +63,26 @@ estruturais do sistema \cite{engenhariaDeSoftwarePressman}.
 importância da arquitetura de software:
 
 \begin{itemize}
+
 \item Representações da arquitetura de software constituem um facilitador da
 comunicação entre todas as partes interessadas no desenvolvimento de um
 sistema.
+
 \item A arquitetura destaca decisões iniciais de projeto que terão um impacto
 profundo em todo o trabalho de engenharia de software que se segue.
+
 \item A arquitetura compõe uma representação de simples entendimento de como o
 sistema é estruturado e como se interrelacionam os seus componentes.
+
 \end{itemize}
 
 Apesar de Pressman, aqui, destacar apenas a importancia da arquitetura de
 software nas decisões iniciais do projeto, ela é de suma importancia durante
 todo o processo de desenvolvimento de um projeto.
 
-A arquitetura de grandes projetos de software raramente são documentados e
-quando são usualmente estão desatualizados
-\cite{sourceVersusObjectCodeExtraction}, ter a arquitetura documentada e
-atualizada é importante, por exemplo, como forma apoio para os desenvolvedores e novos
-colaboradores.
-
-Neste trabalho a extração da arquitetura de software de um programa será
-utilizada para cálculo de métricas que possibilitem avaliar a qualidade do
-sistema em relação aos seus atributos de modularidade.
+Neste trabalho a documentação da arquitetura de software de um programa será
+utilizada com o objetivo de calcular métricas que possibilitem avaliar a
+qualidade do sistema em relação aos seus atributos de modularidade.
 
 \section{Atributos de Modularidade}
 
@@ -88,51 +91,59 @@ A medição é um elemento fundamental para qualquer processo de engenharia
 poderoso de prover indicadores de modularidade da arquitetura de um sistema
 \cite{OntheModular}.
 
-%Um dos conjuntos de métricas de software OO mais amplamente referenciado foi
-Um dos conjuntos de métricas de software mais amplamente referenciado foi
-proposto por Chidamber e Kemerer \cite{engenhariaDeSoftwarePressman}, eles
-propuseram seis métricas:
+Um dos conjuntos de métricas de software OO\sigla{OO}{Orientação a Objetos}
+mais amplamente referenciado foi proposto por Chidamber e Kemerer
+\cite{engenhariaDeSoftwarePressman}, eles propuseram seis métricas:
 
 \begin{description}
-\item[WMC\sigla{WMC}{Weighted Methods per Class}] Métodos ponderados por classe (weighted methods per class).
-\item[DIT\sigla{DIT}{Depth of the Inheritance Tree}] Profundidade de árvore de herança (depth of the inheritance tree).
-\item[NOC\sigla{NOC}{Number of Children}] Número de filhos (number of children).
-\item[CBO\sigla{CBO}{Coupling Between Objects classes}] Acoplamento entre as classes de objetos (coupling between objects classes).
-\item[RFC\sigla{RFC}{Response For a Class}] Resposta de uma classe (response for a class).
-\item[LCOM\sigla{LCOM}{Lack of Cohesion in Methods}] Falta de coesão em métodos (lack of cohesion in methods).
+
+\item[WMC\sigla{WMC}{Weighted Methods per Class}]
+Métodos ponderados por classe (weighted methods per class).
+
+\item[DIT\sigla{DIT}{Depth of the Inheritance Tree}]
+Profundidade de árvore de herança (depth of the inheritance tree).
+
+\item[NOC\sigla{NOC}{Number of Children}]
+Número de filhos (number of children).
+
+\item[CBO\sigla{CBO}{Coupling Between Objects classes}]
+Acoplamento entre as classes de objetos (coupling between objects classes).
+
+\item[RFC\sigla{RFC}{Response For a Class}]
+Resposta de uma classe (response for a class).
+
+\item[LCOM\sigla{LCOM}{Lack of Cohesion in Methods}]
+Falta de coesão em métodos (lack of cohesion in methods).
+
 \end{description}
 
-Este trabalho fundamenta-se em apenas 2 das métricas acima, CBO e LCOM, que são
+Este trabalho fundamenta-se em 2 das métricas acima, CBO e LCOM, que são
 métricas que levam em consideração atributos de acoplamento e coesão.
 
 \subsection{Acoplamento}
 
 Acoplamento é a medida qualitativa de conexões entre os componentes de um
-sistema, ou simplesmente o número de colaborações entre as classes de um
-determinado programa. Ele representa o nível de interdependências entre os
-módulos de um sistema, quando maior o acoplamento maior a complexidade do
-sistema.
-
-É importante lembrar que apesar ser desejável baixo acoplamento o sistema deve
-se comunicar interna e externamente, então o acoplamento é inevitável e em
-alguns momentos não será possível diminuí-lo, nestes casos o importante é que
-o projetista entenda as implicações disso.
+sistema, ele representa o nível de interdependências entre os módulos de um
+sistema, quando maior o acoplamento maior a complexidade. Então o desejável é
+ter baixo acoplamento, mas algum acoplamento é inevitável e em alguns momentos
+não será possível diminuí-lo.
 
 A métrica para cálculo de acoplamento utilizada neste trabalho será CBO, esta
-métrica é calculada contando-se o número de colaborações de uma classe com as
-outras entidades do sistema. Na figura~\ref{fig:exemplo-cbo} a classe {\it
-module1} tem CBO = 2.
+métrica é calculada contando-se o número de colaborações de um módulo com as
+outras entidades do sistema. Na figura~\ref{fig:exemplo-cbo} tem um grafo
+simples para exemplo de cálculo desta métrica, onde {\it module1} colabora com
+{\it module2} e {\it module3}, então {\it module1} tem CBO = 2.
 
 \begin{figure}[h]
 \center
 \includegraphics[scale=0.4]{imagens/exemplo-cbo}
-\caption{Diagrama de classes exemplo para cálculo de CBO}
+\caption{Grafo de colaboração exemplo para cálculo de CBO}
 \label{fig:exemplo-cbo}
 \end{figure}
 
-Valores de CBO altos podem significar que a reusabilidade de uma classe é
+Valores de CBO altos podem significar que a reusabilidade de um módulo é
 pequena \cite{engenhariaDeSoftwarePressman}, além de implicar que a manutenção
-e os testes serão mais complexos de serem feitos. Em geral o ideal é que os
+e os testes serão mais complexos de ser feitos. Em geral o ideal é que os
 valores de CBO sejam baixos.
 
 \subsection{Coesão}
@@ -261,7 +272,8 @@ ferramentas utilizadas como base para a implementação.
 O egypt foi originalmente desenvolvido por Andreas
 Gustafsson\footnote{http://www.gson.org/egypt} com o objetivo de gerar gráficos
 de chamada entre funções de programas escritos em C, ele funciona lendo os
-arquivos intermediários gerados pelo GCC e os converte num gráfico de chamada
+
+arquivos intermediários gerados pelo GCC\sigla{GCC}{GNU C Compiler} e os converte num gráfico de chamada
 no formato usado pelo Graphviz\footnote{http://www.graphviz.org}, um programa
 para visualização de gráficos.
 
@@ -430,9 +442,9 @@ original do egypt baseado em GCC.
 
 \section{Procedimento}
 
-Em \cite{structuralComplexityEvolution} foi feita uma análise do
-{\it ristretto}\footnote{http://goodies.xfce.org/projects/applications/ristretto}, um
-Software Livre escrito em C para visualização de imagens no ambiente Desktop
+Em \cite{structuralComplexityEvolution} foi feita uma análise do {\it
+ristretto}\footnote{http://goodies.xfce.org/projects/applications/ristretto},
+um Software Livre escrito em C para visualização de imagens no ambiente Desktop
 Xfce\footnote{http://www.xfce.org}, utilizando o extrator original do egypt, as
 informações geradas por esta análise serão utilizadas aqui para comparação com
 as informações extraídas pelo novo extrator baseado no doxyparse.
@@ -518,14 +530,15 @@ encontra uma chamada do módulo {\it main\_window} para o módulo {\it main}, j�
 no Doxyparse não há nenhuma chamada para o módulo {\it main} como visto na
 figura~\ref{fig:ristretto-0.0.11-doxyparse}. 
 
-\item {\it ristretto 0.0.21} - Na figura~\ref{fig:ristretto-0.0.21} temos outra diferença interessante, o GCC
-informa que o módulo {\it save\_dialog} é chamado pelos módulos {\it main\_window},
-{\it thumbnail}, {\it navigator}, {\it picture\_viewer} e {\it thumbnail\_bar} sendo que no código
-fonte do {\it ristretto} 0.0.21 não há indícios de que todos esses módulos chamem o
-módulo {\it save\_dialog}, com exceção de {\it main\_window}. Já o Doxyparse dá uma
-informação mais coerente onde apenas {\it main\_window} chama {\it save\_dialog}, mas o
-Doxyparse dá uma informação controversa onde o {\it save\_dialog} chama
-{\it thumbnail\_bar} e isto precisa ser verificado.
+\item {\it ristretto 0.0.21} - Na figura~\ref{fig:ristretto-0.0.21} temos outra
+diferença interessante, o GCC informa que o módulo {\it save\_dialog} é chamado
+pelos módulos {\it main\_window}, {\it thumbnail}, {\it navigator}, {\it
+picture\_viewer} e {\it thumbnail\_bar} sendo que no código fonte do {\it
+ristretto} 0.0.21 não há indícios de que todos esses módulos chamem o módulo
+{\it save\_dialog}, com exceção de {\it main\_window}. Já o Doxyparse dá uma
+informação mais coerente onde apenas {\it main\_window} chama {\it
+save\_dialog}, mas o Doxyparse dá uma informação controversa onde o {\it
+save\_dialog} chama {\it thumbnail\_bar} e isto precisa ser verificado.
 
 \end{itemize}
 
@@ -533,12 +546,13 @@ Na seção~\ref{sec:discussao} discutiremos os detalhes destas diferenças entre
 
 \subsection{Métricas}
 
-Além destas diferenças nos grafos de colaboração entre o
-Doxyparse e GCC vamos verificar as métricas. Na tabela~\ref{tab:comparacao-metricas} temos resumo comparativo entre as
-métricas calculadas pelo egypt usando os extratores
-GCC e Doxyparse em cada versão do {\it ristretto}. Onde é apresentado a média de
+Além destas diferenças nos grafos de colaboração entre o Doxyparse e GCC vamos
+verificar as métricas. Na tabela~\ref{tab:comparacao-metricas} temos resumo
+comparativo entre as métricas calculadas pelo egypt usando os extratores GCC e
+Doxyparse em cada versão do {\it ristretto}. Onde é apresentado a média de
 acoplamento e falta de coesão para cada versão. A métrica utilizada aqui em em
-todo este trabalho para acoplamento e falta de coesão são LCOM4 e CBO respectivamente.
+todo este trabalho para acoplamento e falta de coesão são LCOM4 e CBO
+respectivamente.
 
 \begin{table}
 \caption{Resumo comparativo das métricas do ristretto}
@@ -592,12 +606,15 @@ esclarecer como foi corrigidas.
 
 \subsection{Grafos de colaboração}
 
-Ao verificar o código fonte do {\it ristretto} 0.0.1 na busca tentativa de descobrir a diferença demonstrada na figura~\ref{fig:ristretto-0.0.1} 
-nota-se que nenhum dos 2 módulos se referenciam, então os dois extratores estão dando informações incorretas.
+Ao verificar o código fonte do {\it ristretto} 0.0.1 na busca tentativa de
+descobrir a diferença demonstrada na figura~\ref{fig:ristretto-0.0.1} nota-se
+que nenhum dos 2 módulos se referenciam, então os dois extratores estão dando
+informações incorretas.
 
-Neste cado o problema pode estar na interpretação dos dados pelo extrator ou nos dados
-gerados pelo doxyparse. Ao investigar o problema foi possível notar que os
-dados gerados pelo doxyparse estão corretos então o problema está no extrator.
+Neste cado o problema pode estar na interpretação dos dados pelo extrator ou
+nos dados gerados pelo doxyparse. Ao investigar o problema foi possível notar
+que os dados gerados pelo doxyparse estão corretos então o problema está no
+extrator.
 
 O egypt armazena as informações usando como chave, ou seja, como identificador
 único, o nome do símbolo em questão mas alguns módulos possuem símbolos com o
@@ -615,12 +632,14 @@ grafo atualizado após esta correção.
 \label{fig:ristretto-0.0.1-doxyparse-2}
 \end{figure}
 
-Na figura~\ref{fig:ristretto-0.0.11} referente ao {\it ristretto 0.0.11} o GCC diz que o módulo main\_window chama
-main, já no Doxyparse não há esta chamada. E de fato, analisando o código fonte
-do {\it ristretto} 0.0.11 não foi encontrada nenhuma chamada de main\_window para
-main, então o Doxyparse está correto neste caso. Mas ele confunde alguns
-símbolos como na figura~\ref{fig:ristretto-0.0.1}, veja na
-figura~\ref{fig:ristretto-0.0.11-doxyparse-2} o grafo atualizado após a correção.
+Na figura~\ref{fig:ristretto-0.0.11} referente ao {\it ristretto 0.0.11} o GCC
+diz que o módulo main\_window chama main, já no Doxyparse não há esta chamada.
+E de fato, analisando o código fonte do {\it ristretto} 0.0.11 não foi
+encontrada nenhuma chamada de main\_window para main, então o Doxyparse está
+correto neste caso. Mas ele confunde alguns símbolos como na
+figura~\ref{fig:ristretto-0.0.1}, veja na
+figura~\ref{fig:ristretto-0.0.11-doxyparse-2} o grafo atualizado após a
+correção.
 
 \begin{figure}
 \center
@@ -629,9 +648,10 @@ figura~\ref{fig:ristretto-0.0.11-doxyparse-2} o grafo atualizado após a correç
 \label{fig:ristretto-0.0.11-doxyparse-2}
 \end{figure}
 
-Na seção~\ref{fig:ristretto-0.0.21} sobre a chamada a save\_dialog pelo Doxyparse isto não foi confirmado analisando o código fonte do projeto.
-Mas este problema foi causado pelo mesmo problema já corrigido nos exemplos
-citados acima para as versões 0.0.1 e 0.0.11, veja na
+Na seção~\ref{fig:ristretto-0.0.21} sobre a chamada a save\_dialog pelo
+Doxyparse isto não foi confirmado analisando o código fonte do projeto.  Mas
+este problema foi causado pelo mesmo problema já corrigido nos exemplos citados
+acima para as versões 0.0.1 e 0.0.11, veja na
 figura~\ref{fig:ristretto-0.0.21-doxyparse-2} o grafo atualizado.
 
 \begin{figure}
@@ -642,14 +662,15 @@ figura~\ref{fig:ristretto-0.0.21-doxyparse-2} o grafo atualizado.
 \end{figure}
 
 Além destas correções no extrator foi necessário corrigir no doxyparse a
-identificação dos símbolos estáticos, nesta avaliação feita com o {\it ristretto} o
-doxyparse confunde o uso do simbolo parent\_class, uma variavei estática
-definida por todos os módulos do projeto. O doxyparse registra a declaração
-deste símbolo apenas na primeira vez que é encontrado e nas ocorrências de uso
-e chamada nos diversos módulos o doxyparse faz referência ao primeiro módulo
-onde o símbolo foi encontrado. Isto foi solucionado ignorando as chamadas aos
-símbolos estáticos fora do módulo sendo analisado, ou seja, só se considera
-chamada a símbolos estaticos se eles estiverem no mesmo módulo que o simbolo.
+identificação dos símbolos estáticos, nesta avaliação feita com o {\it
+ristretto} o doxyparse confunde o uso do simbolo parent\_class, uma variavei
+estática definida por todos os módulos do projeto. O doxyparse registra a
+declaração deste símbolo apenas na primeira vez que é encontrado e nas
+ocorrências de uso e chamada nos diversos módulos o doxyparse faz referência ao
+primeiro módulo onde o símbolo foi encontrado. Isto foi solucionado ignorando
+as chamadas aos símbolos estáticos fora do módulo sendo analisado, ou seja, só
+se considera chamada a símbolos estaticos se eles estiverem no mesmo módulo que
+o simbolo.
 
 \subsection{Métricas}
 
