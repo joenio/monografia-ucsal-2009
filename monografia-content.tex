@@ -12,32 +12,24 @@ um projeto \cite{mata26-terceiro-projeto-piloto}.
 A arquitetura de grandes projetos de software raramente são documentados e
 quando são usualmente estão desatualizados
 \cite{sourceVersusObjectCodeExtraction}, ter a arquitetura documentada e
-atualizada é importante, por exemplo, como forma apoio para os desenvolvedores
-e novos colaboradores.
+atualizada é importante como forma apoio para os desenvolvedores e novos
+colaboradores, além de servir para cálculo de métricas e estudo da evolução de
+um projeto como dito acima.
 
-Existem, hoje, diversas ferramentas capazes de extrair do código fonte ou do
-código objeto a arquitetura de software de um sistema, entre as opções
+Existem hoje diversas ferramentas capazes de extrair do código fonte ou do
+código objeto a arquitetura de software de um sistema, mas entre as opções
 pesquisadas \cite{sourceVersusObjectCodeExtraction} a maioria delas faz uso do
-código objeto, ou seja, faz uso de dados resultantes da compilação do código
-fonte.
+código objeto, dados resultantes da compilação do código fonte.
 
 Uma desvantagem em se utilizar código objeto é que fica impossível
 analisar projetos que não compilem mais, seja por falhas no código ou por
-possuir dependencias não satisfeitas. Além disso algumas informações como por
-exemplo macros em projetos C/C++ são perdidas durante a
+possuir dependencias não satisfeitas, além de gerar perda de informações como por
+exemplo macros em projetos C/C++ que são descartados durante a
 compilação \cite{sourceVersusObjectCodeExtraction}.
 
-Este trabalho baseia-se na implementação de uma extensão para o egypt que
-possibilite a extração de informação de dependências entre módulos de programas
-C/C++ baseada em código fonte. O egypt é uma ferramenta originalmente escrita
-com o objetivo de gerar gráficos de chamada entre funções de programas escritos
-em C e que usa como base código objeto, ele será visto com mais detalhes na
-seção~\ref{sec:egypt} do capítulo~\ref{ch:implementacao}.
-
-Essa extensão para o egypt além de possibilitar analisar projetos que não
-compilem mais trará informações mais precisas já que alguns dados importantes
-não se perderão como acontece por exemplo com macros em projetos C/C++
-\cite{sourceVersusObjectCodeExtraction} que se perdem durante a compilação.
+Este trabalho baseia-se na implementação de uma ferramenta que possibilite a
+extração de informação de dependências entre módulos de programas C/C++ baseada
+em código fonte.
 
 Este trabalho está organizado da seguinte forma. No capítulo~\ref{ch:conceitos}
 são abordados conceitos básicos de arquitetura de software e atributos de
@@ -261,6 +253,16 @@ trabalho no capítulo~\ref{ch:avaliacao}.
 % ----------- IMPLEMENTACAO -------------
 
 \chapter{Implementação do Extrator} \label{ch:implementacao}
+
+%O egypt é uma ferramenta originalmente escrita com o objetivo
+%de gerar gráficos de chamada entre funções de programas escritos em C e que usa
+%como base código objeto, ele será visto com mais detalhes na
+%seção~\ref{sec:egypt} do capítulo~\ref{ch:implementacao}.
+
+%Essa extensão para o egypt além de possibilitar analisar projetos que não
+%compilem mais trará informações mais precisas já que alguns dados importantes
+%não se perderão como acontece por exemplo com macros em projetos C/C++
+%\cite{sourceVersusObjectCodeExtraction} que se perdem durante a compilação.
 
 Neste capítulo será apresentado como o extrator foi implementado e as
 ferramentas utilizadas como base para a implementação.
