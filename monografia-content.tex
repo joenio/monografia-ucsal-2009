@@ -531,26 +531,19 @@ figura~\ref{fig:ristretto-0.0.11-doxyparse}.
 \item {\it ristretto 0.0.21} - Na figura~\ref{fig:ristretto-0.0.21} temos outra
 diferença interessante, o GCC informa que o módulo {\it save\_dialog} é chamado
 pelos módulos {\it main\_window}, {\it thumbnail}, {\it navigator}, {\it
-picture\_viewer} e {\it thumbnail\_bar} sendo que no código fonte do {\it
-ristretto} 0.0.21 não há indícios de que todos esses módulos chamem o módulo
-{\it save\_dialog}, com exceção de {\it main\_window}. Já o Doxyparse dá uma
-informação mais coerente onde apenas {\it main\_window} chama {\it
-save\_dialog}, mas o Doxyparse dá uma informação controversa onde o {\it
-save\_dialog} chama {\it thumbnail\_bar} e isto precisa ser verificado.
+picture\_viewer} e {\it thumbnail\_bar}, já o Doxyparse na
+figura\ref{fig:ristretto-0.0.21-doxyparse} temos apenas o módulo {\it
+main\_window} chamando {\it save\_dialog}.
 
 \end{itemize}
 
-Na seção~\ref{sec:discussao} discutiremos os detalhes destas diferenças entre cada extrator.
-
 \subsection{Métricas}
 
-Além destas diferenças nos grafos de colaboração entre o Doxyparse e GCC vamos
-verificar as métricas. Na tabela~\ref{tab:comparacao-metricas} temos resumo
-comparativo entre as métricas calculadas pelo egypt usando os extratores GCC e
-Doxyparse em cada versão do {\it ristretto}. Onde é apresentado a média de
-acoplamento e falta de coesão para cada versão. A métrica utilizada aqui em em
-todo este trabalho para acoplamento e falta de coesão são LCOM4 e CBO
-respectivamente.
+O Doxyparse também gerou diferenças no cálculo de métricas pelo egypt, na
+tabela~\ref{tab:comparacao-metricas} temos resumo comparativo entre as métricas
+geradas pelos extratores GCC e Doxyparse em cada versão do {\it ristretto}.
+Nesta tabela são apresentadas a média de acoplamento (CBO) e falta de coesão
+entre métodos (LCOM4) para cada versão do ristretto.
 
 \begin{table}
 \caption{Resumo comparativo das métricas do ristretto}
@@ -587,19 +580,19 @@ Versão    & Falta de Coesão & Acoplamento    & Falta de Coesão & Acoplamento 
 \label{tab:comparacao-metricas}
 \end{table}
 
-Analisando a tabela é possível notar que o acoplamento calculado pelo Doxyparse
-se mantém menor do que o GCC em todas as versões do {\it ristretto}, já a métrica de
-Falta de Coesão LCOM4 se mantém ligeiramente maior também em todas as versões,
-embora a diferença entre o Doxyparse e GCC seja pequena neste caso.
+Analisando a tabela é possível notar que a média do acoplamento e da falta de
+coesão gerados pelo Doxyparse são menores que os valores gerados pelo GCC em
+todas as versões do {\it ristretto}.
 
-Vamos analisar e interpretar estes dados na próxima seção.
+Na seção~\ref{sec:discussao} essas diferenças entre cada extrator serão
+analisadas e interpretadas.
 
 \section{Discussão} \label{sec:discussao}
 
-Ao executar o egypt em cada versão do ristretto e analisar as diferenças entre
-os grafos de colaboração entre eles foi importante pois eu notei que após
-investigar a causa das diferenças o extrator egypt e o doxyparse precisavam de
-algumas modificações. Nesta seção vamos discutir cada uma dessas diferenças e
+A análise dos dados gerados pelo egypt para cada versão do ristretto com o foco
+nas diferenças entre os extratores foi importante pois revelou que o egypt e o
+doxyparse apresentavam alguns bugs e através desta análise foi possível
+identificar e corrigir. Nesta seção veremos cada uma dessas diferenças e
 esclarecer como foi corrigidas.
 
 \subsection{Grafos de colaboração}
@@ -609,18 +602,54 @@ descobrir a diferença demonstrada na figura~\ref{fig:ristretto-0.0.1} nota-se
 que nenhum dos 2 módulos se referenciam, então os dois extratores estão dando
 informações incorretas.
 
-Neste cado o problema pode estar na interpretação dos dados pelo extrator ou
-nos dados gerados pelo doxyparse. Ao investigar o problema foi possível notar
-que os dados gerados pelo doxyparse estão corretos então o problema está no
-extrator.
+O problema pode estar na interpretação dos dados pelo egypt ou nos dados
+gerados pelo doxyparse. Após uma verificação na saída do doxyparse, exemplo
+abaixo na figura~\ref{fig:trecho-saida-doxyparse-ristretto}, foi possível notar
+que os dados estão corretos.
+
+\begin{figure}[h]
+\begin{Verbatim}[frame=single,fontsize=\relsize{-3},fontfamily=courier]
+module main.c
+   variable mime_dbase in line 28
+   variable window_fullscreen in line 86
+   variable viewer_scale in line 87
+   variable menu_bar in line 88
+   variable image_tool_bar in line 89
+   variable app_tool_bar in line 90
+   variable status_bar in line 91
+   variable playing in line 92
+   variable menu_item_play in line 93
+   variable menu_item_pause in line 94
+   variable main_hbox in line 96
+   variable main_vbox1 in line 97
+   variable thumbnail_viewer in line 98
+   variable recent_manager in line 99
+   variable xfce_rc in line 100
+   variable thumbnail_viewer_orientation in line 101
+   function cb_rstto_zoom_fit in line 31
+      uses function rstto_picture_viewer_fit_scale defined in picture_viewer.c
+   function cb_rstto_zoom_100 in line 33
+      uses function rstto_picture_viewer_set_scale defined in picture_viewer.c
+   function cb_rstto_zoom_in in line 35
+      uses function rstto_picture_viewer_get_scale defined in picture_viewer.c
+      uses function rstto_picture_viewer_set_scale defined in picture_viewer.c
+   function cb_rstto_zoom_out in line 37
+      uses function rstto_picture_viewer_get_scale defined in picture_viewer.c
+      uses function rstto_picture_viewer_set_scale defined in picture_viewer.c
+\end{Verbatim}
+\caption{Trecho de saída do doxyparse para o ristretto 0.0.1}
+\label{fig:trecho-saida-doxyparse-ristretto}
+\end{figure}
+
+Então o problema está na interpretação do egypt aos dados gerados pelo doxyparse.
 
 O egypt armazena as informações usando como chave, ou seja, como identificador
 único, o nome do símbolo em questão mas alguns módulos possuem símbolos com o
 mesmo nome, isto faz com que o egypt confunda o uso e chamada destes símbolos.
 
 A solução adotada para este problema foi armazenar o nome do módulo junto ao
-nome do símbolo, por exemplo ao invés de guardar apenas parent\_class guarda-se
-main::parent\_class. Na figura \ref{fig:ristretto-0.0.1-doxyparse-2} temos o
+nome do símbolo, por exemplo ao invés de guardar apenas {\it parent\_class} guarda-se
+{\it main::parent\_class}. Na figura \ref{fig:ristretto-0.0.1-doxyparse-2} temos o
 grafo atualizado após esta correção.
 
 \begin{figure}[h]
@@ -646,8 +675,12 @@ correção.
 \label{fig:ristretto-0.0.11-doxyparse-2}
 \end{figure}
 
-Na seção~\ref{fig:ristretto-0.0.21} sobre a chamada a save\_dialog pelo
-Doxyparse isto não foi confirmado analisando o código fonte do projeto.  Mas
+Na figura~\ref{fig:ristretto-0.0.21} onde o GCC diz que o módulo {\it
+save\_dialog} é referenciado por vários outros analisando o código fonte do
+ristretto 0.0.21 não foi encontrada essas chamadas, então o Doxyparse está
+correto ao identificar que o {\it save\_dialog} é chamado apenas por {\it
+main\_window}. Mas sobre a chamada de {\it save\_dialog} para {\it
+thumbnail\_bar} está incorreta, não há esta chamada nos fontes do projeto. Mas
 este problema foi causado pelo mesmo problema já corrigido nos exemplos citados
 acima para as versões 0.0.1 e 0.0.11, veja na
 figura~\ref{fig:ristretto-0.0.21-doxyparse-2} o grafo atualizado.
@@ -659,16 +692,16 @@ figura~\ref{fig:ristretto-0.0.21-doxyparse-2} o grafo atualizado.
 \label{fig:ristretto-0.0.21-doxyparse-2}
 \end{figure}
 
-Além destas correções no extrator foi necessário corrigir no doxyparse a
-identificação dos símbolos estáticos, nesta avaliação feita com o {\it
-ristretto} o doxyparse confunde o uso do simbolo parent\_class, uma variavei
-estática definida por todos os módulos do projeto. O doxyparse registra a
-declaração deste símbolo apenas na primeira vez que é encontrado e nas
-ocorrências de uso e chamada nos diversos módulos o doxyparse faz referência ao
-primeiro módulo onde o símbolo foi encontrado. Isto foi solucionado ignorando
-as chamadas aos símbolos estáticos fora do módulo sendo analisado, ou seja, só
-se considera chamada a símbolos estaticos se eles estiverem no mesmo módulo que
-o simbolo.
+Além destas correções no egypt foi necessário corrigir no doxyparse a
+identificação de símbolos estáticos, nesta avaliação feita com o {\it
+ristretto} o doxyparse apresentou problemas com o uso do simbolo parent\_class,
+uma variável estática definida por todos os módulos do projeto. O doxyparse
+registra a declaração deste símbolo apenas na primeira vez que é encontrado e
+nas ocorrências de uso e chamada nos diversos módulos o doxyparse faz
+referência ao primeiro módulo onde o símbolo foi encontrado. Isto foi
+solucionado ignorando as chamadas aos símbolos estáticos fora do módulo sendo
+analisado, só se considera chamada a símbolos estáticos se eles estiverem no
+mesmo módulo que o símbolo.
 
 \subsection{Métricas}
 
