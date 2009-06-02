@@ -117,14 +117,17 @@ métricas que levam em consideração atributos de acoplamento e coesão.
 Acoplamento é a medida qualitativa de conexões entre os componentes de um
 sistema, ele representa o nível de interdependências entre os módulos de um
 sistema, quando maior o acoplamento maior a complexidade. Então o desejável é
-ter baixo acoplamento, mas algum acoplamento é inevitável e em alguns momentos
-não será possível diminuí-lo.
+ter baixo acoplamento.
 
-A métrica para cálculo de acoplamento utilizada neste trabalho será CBO, esta
-métrica é calculada contando-se o número de colaborações de um módulo com as
-outras entidades do sistema. Na figura~\ref{fig:exemplo-cbo} tem um grafo
-simples para exemplo de cálculo desta métrica, onde {\it module1} colabora com
-{\it module2} e {\it module3}, então {\it module1} tem CBO = 2.
+% mas algum acoplamento é inevitável e em alguns momentos não será possível diminuí-lo.
+
+
+A métrica para cálculo de acoplamento utilizada neste trabalho será CBO
+(acoplamento entre as classes de objetos), esta métrica é calculada contando-se
+o número de colaborações de um módulo com as outras entidades do sistema.  Um
+grafo simples para exemplo de cálculo desta métrica é apresentado na
+figura~\ref{fig:exemplo-cbo}, onde {\it module1} colabora com {\it module2} e
+{\it module3}, então $CBO(module1) = 2$.
 
 \begin{figure}[h]
 \center
@@ -146,15 +149,16 @@ coesão da seguinte forma: ''{\it coesão} implica que um componente ou classe
 encapsule somente os atributos e operações muito relacionados entre si e com a
 classe ou componente propriamente dito''.
 
-A métrica utilizada neste trabalho será a falta de coesão em métodos ({\it lack
-of cohesion in methods} - LCOM), proposta por \citeonline{aMetricsSuiteForOO}.
-LCOM é a diferença entre o número de métodos num mesmo componente que
-compartilham atributos e o número de métodos que não compartilham
-atributos, se nenhum método compartilha atributos então LCOM é 0. Na
-figura~\ref{fig:exemplo-lcom} a classe {\it module1} tem $LCOM = 2 - 1 = 1$, a
-variável {\it nome} é compartilhada entre os métodos {\it imprime} e {\it
-exporta} e o método {\it aniversario} não compartilha nenhuma variável com
-nenhum outro método.
+A métrica para cálculo de coesão utilizada neste trabalho será LCOM (falta de
+coesão em métodos), proposta por \citeonline{aMetricsSuiteForOO}. LCOM é a
+diferença entre o número de métodos num mesmo componente que compartilham
+atributos e o número de métodos que não compartilham atributos, se nenhum
+método compartilha atributos então $LCOM = 0$.
+
+Um exemplo da representação interna de {\it module1} é demonstrada na
+figura~\ref{fig:exemplo-lcom}, onde a variável {\it nome} é compartilhada entre
+os métodos {\it imprime} e {\it exporta} e o método {\it aniversario} não
+compartilha nenhuma variável com outro método, então $LCOM = 2 - 1 = 1$.
 
 \begin{figure}[h]
 \center
@@ -181,19 +185,18 @@ incluindo a definição original são \cite{principalComponentAnalysisOfLCOM}:
 \item A redefinição da proposta original pelos próprios Chidamber and Kemerer - LCOM?.
 \end{itemize}
 
-A definição original por \citeonline{principalComponentAnalysisOfLCOM},
-conhecida como LCOM1, após sua publicação recebeu algumas críticas, uma delas
-feita por \citeonline{aCritiqueOfCohesion} onde diz: ''LCOM1 não é um caminho
-válido para medir coesão de classes, sua definição é baseada em iterações entre
-método e dados, o que pode não ser um bom caminho para definir coesão no mundo
-da orientação a objetos. Além disso, para classes muito diferentes ela dar
+Uma das criticas ao LCOM de \citeonline{aMetricsSuiteForOO} foi feita por
+\citeonline{aCritiqueOfCohesion} onde ele diz: ''LCOM1 não é um caminho válido
+para medir coesão de classes, sua definição é baseada em iterações entre método
+e dados, o que pode não ser um bom caminho para definir coesão no mundo da
+orientação a objetos. Além disso, para classes muito diferentes são dados
 valores de LCOM1 iguais''.
 
 LCOM1 é calculado da seguinte forma, considere C1 uma classe com M1, M2,
 \ldots, Mn métodos e Ii o conjunto de atributos (variábeis de instancia) de C1
 sendo usado pelo método Mi. Para cada método Mi de C1 deve existir um grupo de
 atributos Ii correspondente. LCOM é Número distinto de grupos formados pela
-intersecção dos 'n' conjuntos.
+intersecção dos 'n' conjuntos de Ii.
 
 \begin{figure}[h]
 \center
@@ -204,15 +207,15 @@ intersecção dos 'n' conjuntos.
 
 Por exemplo, na classe da figura~\ref{fig:exemplo-lcom1}, existem 2 pares de
 métodos que não compartilham nenhuma variável ($<f, g>$ e $<f, h>$) e
-exatamente um par que compartilha a variável E ($<g, h>$). Portanto, LCOM1 é $2
+exatamente um par que compartilha a variável E ($<g, h>$). Portanto, $LCOM1 = 2
 - 1 = 1$.
 
-De acordo com os estudos de \citeonline{measuringCouplingAndCohesion} sobre
-LCOM1 eles chegam a conclusão que apesar deste cálculo ser baseado numa idéia
-muito sensata ele traz algumas anomalias nos resultados, como no exemplo da
+\citeonline{measuringCouplingAndCohesion} fizeram estudos sobre
+LCOM1 e chegaram a conclusão que apesar do cálculo ser baseado numa idéia
+muito sensata ele traz algumas anomalias nos resultados, como exemplifica a
 figura~\ref{fig:exemplo-anomalia-lcom1}, onde os autores concluem que os 2
-casos são igualmente não-coesivos e deveriam ter valores de LCOM iguais, mas
-o cálculo de LCOM1 traz resultados diferentes.
+casos são igualmente não-coesos e deveriam ter valores de LCOM iguais, mas
+o cálculo de LCOM1 traz resultados diferentes como mostra a figura.
 
 \begin{figure}[h]
 \center
@@ -221,21 +224,21 @@ o cálculo de LCOM1 traz resultados diferentes.
 \label{fig:exemplo-anomalia-lcom1}
 \end{figure}
 
-Eles então se baseiam numa proposta de
-\citeonline{principalComponentAnalysisOfLCOM} para uma nova definição de LCOM
+Eles então basearam-se na proposta de
+\citeonline{principalComponentAnalysisOfLCOM} para cálculo de LCOM
 que diz: ''LCOM é o número de grupos de métodos locais distintos, onde cada
 grupo tem um ou mais métodos de classe locais, e ao menos 2 desses métodos
 acessam pelo menos um atributo de classe em comum; o número de atributos comuns
 pode variar de 0 à N (onde N é um inteiro maior que 0)''.
 
-Com esta definição, um valor $K > 1$ para $LCOM(X)$ sinaliza a possibilidade de
-dividir X em k módulos menores e mais coesos. Aplicando esta definição aos
-casos I e II da figura acima produzem valor 2 em todos os casos, que de acordo
-com os autores faz mais sentido\cite{measuringCouplingAndCohesion}.
+Com esta definição, um valor $k > 1$ para $LCOM(X)$ sinaliza a possibilidade de
+dividir $X$ em $k$ módulos menores e mais coesos. Aplicando esta definição aos
+casos I e II da figura acima produzem valor 2 para os dois casos, que de acordo
+com \citeonline{measuringCouplingAndCohesion} faz mais sentido.
 
 Com base nesta proposta de cálculo de
-\citeonline{principalComponentAnalysisOfLCOM}
-\citeonline{measuringCouplingAndCohesion} propõem uma nova definição usando
+\citeonline{principalComponentAnalysisOfLCOM},
+\citeonline{measuringCouplingAndCohesion} propuseram uma nova definição usando
 representação de teoria dos grafos, como se segue:
 
 \begin{quotation}
@@ -246,36 +249,27 @@ i) (n \; acessos \; a \; i)\}$$ LCOM(X) é então definido como o número de com
 conectados de GX $(1 \leq LCOM(X) \leq |MX|)$.
 \end{quotation}
 
-Esta definição por \citeonline{measuringCouplingAndCohesion} conhecida como
-LCOM4 será junto a métrica de acoplamento CBO as métricas abordadas neste
-trabalho no capítulo~\ref{ch:avaliacao}.
+Esta definição de \citeonline{measuringCouplingAndCohesion} para coesão
+conhecida como LCOM4 será junto a métrica de acoplamento CBO por
+\citeonline{aMetricsSuiteForOO} as duas métricas abordadas neste trabalho no
+capítulo~\ref{ch:avaliacao}.
 
 % ----------- IMPLEMENTACAO -------------
 
 \chapter{Implementação do Extrator} \label{ch:implementacao}
 
-%O egypt é uma ferramenta originalmente escrita com o objetivo
-%de gerar gráficos de chamada entre funções de programas escritos em C e que usa
-%como base código objeto, ele será visto com mais detalhes na
-%seção~\ref{sec:egypt} do capítulo~\ref{ch:implementacao}.
-
-%Essa extensão para o egypt além de possibilitar analisar projetos que não
-%compilem mais trará informações mais precisas já que alguns dados importantes
-%não se perderão como acontece por exemplo com macros em projetos C/C++
-%\cite{sourceVersusObjectCodeExtraction} que se perdem durante a compilação.
-
-Neste capítulo será apresentado como o extrator foi implementado e as
-ferramentas utilizadas como base para a implementação.
+Neste capítulo será apresentado como o extrator foi implementado e quais
+ferramentas foram utilizadas como base para a implementação.
 
 \section{egypt} \label{sec:egypt}
 
 O egypt foi originalmente desenvolvido por Andreas
 Gustafsson\footnote{http://www.gson.org/egypt} com o objetivo de gerar gráficos
 de chamada entre funções de programas escritos em C, ele funciona lendo os
-
-arquivos intermediários gerados pelo GCC\sigla{GCC}{GNU C Compiler} e os converte num gráfico de chamada
-no formato usado pelo Graphviz\footnote{http://www.graphviz.org}, um programa
-para visualização de gráficos.
+arquivos intermediários gerados pelo GCC\sigla{GCC}{GNU C Compiler} e os
+converte num gráfico de chamada no formato usado pelo
+Graphviz\footnote{http://www.graphviz.org}, um programa para visualização de
+gráficos.
 
 O egypt é Software Livre e em Janeiro de 2009 começou a ser restruturado por
 Antonio Terceiro o qual o tem mantido
@@ -296,6 +290,7 @@ Segue abaixo como ficou estruturado o egypt após a refatoração:
 
 \begin{description}
 \item[egypt] Script principal
+\item[egypt-metrics] Script para extração de métricas
 \item[Egypt::Extractor] Extrator baseado nos arquivos intermediários do GCC
 \item[Egypt::Metrics] Gera relatório de métricas com os dados do Egypt::Model
 \item[Egypt::Model] Armazena os dados obtidos pelo extrator
@@ -308,6 +303,12 @@ Segue abaixo como ficou estruturado o egypt após a refatoração:
 \caption{Fluxograma de funcionamento do egypt}
 \label{egypt-fluxogram}
 \end{figure}
+
+
+%Essa extensão para o egypt além de possibilitar analisar projetos que não
+%compilem mais trará informações mais precisas já que alguns dados importantes
+%não se perderão como acontece por exemplo com macros em projetos C/C++
+%\cite{sourceVersusObjectCodeExtraction} que se perdem durante a compilação.
 
 No fluxograma da figura~\ref{egypt-fluxogram} temos o seguinte: Egypt::Model é
 alimentado com informações sobre declaração e uso de símbolos extraídos pelo
