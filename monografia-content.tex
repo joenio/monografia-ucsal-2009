@@ -705,16 +705,14 @@ mesmo módulo que o símbolo.
 
 \subsection{Métricas}
 
-Analisando a tabela~\ref{tab:comparacao-metricas}  é possível notar que o
-acoplamento calculado pelo Doxyparse se mantém menor do que o GCC em todas as
-versões do {\it ristretto}, já a métrica de Falta de Coesão LCOM4 se mantém
-ligeiramente maior também em todas as versões, embora a diferença entre o
-Doxyparse e GCC seja pequena neste caso.
+Analisando a tabela~\ref{tab:comparacao-metricas} é possível notar que o
+acoplamento calculado com base no Doxyparse se mantém menor do que o cálculo
+baseado no GCC em todas as versões do {\it ristretto}, já a métrica de falta de
+coesão (LCOM4) se mantém ligeiramente maior também em todas as versões.
 
-Qual será a causa destas diferenças? Vamos tentar explicar! Vamos analisar os
-dados de cada módulo do {\it ristretto} 0.0.1. Na
-tabela~\ref{tab:comparacao-metricas-ristretto-0.0.1} a métrica utilizada na
-coluna falda de coesão é LCOM4.
+Na tabela~\ref{tab:comparacao-metricas-ristretto-0.0.1} estão as métricas de
+cada módulo do {\it ristretto} 0.0.1. Esta versão será utilizada como estudo de
+caso para verificar as diferenças encontradas entre os dois extratores.
 
 \begin{table}
 \caption{Métricas do ristretto 0.0.1}
@@ -734,70 +732,69 @@ thumbnail\_viewer & 3               & 3              & 3               & 1      
 \label{tab:comparacao-metricas-ristretto-0.0.1}
 \end{table}
 
-A diferença entre o acoplamento do módulo {\it navigator} é claramente
-verificado pela figura~\ref{fig:ristretto-0.0.1-doxyparse-2} onde verifica-se
-que este módulo não chama nenhum outro módulo.
+A diferença no acoplamento do módulo {\it navigator} entre o Doxyparse e o GCC
+é claramente verificado pela figura~\ref{fig:ristretto-0.0.1-doxyparse-2} onde
+verifica-se que este módulo não chama nenhum outro módulo, portanto tem
+acoplamento igual a 0 (zero).
 
 O GCC diz que o módulo {\it main} tem acoplamento igual a 4, mas o grafo de
 colaboração do ristretto 0.0.1 na figura~\ref{fig:ristretto-0.0.1-gcc} não
-apresenta colaboração com 4 módulos, apenas com 3 e deacordo com o cálculo de
-acoplamento utilizado aqui CBO, onde o acoplamento de um dado módulo é o número
-de outros módulos com os quais ele colabora, esta informação está incorreta.
-Mas o é importante saber porque o Doxyparse está correto e o GCC não, já que o
-cálculo é feito da mesma maneira para os dois e o grafo de colaboracao também
-estão iguais.
+apresenta colaboração com 4 módulos, mas sim com 3 e de acordo com o cálculo de
+acoplamento, onde o acoplamento de um dado módulo é o número de outros módulos
+com os quais ele colabora, esta informação está incorreta.
 
-Avaliando o Egypt::Metrics, que é a classe responsavel pelo cálculo de métricas
-no egypt verifiquei que o cálculo para acoplamento estava considerando métodos
-externos, ou seja, métodos que são definidos fora do projeto, como chamadas a
-métodos GTK\sigla{GTK}{GIMP Tool Kit} por exemplo. E o Doxyparse não foi
-afetado por isto pois as chamadas a métodos externos são desconsideradas pelo
-doxyparse.
+Avaliando o módulo do egypt responsável pelo cálculo de métricas verificou-se
+que o cálculo de acoplamento estava errado, pois considerava métodos externos e
+não deveria, ou seja, métodos que são definidos fora do projeto, como chamadas
+a métodos GTK\sigla{GTK}{GIMP Tool Kit} por exemplo. O Doxyparse não foi
+afetado por este erro pois a chamada a métodos externos são desconsiderados
+pelo doxyparse.
 
-O Egypt::Metrics foi alterado para considerar apenas métodos definidos no
-projeto e o valor de acoplamento para o módulo main após a alteração ficou
-certo, CBO(main) = 3. Esta correção corrigiram também as diferenças para
-acoplamento dos outros módulos.
+O egypt foi alterado para considerar apenas métodos definidos no projeto e o
+valor de acoplamento para o módulo main após a alteração ficou correto. Esta
+correção corrigiu também as diferenças para acoplamento dos módulos
+picture\_viewer e thumbnail\_viewer.
 
-A diferença para o valor de falta de coesão não identificado.
+%A diferença para o valor de falta de coesão não identificado.
 
 \chapter{Conclusão} \label{ch:conclusao}
 
 Os resultados obtidos foram satisfatórios e atingiram o objetivo inicial que
 foi possibilitar extração de dados sem necessidade de compilar o software em
-questão, algumas melhorias foram implementadas no egypt, um novo extrator e
-correção de alguns bugs. Foi criada uma nova ferramenta baseada no Doxygen
-chamada doxyparse para análise de código fonte de programas C/C++ em busca de
-informação de colaboração entre os módulos do programa.
+questão, além do novo extrator o egypt ganhou algumas melhorias e correção de
+bugs.
+
+Além dos resultados práticos com a implementação a extração de informações do
+ristretto possibilitou uma visão geral da evolução do projeto e de seus níveis
+de acoplamento e coesão.
 
 No anexo~\ref{ch:evolucao} é possível verificar a evolução da arquitetura do
 ristretto em cada versão, é possível notar que em alguns momentos a arquitetura
 do projeto sofre mudanças estruturais pelo surgimento de novos módulos, e em
 outros momentos a evolução de uma versão a outra permanece inalterada apenas
 com mudanças internas nos módulos onde o que se altera é apenas o número de
-colaborações entre os módulos.
+colaboração entre os módulos existentes.
 
 \section{Trabalhos futuros}
 
 \begin{description}
 
-\item[Testar egypt com outras linguagens além de C/C++]
-O Doxygen suporta várias linguagens além de C/C++, testar o extrator Doxyparse
-em projetos escritos nessas linguagens e verificar se o egypt e o doxyparse
-funcionam bem e se necessário corrigir as falhas para que funcionem.
+\item[Testar egypt em outras linguagens de programação]
+O Doxygen suporta várias linguagens de programação além de C/C++. Testar o
+extrator Doxyparse em projetos escritos nessas linguagens e verificar se o
+egypt e o doxyparse funcionam bem.
 
-\item[Extrator baseado em Natural Docs]
-Implementar novo extrator baseado em Natural
-Docs\footnote{http://www.naturaldocs.org/}, uma ferramenta semelhante ao
-Doxygen implementada em Perl com suporte a algumas linguagens, como Perl, Ruby
-e ActionScript, não suportadas pelo Doxygen.
+\item[Implementar novo extrator baseado em Natural Docs]
+O Natural Docs\footnote{http://www.naturaldocs.org/} é uma ferramenta
+semelhante ao Doxygen implementada em Perl com suporte a algumas linguagens não
+suportadas pelo Doxygen como Perl, Ruby e ActionScript.
 
 \item[Implementar no doxyparse detecção de chamada indireta]
 O doxyparse identifica chamadas indiretas mas não as diferencia de chamadas
 diretas.
 
 \item[Armazenar símbolos externos ao projeto]
-Os símbolos externos encontrados pelo doxyparse são descartados completamente,
+Os símbolos externos encontrados pelo doxyparse são completamente descartados,
 é importante ter estas referencias para calcular outros tipos de métricas.
 
 \end{description}
