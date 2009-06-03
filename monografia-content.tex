@@ -168,30 +168,31 @@ compartilha nenhuma variável com outro método, então $LCOM = 2 - 1 = 1$.
 \label{fig:exemplo-lcom}
 \end{figure}
 
-LCOM mede a falta de
-coesão, então valores baixos significam boa coesão, e valores altos significam
-que métodos podem estar acoplados uns aos outros através de atributos, e que é
-melhor dividir o módulo em submódulos\cite{observationsOnLCOM}.
+LCOM mede a falta de coesão, então valores baixos significam boa coesão, e
+valores altos significam que métodos podem estar acoplados uns aos outros
+através de atributos, e que é melhor dividir o módulo em
+submódulos\cite{observationsOnLCOM}.
 
-Após a publicação de \citeonline{aMetricsSuiteForOO} para o cálculo de LCOM vários
-autores propuseram modificações e melhorias deste método, as mais significantes
-incluindo a definição original são \cite{principalComponentAnalysisOfLCOM}:
+Após a publicação de \citeonline{aMetricsSuiteForOO} para o cálculo de LCOM
+vários autores propuseram modificações e melhorias deste método, as mais
+significantes incluindo a definição original são
+\cite{principalComponentAnalysisOfLCOM}:
 
 \begin{itemize}
-\item A definição original por \citeonline{aMetricsSuiteForOO} - LCOM1;
-\item A definição de \citeonline{maintenanceMetricsObjectOriented} - LCOM?;
-\item A redefinição do LCOM de Li e Henry por \citeonline{measuringCouplingAndCohesion} - LCOM4; e
-\item A redefinição da proposta original pelos próprios Chidamber e Kemerer - LCOM?.
+\item A definição original por \citeonline{aMetricsSuiteForOO};
+\item A definição de \citeonline{maintenanceMetricsObjectOriented};
+\item A redefinição do LCOM de Li e Henry por \citeonline{measuringCouplingAndCohesion}; e
+\item A redefinição da proposta original pelos próprios Chidamber e Kemerer.
 \end{itemize}
 
 Uma das criticas ao LCOM de \citeonline{aMetricsSuiteForOO} foi feita por
-\citeonline{aCritiqueOfCohesion} onde ele diz: ''LCOM1 não é um caminho válido
+\citeonline{aCritiqueOfCohesion} onde ele diz: ''LCOM não é um caminho válido
 para medir coesão de classes, sua definição é baseada em iterações entre método
 e dados, o que pode não ser um bom caminho para definir coesão no mundo da
 orientação a objetos. Além disso, para classes muito diferentes são dados
-valores de LCOM1 iguais''.
+valores de LCOM iguais''.
 
-LCOM1 é calculado da seguinte forma, considere C1 uma classe com M1, M2,
+LCOM é calculado da seguinte forma, considere C1 uma classe com M1, M2,
 \ldots, Mn métodos e Ii o conjunto de atributos (variábeis de instancia) de C1
 sendo usado pelo método Mi. Para cada método Mi de C1 deve existir um grupo de
 atributos Ii correspondente. LCOM é Número distinto de grupos formados pela
@@ -200,35 +201,35 @@ intersecção dos 'n' conjuntos de Ii.
 \begin{figure}[h]
 \center
 \includegraphics[scale=0.4]{imagens/exemplo-lcom1-hitz-e-montazeri}
-\caption{Exemplo LCOM1 \cite{measuringCouplingAndCohesion}}
+\caption{Exemplo LCOM \cite{measuringCouplingAndCohesion}}
 \label{fig:exemplo-lcom1}
 \end{figure}
 
 Por exemplo, na classe da figura~\ref{fig:exemplo-lcom1}, existem 2 pares de
 métodos que não compartilham nenhuma variável ($<f, g>$ e $<f, h>$) e
-exatamente um par que compartilha a variável E ($<g, h>$). Portanto, $LCOM1 = 2
+exatamente um par que compartilha a variável E ($<g, h>$). Portanto, $LCOM = 2
 - 1 = 1$.
 
 \citeonline{measuringCouplingAndCohesion} fizeram estudos sobre
-LCOM1 e chegaram a conclusão que apesar do cálculo ser baseado numa idéia
+LCOM e chegaram a conclusão que apesar do cálculo ser baseado numa idéia
 muito sensata ele traz algumas anomalias nos resultados, como exemplifica a
 figura~\ref{fig:exemplo-anomalia-lcom1}, onde os autores concluem que os 2
 casos são igualmente não-coesos e deveriam ter valores de LCOM iguais, mas
-o cálculo de LCOM1 traz resultados diferentes como mostra a figura.
+o cálculo de LCOM traz resultados diferentes como mostra a figura.
 
 \begin{figure}[h]
 \center
 \includegraphics[scale=0.4]{imagens/exemplo-anomalia-lcom1-hitz-e-montazeri}
-\caption{Exemplo anomalia LCOM1 \cite{measuringCouplingAndCohesion}}
+\caption{Exemplo anomalia LCOM \cite{measuringCouplingAndCohesion}}
 \label{fig:exemplo-anomalia-lcom1}
 \end{figure}
 
 Eles então basearam-se na idéia de
-\citeonline{principalComponentAnalysisOfLCOM} para cálculo de LCOM
-que diz: ''LCOM é o número de grupos de métodos locais distintos, onde cada
-grupo tem um ou mais métodos de classe locais, e ao menos 2 desses métodos
-acessam pelo menos um atributo de classe em comum; o número de atributos comuns
-pode variar de 0 à N (onde N é um inteiro maior que 0)''.
+\citeonline{principalComponentAnalysisOfLCOM} para cálculo de LCOM que diz:
+''LCOM é o número de grupos de métodos locais distintos, onde cada grupo tem um
+ou mais métodos de classe locais, e ao menos 2 desses métodos acessam pelo
+menos um atributo de classe em comum; o número de atributos comuns pode variar
+de 0 à N (onde N é um inteiro maior que 0)''.
 
 Com esta definição, um valor $k > 1$ para $LCOM(X)$ sinaliza a possibilidade de
 dividir $X$ em $k$ módulos menores e mais coesos. Aplicando esta definição aos
@@ -256,7 +257,7 @@ capítulo~\ref{ch:avaliacao}.
 \chapter{Implementação do Extrator} \label{ch:implementacao}
 
 Neste capítulo será apresentado como o extrator foi implementado e quais
-ferramentas foram utilizadas como base para a implementação.
+ferramentas foram utilizadas como base para a sua implementação.
 
 \section{egypt} \label{sec:egypt}
 
@@ -300,11 +301,6 @@ Segue abaixo como ficou estruturado o egypt após a refatoração:
 \caption{Fluxograma de funcionamento do egypt}
 \label{egypt-fluxogram}
 \end{figure}
-
-%Essa extensão para o egypt além de possibilitar analisar projetos que não
-%compilem mais trará informações mais precisas já que alguns dados importantes
-%não se perderão como acontece por exemplo com macros em projetos C/C++
-%\cite{sourceVersusObjectCodeExtraction} que se perdem durante a compilação.
 
 No fluxograma da figura~\ref{egypt-fluxogram} temos o seguinte: Egypt::Model é
 alimentado com informações sobre declaração e uso de símbolos extraídos pelo
@@ -359,13 +355,14 @@ extrair o uso de símbolos como funções e variáveis, que é o objetivo deste
 projeto, mas não possibilita que a saída gerada seja customizada, apenas
 oferece opções específicas como PDF e HTML por exemplo. É necessário então
 adaptar o Doxygen para gerar uma saída num formato específico e apenas com as
-informações necessárias, para isto foi criado o doxyparse, um parser capaz de
-analisar códigos C/C++ e identificar onde é declarado e utilizado cada símbolo
+informações necessárias, para isto foi criado o
+doxyparse\footnote{http://gitorious.org/doxygen/}, um parser capaz de analisar
+códigos C/C++ e identificar onde é declarado e utilizado cada símbolo
 encontrado no código fonte.
 
-Seguindo a interface CodeOutputInterface foi possível reaproveitar no doxyparse
-todo o poder que o Doxygen fornece e gerar a saída da forma desejada. Na
-figura~\ref{doxyparse-diagram} temos um diagrama representando esta
+Seguindo a interface {\it CodeOutputInterface} foi possível reaproveitar no
+doxyparse todo o poder que o Doxygen fornece e gerar a saída da forma desejada.
+Na figura~\ref{doxyparse-diagram} temos um diagrama representando esta
 implementação.
 
 \begin{figure}[h]
@@ -376,18 +373,17 @@ implementação.
 \end{figure}
 
 O doxyparse então reaproveita os recursos existentes no Doxygen para fazer a
-análise de código e gerar uma saída que será, então, lida pelo extrator a ser
-implementado no egypt. Ele redefine algums parâmetros de configuração do
-Doxygen para obter o comportamento desejado, como: analisar diretórios
-recursivamente, não gerar saida em \LaTeX ou HTML, extrair tanta informação
-quanto possível do código fonte, extrair informação de colaboração entre
-módulos e não gerar mensagens de aviso.
+análise de código e gerar uma saída para o extrator a ser implementado no
+egypt. Ele redefine algums parâmetros de configuração do Doxygen para obter o
+comportamento desejado, como: analisar diretórios recursivamente, não gerar
+saida em \LaTeX ou HTML, extrair tanta informação quanto possível do código
+fonte, extrair informação de colaboração entre módulos e não gerar mensagens de
+aviso.
 
 O doxyparse faz então a análise dos fontes de um diretorio ou arquivo(s)
 passados como parâmetro via linha de comando e extrai destes fontes os símbolos
-encontrados e gera uma saída num formato específico que será lida
-pelo extrator no egypt. Na figura~\ref{exemplo-saida-doxyparse} tem um exemplo
-desta saída.
+encontrados e gera uma saída num formato específico que será lida pelo egypt, a
+figura~\ref{exemplo-saida-doxyparse} apresenta um exemplo desta saída.
 
 \begin{figure}[h]
 \begin{Verbatim}[frame=single,fontsize=\relsize{-2},fontfamily=courier]
@@ -404,14 +400,15 @@ module module1.c
 
 Com a saída gerada pelo doxyparse o egypt precisa agora de um extrator que
 entenda estes dados, extraia as informações sobre os símbolos e gere uma saída no
-formato do Graphviz que irá então gerar o gráfico de chamada entre os módulos.
+formato do Graphviz que irá então gerar o grafo de colaboração entre os módulos.
 
-O extrator atual do egypt, Egypt::Extractor, entende apenas arquivos
+O extrator atual do egypt, {\it Egypt::Extractor}, entende apenas arquivos
 intermediários gerados pelo GCC e não é capaz de entender a saída da
 figura~\ref{exemplo-saida-doxyparse} gerada pelo doxyparse. Para isto é
 necessário refatorar a atual implementação do egypt para possibilitar a
-implementação de um novo extrator. Na figura~\ref{egypt-diagram-extractor} está
-o desenho desta nova estrutura.
+implementação de um novo extrator que entenda esta saída. Na
+figura~\ref{egypt-diagram-extractor} está o desenho desta nova estrutura após a
+refatoração.
 
 \begin{figure}[h]
 \center
@@ -547,10 +544,10 @@ main\_window} para {\it save\_dialog}.
 
 \subsection{Métricas}
 
-O Doxyparse também gerou diferenças em relação ao GCC no cálculo das métricas,
-na tabela~\ref{tab:comparacao-metricas} é apresentado um resumo comparativo
-entre as métricas de coesão (LCOM4) e acoplamento (CBO) gerados por cada
-extrator para cada versão do {\it ristretto}.
+O Doxyparse também apresentou diferenças em relação ao GCC no cálculo das
+métricas, na tabela~\ref{tab:comparacao-metricas} é apresentado um resumo
+comparativo entre as métricas de coesão e acoplamento gerados por cada extrator
+para cada versão do {\it ristretto}.
 
 Nesta tabela os valores de {\it Falta de Coesão} e {\it Acoplamento} referem-se
 a média das métricas LCOM4 e CBO respectivamente.
@@ -600,21 +597,18 @@ analisadas e interpretadas.
 
 \section{Discussão} \label{sec:discussao}
 
-%A avaliação dos resultados dos grafos de colaboração e das métricas são
-%apresentados nas seções a seguir.
-
 A análise dos dados gerados pelo egypt para cada versão do ristretto com o foco
 na identificação das diferenças entre os dois extratores foi importante pois
 revelou que tanto o egypt quanto o doxyparse apresentam falhas que precisam ser
-corrigidos. Nesta seção veremos cada uma dessas falhas e esclarecer como foram
+corrigidas. Nesta seção veremos cada uma dessas falhas e esclarecer como foram
 corrigidas.
 
 \subsection{Grafos de colaboração}
 
-Ao verificar o código fonte do {\it ristretto} 0.0.1 em busca de descobrir a
-diferença demonstrada na figura~\ref{fig:ristretto-0.0.1} percebeu-se que
-nenhum dos 2 módulos, {\it picture\_viewer} e {\it thumbnail\_viewer}, se
-referenciam, então os dois extratores estão dando informações incorretas.
+Ao verificar o código fonte do {\it ristretto 0.0.1} percebeu-se que nenhum dos
+2 módulos ({\it picture\_viewer} e {\it thumbnail\_viewer}) se referenciam,
+então os dois extratores estão dando informações incorretas e os grafos
+demonstrados na figura~\ref{fig:ristretto-0.0.1} estão incorretos.
 
 O problema pode estar na interpretação dos dados pelo egypt ou nos dados
 gerados pelo doxyparse. Após uma verificação a saída do doxyparse, exemplo
@@ -677,12 +671,13 @@ correção.
 
 Na figura~\ref{fig:ristretto-0.0.11} referente ao {\it ristretto 0.0.11} o GCC
 diz que o módulo {\it main\_window} chama {\it main}, já no Doxyparse não há
-esta chamada. E de fato, analisando o código fonte do {\it ristretto} 0.0.11
-não foi encontrada nenhuma chamada de main\_window para main, então o Doxyparse
-está correto neste caso. Apesar disso o grafo da
+esta chamada. E de fato, analisando o código fonte do {\it ristretto 0.0.11}
+não foi encontrada nenhuma chamada de {\it main\_window} para {\it main}, então
+o Doxyparse está correto neste caso. Apesar disso o grafo da
 figura~\ref{fig:ristretto-0.0.11-doxyparse} está errado pois foi gerado antes
-da correção citada no parágrafo anterior, a
-figura~\ref{fig:ristretto-0.0.11-doxyparse-2} tem o grafo atualizado.
+da correção do problema citado no parágrafo anterior, a
+figura~\ref{fig:ristretto-0.0.11-doxyparse-2} apresenta um grafo atualizado
+para o {\it ristretto 0.0.11}.
 
 \begin{figure}
 \center
@@ -698,7 +693,7 @@ Doxyparse está correto ao identificar que o {\it save\_dialog} é chamado apena
 por {\it main\_window}. Mas a chamada de {\it save\_dialog} para {\it
 thumbnail\_bar} dado pelo Doxygen está incorreta, não há esta chamada nos
 fontes do projeto. Este problema foi corrigido pela mesma solução dos problemas
-dos parágrafos anteriores, a figura~\ref{fig:ristretto-0.0.21-doxyparse-2}
+citados nos parágrafos anteriores, a figura~\ref{fig:ristretto-0.0.21-doxyparse-2}
 mostra o grafo do {\it ristretto 0.0.21} atualizado.
 
 \begin{figure}
@@ -708,10 +703,10 @@ mostra o grafo do {\it ristretto 0.0.21} atualizado.
 \label{fig:ristretto-0.0.21-doxyparse-2}
 \end{figure}
 
-Além destas correções aplicadas no egypt foi necessário corrigir um problema no
+Além destas correções aplicadas ao egypt foi necessário corrigir um problema no
 doxyparse referente a identificação de símbolos estáticos, neste estudo de caso
 o doxyparse apresentou inconsistências em relação ao uso do simbolo
-parent\_class, uma variável estática definida por todos os módulos do {\it
+{\it parent\_class}, uma variável estática definida por todos os módulos do {\it
 ristretto}. O doxyparse registra a declaração deste símbolo apenas na primeira
 ocorrência dele, e nas demais ocorrências de uso e chamada nos diversos módulos o
 doxyparse faz referência ao primeiro módulo onde o símbolo foi encontrado.
@@ -723,21 +718,24 @@ doxyparse faz referência ao primeiro módulo onde o símbolo foi encontrado.
 \label{fig:doxyparse-erro}
 \end{figure}
 
-Este problema é exemplificado pela figura~\ref{fig:doxyparse-erro}. Isto foi
-solucionado ignorando as chamadas aos símbolos estáticos fora do módulo sendo
-analisado, só se considera chamada a símbolos estáticos se eles estiverem no
-mesmo módulo que o símbolo.
+Este problema é exemplificado na figura~\ref{fig:doxyparse-erro}, onde 2
+módulos definem o símbolo {\it parent\_class} e o utilizam internamente, mas o
+doxyparse o registra em apenas um módulo ({\it picture\_viewer}) e referencia
+este módulo em todos os outros ({\it thumbnail\_viewer}) que utilizam o
+símbolo. Isto foi solucionado ignorando as chamadas aos símbolos estáticos fora
+do módulo sendo analisado, só se considera chamada a símbolos estáticos se eles
+estiverem no mesmo módulo que o símbolo.
 
 \subsection{Métricas}
 
 Analisando a tabela~\ref{tab:comparacao-metricas} é possível notar que o
 acoplamento calculado com base no Doxyparse se mantém menor do que o cálculo
 baseado no GCC em todas as versões do {\it ristretto}, já a métrica de falta de
-coesão (LCOM4) se mantém ligeiramente maior também em todas as versões.
+coesão se mantém ligeiramente maior também em todas as versões.
 
-Na tabela~\ref{tab:comparacao-metricas-ristretto-0.0.1} estão as métricas de
-cada módulo do {\it ristretto} 0.0.1. Esta versão será utilizada como estudo de
-caso para verificar as diferenças encontradas entre os dois extratores.
+Na tabela~\ref{tab:comparacao-metricas-ristretto-0.0.1} são apresentadas
+métricas para cada módulo do {\it ristretto 0.0.1}. Esta versão será utilizada
+para verificar as diferenças encontradas entre os dois extratores.
 
 \begin{table}
 \caption{Métricas do ristretto 0.0.1}
@@ -764,21 +762,28 @@ acoplamento igual a 0 (zero).
 
 O GCC diz que o módulo {\it main} tem acoplamento igual a 4, mas o grafo de
 colaboração do ristretto 0.0.1 na figura~\ref{fig:ristretto-0.0.1-gcc} não
-apresenta colaboração com 4 módulos, mas sim com 3 e de acordo com o cálculo de
-acoplamento, onde o acoplamento de um dado módulo é o número de outros módulos
-com os quais ele colabora, esta informação está incorreta.
+apresenta colaboração com 4 módulos, mas sim com 3 e de acordo com o cálculo, o
+acoplamento de um dado módulo é o número de outros módulos com os quais ele
+colabora, esta informação está incorreta.
 
 Avaliando o módulo do egypt responsável pelo cálculo de métricas verificou-se
-que o cálculo de acoplamento estava errado, pois considerava métodos externos e
-não deveria, ou seja, métodos que são definidos fora do projeto, como chamadas
-a métodos GTK\sigla{GTK}{GIMP Tool Kit} por exemplo. O Doxyparse não foi
-afetado por este erro pois a chamada a métodos externos são desconsiderados
-pelo doxyparse.
+que o cálculo de acoplamento esta errado, pois considera métodos externos
+como chamadas a biblioteca GTK (GIMP Tool Kit)\sigla{GTK}{GIMP Tool
+Kit} por exemplo. O Doxyparse não foi afetado por este erro pois a chamada a
+métodos externos são desconsiderados pelo doxyparse.
 
-O egypt foi alterado para considerar apenas métodos definidos no projeto e o
-valor de acoplamento para o módulo main após a alteração ficou correto. Esta
-correção corrigiu também as diferenças para acoplamento dos módulos
-picture\_viewer e thumbnail\_viewer.
+O egypt foi alterado para considerar apenas métodos definidos no escopo do
+projeto e o valor de acoplamento para o módulo {\it main} do {\it ristretto
+0.0.1} ficou correto. Esta correção corrigiu também as diferenças para
+acoplamento dos módulos {\it picture\_viewer} e {\it thumbnail\_viewer}.
+
+Com esta correção as médias de acoplamento obtidas pelo extrator GCC em todas
+as versões do {\it ristretto} diminuiram, mas ainda não se igualaram aos
+valores obtidos pelo Doxyparse. Mas como o foco deste trabalho é no extrator
+Doxyparse a investigação detalhada deste problema foge ao escopo do trabalho.
+Na tabela~\ref{tab:comparacao-metricas-atualizada} no
+apêndice~\ref{ch:resumo-comparativo} é apresentado o resumo comparativo das
+métricas atualizadas.
 
 %A diferença para o valor de falta de coesão não identificado.
 
@@ -793,7 +798,7 @@ Além dos resultados práticos obtidos com a implementação, o estudo de caso
 possibilitou ter uma visão geral da evolução do projeto {\it ristretto} e de
 seus níveis de acoplamento e coesão ao longo das versões do projeto.
 
-No anexo~\ref{ch:evolucao} é possível verificar a evolução da arquitetura do
+No apêndice~\ref{ch:evolucao} é possível verificar a evolução da arquitetura do
 ristretto em cada versão, é possível notar que em alguns momentos a arquitetura
 do projeto sofre mudanças estruturais pelo surgimento de novos módulos, e em
 outros momentos entre uma versão a outra permanece inalterada apenas com

@@ -3,7 +3,7 @@
 NAME= anteprojeto monografia
 TEXSRCS= header.tex
 anteprojeto_TEXSRCS= anteprojeto-content.tex
-monografia_TEXSRCS= monografia-content.tex monografia-anexos.tex
+monografia_TEXSRCS= monografia-content.tex monografia-apendices.tex
 BIBTEXSRCS= bibliografia.bib
 CLEAN_FILES+= *.sigla* *symbols* imagens/*~
 
