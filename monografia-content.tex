@@ -14,16 +14,16 @@ quando são usualmente estão desatualizados
 \cite{sourceVersusObjectCodeExtraction}, ter a arquitetura documentada e
 atualizada é importante como forma apoio para os desenvolvedores e novos
 colaboradores, além de servir para cálculo de métricas e estudo da evolução de
-um projeto como dito acima.
+um projeto como já citado.
 
 Existem hoje diversas ferramentas capazes de extrair do código fonte ou do
 código objeto a arquitetura de software de um sistema, mas entre as opções
 pesquisadas \cite{sourceVersusObjectCodeExtraction} a maioria delas faz uso do
-código objeto, dados resultantes da compilação do código fonte.
+código objeto, ou seja, dados resultantes da compilação do código fonte.
 
 Uma desvantagem em se utilizar código objeto é que fica impossível
 analisar projetos que não compilem mais, seja por falhas no código ou por
-possuir dependencias não satisfeitas, além de gerar perda de informações como por
+possuir dependencias não satisfeitas, além de gerar perda de informação como por
 exemplo macros em projetos C/C++ que são descartados durante a
 compilação \cite{sourceVersusObjectCodeExtraction}.
 
@@ -66,9 +66,9 @@ sistema é estruturado e como se interrelacionam os seus componentes.
 
 \end{itemize}
 
-Apesar de Pressman, aqui, destacar apenas a importancia da arquitetura de
-software nas decisões iniciais do projeto, ela é de suma importancia durante
-todo o processo de desenvolvimento de um projeto.
+Apesar de Pressman, aqui, destacar a importancia da arquitetura de software nas
+decisões iniciais do projeto, ela é de suma importancia durante todo o processo
+de desenvolvimento de um projeto.
 
 Neste trabalho a documentação da arquitetura de software de um programa será
 utilizada com o objetivo de calcular métricas que possibilitem avaliar a
@@ -114,7 +114,7 @@ métricas que levam em consideração atributos de acoplamento e coesão.
 
 Acoplamento é a medida qualitativa de conexões entre os componentes de um
 sistema, ele representa o nível de interdependências entre os módulos de um
-sistema, quando maior o acoplamento maior a complexidade. Então o desejável é
+sistema, quanto maior o acoplamento maior a complexidade. Então o desejável é
 ter baixo acoplamento.
 
 % mas algum acoplamento é inevitável e em alguns momentos não será possível diminuí-lo.
@@ -123,8 +123,8 @@ A métrica para cálculo de acoplamento utilizada neste trabalho será CBO
 (acoplamento entre as classes de objetos), esta métrica é calculada contando-se
 o número de colaborações de um módulo com as outras entidades do sistema.  Um
 grafo simples para exemplo de cálculo desta métrica é apresentado na
-figura~\ref{fig:exemplo-cbo}, onde {\it module1} colabora com {\it module2} e
-{\it module3}, então $CBO(module1) = 2$.
+figura~\ref{fig:exemplo-cbo}, onde {\it module1} colabora com dois outros
+módulos ({\it module2} e {\it module3}), então $CBO(module1) = 2$.
 
 \begin{figure}[h]
 \center
@@ -146,27 +146,29 @@ coesão da seguinte forma: ''{\it coesão} implica que um componente ou classe
 encapsule somente os atributos e operações muito relacionados entre si e com a
 classe ou componente propriamente dito''.
 
+É desejável que a coesão dos componentes de um sistema seja alta, isto garante
+que o acoplamento do sistema seja baixo e como consequência a complexidade do
+sistema cai facilitando a manutenção e o desenvolvimento. 
+
 A métrica para cálculo de coesão utilizada neste trabalho será LCOM (falta de
 coesão em métodos), proposta por \citeonline{aMetricsSuiteForOO}. LCOM é a
 diferença entre o número de métodos num mesmo componente que compartilham
 atributos e o número de métodos que não compartilham atributos, se nenhum
 método compartilha atributos então $LCOM = 0$.
 
-Um exemplo da representação interna de {\it module1} é demonstrada na
+Um exemplo da representação interna de um módulo é demonstrada na
 figura~\ref{fig:exemplo-lcom}, onde a variável {\it nome} é compartilhada entre
-os métodos {\it imprime} e {\it exporta} e o método {\it aniversario} não
+dois métodos ({\it imprime} e {\it exporta}) e o método {\it aniversario} não
 compartilha nenhuma variável com outro método, então $LCOM = 2 - 1 = 1$.
 
 \begin{figure}[h]
 \center
 \includegraphics[scale=0.4]{imagens/exemplo-lcom}
-\caption{Exemplo de troca de mensagens internas de module1 para cálculo de LCOM}
+\caption{Exemplo de troca de mensagens internas de module1}
 \label{fig:exemplo-lcom}
 \end{figure}
 
-É desejável que a coesão dos componentes de um sistema seja alta, isto garante
-que o acoplamento do sistema seja baixo e como consequência a complexidade do
-sistema cai facilitando a manutenção e o desenvolvimento. LCOM mede a falta de
+LCOM mede a falta de
 coesão, então valores baixos significam boa coesão, e valores altos significam
 que métodos podem estar acoplados uns aos outros através de atributos, e que é
 melhor dividir o módulo em submódulos\cite{observationsOnLCOM}.
@@ -176,10 +178,10 @@ autores propuseram modificações e melhorias deste método, as mais significant
 incluindo a definição original são \cite{principalComponentAnalysisOfLCOM}:
 
 \begin{itemize}
-\item A definição original por Chidamber e Kemerer - LCOM1;
-\item A definição de Li e Henry - LCOM?;
-\item A redefinição do LCOM de Li e Henry por Hitz e Montazeri - LCOM4; e
-\item A redefinição da proposta original pelos próprios Chidamber and Kemerer - LCOM?.
+\item A definição original por \citeonline{aMetricsSuiteForOO} - LCOM1;
+\item A definição de \citeonline{maintenanceMetricsObjectOriented} - LCOM?;
+\item A redefinição do LCOM de Li e Henry por \citeonline{measuringCouplingAndCohesion} - LCOM4; e
+\item A redefinição da proposta original pelos próprios Chidamber e Kemerer - LCOM?.
 \end{itemize}
 
 Uma das criticas ao LCOM de \citeonline{aMetricsSuiteForOO} foi feita por
@@ -221,7 +223,7 @@ o cálculo de LCOM1 traz resultados diferentes como mostra a figura.
 \label{fig:exemplo-anomalia-lcom1}
 \end{figure}
 
-Eles então basearam-se na proposta de
+Eles então basearam-se na idéia de
 \citeonline{principalComponentAnalysisOfLCOM} para cálculo de LCOM
 que diz: ''LCOM é o número de grupos de métodos locais distintos, onde cada
 grupo tem um ou mais métodos de classe locais, e ao menos 2 desses métodos
@@ -230,8 +232,8 @@ pode variar de 0 à N (onde N é um inteiro maior que 0)''.
 
 Com esta definição, um valor $k > 1$ para $LCOM(X)$ sinaliza a possibilidade de
 dividir $X$ em $k$ módulos menores e mais coesos. Aplicando esta definição aos
-casos I e II da figura acima produzem valor 2 para os dois casos, que de acordo
-com \citeonline{measuringCouplingAndCohesion} faz mais sentido.
+casos I e II da figura acima chega-se a um mesmo resultado, $LCOM = 2$, que de
+acordo com \citeonline{measuringCouplingAndCohesion} faz mais sentido.
 
 Com base nesta proposta de cálculo de
 \citeonline{principalComponentAnalysisOfLCOM},
