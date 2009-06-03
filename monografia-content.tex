@@ -323,20 +323,20 @@ Fortran, VHDL\sigla{VHDL}{VHSIC (Very High Speed Integrated Circuit) Hardware
 Description Language}, PHP e C\#. Com ele é possível gerar documentação em
 HTML\sigla{HTML}{HyperText Markup Language}, RTF\sigla{RTF}{Rich Text Format},
 PostScript, PDF\sigla{PDF}{Portable Document Format}, \LaTeX\ e man pages, ele
-extrai a documentação existente no código fonte e também extrai informações de
-hierarquia e colaboração entre os módulos do projeto. É baseado nesta
-capacidade de extrair informações de hierarquia e colaboração que o Doxygen foi
-escolhido como base para implementação deste novo extrator para o egypt.
+além de extrair a documentação existente no código fonte, também extrai
+informações de hierarquia e colaboração entre os módulos do projeto. É baseado
+nesta capacidade de extrair informações de hierarquia e colaboração que o
+Doxygen foi escolhido como base para implementação do extrator.
 
 O Doxygen é Software Livre e está disponível sob a GPL\sigla{GPL}{GNU Public
 License}v2 em
 \footnote{https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk}, junto aos
-fontes deste programa existe um pequeno exemplo chamado doxyapp, que foi usado
-como base para este projeto já que ele implementa uma ferramenta para análise
-de código fonte bem próximo as necessidades deste projeto.
+fontes deste programa existe um pequeno exemplo chamado doxyapp que implementa
+uma ferramenta para análise de código fonte bem próximo as necessidades deste
+projeto e foi utilizado como base inicial para a implementação.
 
 Entre as inúmeras classes presentes na API\sigla{API}{Application Programming
-Interface}(Interface de Programação de Aplicativos) do Doxygen é importante
+Interface} (Interface de Programação de Aplicativos) do Doxygen é importante
 destacar as seguintes:
 
 \begin{description}
@@ -345,6 +345,16 @@ destacar as seguintes:
 \item[MemberDef] Definição de um membro ou símbolo de classe
 \item[FileDef] Definição de um arquivo
 \end{description}
+
+A figura~\ref{fig:doxygen-internals-flow} mostra uma visão geral de como os
+arquivos fontes são processados pelo Doxygen internamente.
+
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.5]{imagens/doxygen-internals-flow}
+\caption{Fluxograma interno do doxygen\cite{doxygenInternals}}
+\label{fig:doxygen-internals-flow}
+\end{figure}
 
 \section{Implementação do Extrator usando a API do Doxygen}
 
