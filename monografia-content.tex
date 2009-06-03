@@ -38,8 +38,6 @@ demonstrado como a ferramenta foi implementada. No capítulo~\ref{ch:avaliacao}
 os resultados obtidos pela ferramenta são avaliados com um estudo de caso. O
 capítulo~\ref{ch:conclusao} apresenta as conclusões e trabalhos futuros.
 
-% ----------- CONCEITOS -------------
-
 \chapter{Conceitos} \label{ch:conceitos}
 
 Neste capítulo serão apresentados os conceitos fundamentais utilizados neste
@@ -120,7 +118,6 @@ sistema, quando maior o acoplamento maior a complexidade. Então o desejável é
 ter baixo acoplamento.
 
 % mas algum acoplamento é inevitável e em alguns momentos não será possível diminuí-lo.
-
 
 A métrica para cálculo de acoplamento utilizada neste trabalho será CBO
 (acoplamento entre as classes de objetos), esta métrica é calculada contando-se
@@ -254,8 +251,6 @@ conhecida como LCOM4 será junto a métrica de acoplamento CBO por
 \citeonline{aMetricsSuiteForOO} as duas métricas abordadas neste trabalho no
 capítulo~\ref{ch:avaliacao}.
 
-% ----------- IMPLEMENTACAO -------------
-
 \chapter{Implementação do Extrator} \label{ch:implementacao}
 
 Neste capítulo será apresentado como o extrator foi implementado e quais
@@ -303,7 +298,6 @@ Segue abaixo como ficou estruturado o egypt após a refatoração:
 \caption{Fluxograma de funcionamento do egypt}
 \label{egypt-fluxogram}
 \end{figure}
-
 
 %Essa extensão para o egypt além de possibilitar analisar projetos que não
 %compilem mais trará informações mais precisas já que alguns dados importantes
@@ -358,18 +352,19 @@ arquivos fontes são processados pelo Doxygen internamente.
 
 \section{Implementação do Extrator usando a API do Doxygen}
 
-O Doxygen apesar de oferecer todos os recursos necessários para
-analisar projetos C/C++ e extrair o uso de símbolos, como funções e variáveis,
-que é o objetivo deste projeto, não possibilita que a saída gerada seja
-customizada, apenas oferece opções específicas como PDF e HTML por exemplo. É
-necessário então adaptar o Doxygen para gerar uma saída num formato
-específico e apenas com as informações necessárias, para isto foi criado o
-doxyparse, um parser capaz de analisar códigos C/C++ extraindo símbolos
-com a identificação de onde são declarados e onde são utilizados.
+O Doxygen oferece todos os recursos necessários para analisar projetos C/C++ e
+extrair o uso de símbolos como funções e variáveis, que é o objetivo deste
+projeto, mas não possibilita que a saída gerada seja customizada, apenas
+oferece opções específicas como PDF e HTML por exemplo. É necessário então
+adaptar o Doxygen para gerar uma saída num formato específico e apenas com as
+informações necessárias, para isto foi criado o doxyparse, um parser capaz de
+analisar códigos C/C++ e identificar onde é declarado e utilizado cada símbolo
+encontrado no código fonte.
 
 Seguindo a interface CodeOutputInterface foi possível reaproveitar no doxyparse
 todo o poder que o Doxygen fornece e gerar a saída da forma desejada. Na
-figura~\ref{doxyparse-diagram} temos o diagrama desta implementação.
+figura~\ref{doxyparse-diagram} temos um diagrama representando esta
+implementação.
 
 \begin{figure}[h]
 \center
@@ -379,16 +374,16 @@ figura~\ref{doxyparse-diagram} temos o diagrama desta implementação.
 \end{figure}
 
 O doxyparse então reaproveita os recursos existentes no Doxygen para fazer a
-análise de código e gerar uma saída que será lida pelo extrator a ser
-implementado no egypt, ele redefine algums parâmetros de configuração
-do Doxygen para obter o comportamento desejado, como: analisar diretórios
-recursivamente, não gerar saida em Latex ou HTML, extrair tanta informação
-quanto possível do código fonte, extrair informação de chamada e não gerar
-mensagens de aviso.
+análise de código e gerar uma saída que será, então, lida pelo extrator a ser
+implementado no egypt. Ele redefine algums parâmetros de configuração do
+Doxygen para obter o comportamento desejado, como: analisar diretórios
+recursivamente, não gerar saida em \LaTeX ou HTML, extrair tanta informação
+quanto possível do código fonte, extrair informação de colaboração entre
+módulos e não gerar mensagens de aviso.
 
 O doxyparse faz então a análise dos fontes de um diretorio ou arquivo(s)
 passados como parâmetro via linha de comando e extrai destes fontes os símbolos
-encontrados. Após isto é gerada uma saída num formato específico que será lida
+encontrados e gera uma saída num formato específico que será lida
 pelo extrator no egypt. Na figura~\ref{exemplo-saida-doxyparse} tem um exemplo
 desta saída.
 
@@ -406,14 +401,15 @@ module module1.c
 \end{figure}
 
 Com a saída gerada pelo doxyparse o egypt precisa agora de um extrator que
-entenda estes dados, extraia as informações sobre os símbolos e gere a saída no
+entenda estes dados, extraia as informações sobre os símbolos e gere uma saída no
 formato do Graphviz que irá então gerar o gráfico de chamada entre os módulos.
 
 O extrator atual do egypt, Egypt::Extractor, entende apenas arquivos
 intermediários gerados pelo GCC e não é capaz de entender a saída da
-figura~\ref{exemplo-saida-doxyparse}. Para isto foi necessário refatorar a
-atual implementação do egypt e implementar um novo extrator. Na
-figura~\ref{egypt-diagram-extractor} está o desenho desta nova estrutura.
+figura~\ref{exemplo-saida-doxyparse} gerada pelo doxyparse. Para isto é
+necessário refatorar a atual implementação do egypt para possibilitar a
+implementação de um novo extrator. Na figura~\ref{egypt-diagram-extractor} está
+o desenho desta nova estrutura.
 
 \begin{figure}[h]
 \center
@@ -428,22 +424,20 @@ figura~\ref{egypt-diagram-extractor}:
 \begin{description}
 \item[Egypt::Extractor] Interface padrão para os extratores.
 \item[Egypt::Extractor::GCC] Extrator baseado nos arquivos intermediários do GCC.
-\item[Egypt::Extractor::Doxyparse] Novo extrator baseado na saída do doxyparse
+\item[Egypt::Extractor::Doxyparse] Novo extrator baseado na saída do doxyparse.
 \end{description}
 
-Após a refatoração demonstrada na figura~\ref{egypt-diagram-extractor} o egypt
-pode extrair informações usando 2 métodos diferentes, usando o
-Egypt::Extractor::GCC que faz a extração baseada nos arquivos intermediários do
-GCC ou usando o Egypt::Extractor::Doxyparse que faz a análise utilizando o
-doxyparse. Segue abaixo um exemplo de execução do egypt usando cada um dos
-extratores:
+Após a refatoração demonstrada pela figura~\ref{egypt-diagram-extractor} o
+egypt pode extrair informações usando 2 métodos diferentes, usando o extrator
+GCC que faz a extração baseada nos arquivos intermediários do GCC ou usando o
+extrator Doxyparse que faz a análise utilizando a saída do doxyparse.
+
+Segue abaixo um exemplo de execução do egypt usando cada um dos extratores:
 
 \begin{Verbatim}[frame=single,fontsize=\relsize{-2},fontfamily=courier]
  $ egypt --extractor Doxyparse <arquivos>
  $ egypt --extractor GCC <arquivos>
 \end{Verbatim}
-
-% ----------- AVALIACAO -------------
 
 \chapter{Avaliação} \label{ch:avaliacao}
 
@@ -460,19 +454,18 @@ Xfce\footnote{http://www.xfce.org}, utilizando o extrator original do egypt, as
 informações geradas por esta análise serão utilizadas aqui para comparação com
 as informações extraídas pelo novo extrator baseado no doxyparse.
 
-Além da comparação entre o extrator original e o novo extrator a saída
-gerada pelo doxyparse, o parser baseado no Doxygen, será analisada em
-comparação com o código fonte em busca de inconsistências em relação a
-declaração e uso de símbolos encontrados.
+Além da comparação entre o extrator original e o novo extrator a própria saída
+gerada pelo doxyparse será avaliada em busca de inconsistências em relação a
+identificação dos símbolos encontrados no código fonte.
 
-Por fim veremos um resumo comparativo onde iremos analisar e interpretar as
-diferenças encontradas entre as métricas de coesão e acomplamento calculadas
-pelo egypt usando cada um dos extratores.
+Por fim será feito resumo comparativo com as métricas de coesão e acomplamento
+calculadas pelo egypt usando cada um dos extratores com o objetivo de
+interpretar as possíveis diferenças nos números encontrados por cada um.
 
 \section{Resultados}
 
-Vamos avaliar os resultados dos grafos de colaboração e de métricas nas seções
-que se seguem.
+As diferenças encontradas entre os grafos de colaboração e as métricas são
+apresentadas nas seções a seguir.
 
 \subsection{Grafos de colaboração}
 
@@ -527,14 +520,14 @@ ristretto}, respectivamente.
 \label{fig:ristretto-0.0.21}
 \end{figure}
 
-Vamos avaliar as diferenças encontradas em cada uma dessas versões:
+Avaliando cada uma das diferenças encontradas nos grafos temos o seguinte:
 
 \begin{itemize}
 
 \item {\it ristretto 0.0.1} - Na figura~\ref{fig:ristretto-0.0.1-gcc} o
-extrator GCC encontra uma chamada do módulo {\it navigator} para o módulo {\it
+extrator GCC encontra uma chamada do módulo {\it thumbnail\_viewer} para o módulo {\it
 picture\_viewer}, já na figura~\ref{fig:ristretto-0.0.1-doxyparse} o Doxyparse
-encontra apenas uma chamada de {\it navigator} para {\it thumbnail\_viewer}.
+encontra uma chamada de {\it picture\_viewer} para {\it thumbnail\_viewer}.
 
 \item {\it ristretto 0.0.11} - Na figura~\ref{fig:ristretto-0.0.11-gcc} o GCC
 encontra uma chamada do módulo {\it main\_window} para o módulo {\it main}, já
@@ -545,18 +538,20 @@ figura~\ref{fig:ristretto-0.0.11-doxyparse}.
 diferença interessante, o GCC informa que o módulo {\it save\_dialog} é chamado
 pelos módulos {\it main\_window}, {\it thumbnail}, {\it navigator}, {\it
 picture\_viewer} e {\it thumbnail\_bar}, já o Doxyparse na
-figura\ref{fig:ristretto-0.0.21-doxyparse} temos apenas o módulo {\it
-main\_window} chamando {\it save\_dialog}.
+figura\ref{fig:ristretto-0.0.21-doxyparse} mostra apenas uma chamada de {\it
+main\_window} para {\it save\_dialog}.
 
 \end{itemize}
 
 \subsection{Métricas}
 
-O Doxyparse também gerou diferenças no cálculo de métricas pelo egypt, na
-tabela~\ref{tab:comparacao-metricas} temos resumo comparativo entre as métricas
-geradas pelos extratores GCC e Doxyparse em cada versão do {\it ristretto}.
-Nesta tabela são apresentadas a média de acoplamento (CBO) e falta de coesão
-entre métodos (LCOM4) para cada versão do ristretto.
+O Doxyparse também gerou diferenças em relação ao GCC no cálculo das métricas,
+na tabela~\ref{tab:comparacao-metricas} é apresentado um resumo comparativo
+entre as métricas de coesão (LCOM4) e acoplamento (CBO) gerados por cada
+extrator para cada versão do {\it ristretto}.
+
+Nesta tabela os valores de {\it Falta de Coesão} e {\it Acoplamento} referem-se
+a média das métricas LCOM4 e CBO respectivamente.
 
 \begin{table}
 \caption{Resumo comparativo das métricas do ristretto}
@@ -593,30 +588,34 @@ Versão    & Falta de Coesão & Acoplamento    & Falta de Coesão & Acoplamento 
 \label{tab:comparacao-metricas}
 \end{table}
 
-Analisando a tabela é possível notar que a média do acoplamento e da falta de
-coesão gerados pelo Doxyparse são menores que os valores gerados pelo GCC em
-todas as versões do {\it ristretto}.
+Analisando a tabela é possível notar que a média dos valores de {\it Falta de
+Coesão} gerados pelo Doxyparse são maiores que os valores gerados pelo GCC em
+todas as versões do {\it ristretto}. E que o {\it Acoplamento} é menor em todas
+as versões.
 
 Na seção~\ref{sec:discussao} essas diferenças entre cada extrator serão
 analisadas e interpretadas.
 
 \section{Discussão} \label{sec:discussao}
 
+%A avaliação dos resultados dos grafos de colaboração e das métricas são
+%apresentados nas seções a seguir.
+
 A análise dos dados gerados pelo egypt para cada versão do ristretto com o foco
-nas diferenças entre os extratores foi importante pois revelou que o egypt e o
-doxyparse apresentavam alguns bugs e através desta análise foi possível
-identificar e corrigir. Nesta seção veremos cada uma dessas diferenças e
-esclarecer como foi corrigidas.
+na identificação das diferenças entre os dois extratores foi importante pois
+revelou que tanto o egypt quanto o doxyparse apresentam falhas que precisam ser
+corrigidos. Nesta seção veremos cada uma dessas falhas e esclarecer como foram
+corrigidas.
 
 \subsection{Grafos de colaboração}
 
-Ao verificar o código fonte do {\it ristretto} 0.0.1 na busca tentativa de
-descobrir a diferença demonstrada na figura~\ref{fig:ristretto-0.0.1} nota-se
-que nenhum dos 2 módulos se referenciam, então os dois extratores estão dando
-informações incorretas.
+Ao verificar o código fonte do {\it ristretto} 0.0.1 em busca de descobrir a
+diferença demonstrada na figura~\ref{fig:ristretto-0.0.1} percebeu-se que
+nenhum dos 2 módulos, {\it picture\_viewer} e {\it thumbnail\_viewer}, se
+referenciam, então os dois extratores estão dando informações incorretas.
 
 O problema pode estar na interpretação dos dados pelo egypt ou nos dados
-gerados pelo doxyparse. Após uma verificação na saída do doxyparse, exemplo
+gerados pelo doxyparse. Após uma verificação a saída do doxyparse, exemplo
 abaixo na figura~\ref{fig:trecho-saida-doxyparse-ristretto}, foi possível notar
 que os dados estão corretos.
 
@@ -654,64 +653,75 @@ module main.c
 \label{fig:trecho-saida-doxyparse-ristretto}
 \end{figure}
 
-Então o problema está na interpretação do egypt aos dados gerados pelo doxyparse.
+Então o problema está na interpretação do egypt aos dados gerados pelo
+doxyparse.
 
 O egypt armazena as informações usando como chave, ou seja, como identificador
-único, o nome do símbolo em questão mas alguns módulos possuem símbolos com o
+único o nome do símbolo em questão mas alguns módulos possuem símbolos com o
 mesmo nome, isto faz com que o egypt confunda o uso e chamada destes símbolos.
 
 A solução adotada para este problema foi armazenar o nome do módulo junto ao
-nome do símbolo, por exemplo ao invés de guardar apenas {\it parent\_class} guarda-se
-{\it main::parent\_class}. Na figura \ref{fig:ristretto-0.0.1-doxyparse-2} temos o
-grafo atualizado após esta correção.
+nome do símbolo, por exemplo ao invés de guardar apenas {\it parent\_class}
+guarda-se {\it main::parent\_class}. Na figura
+\ref{fig:ristretto-0.0.1-doxyparse-2} temos o grafo atualizado após esta
+correção.
 
 \begin{figure}[h]
 \center
-\includegraphics[scale=0.3]{imagens/ristretto-0_0_1-doxyparse-2}
+\includegraphics[scale=0.4]{imagens/ristretto-0_0_1-doxyparse-2}
 \caption{Grafo de colaboração do ristretto 0.0.1 atualizado}
 \label{fig:ristretto-0.0.1-doxyparse-2}
 \end{figure}
 
 Na figura~\ref{fig:ristretto-0.0.11} referente ao {\it ristretto 0.0.11} o GCC
-diz que o módulo main\_window chama main, já no Doxyparse não há esta chamada.
-E de fato, analisando o código fonte do {\it ristretto} 0.0.11 não foi
-encontrada nenhuma chamada de main\_window para main, então o Doxyparse está
-correto neste caso. Mas ele confunde alguns símbolos como na
-figura~\ref{fig:ristretto-0.0.1}, veja na
-figura~\ref{fig:ristretto-0.0.11-doxyparse-2} o grafo atualizado após a
-correção.
+diz que o módulo {\it main\_window} chama {\it main}, já no Doxyparse não há
+esta chamada. E de fato, analisando o código fonte do {\it ristretto} 0.0.11
+não foi encontrada nenhuma chamada de main\_window para main, então o Doxyparse
+está correto neste caso. Apesar disso o grafo da
+figura~\ref{fig:ristretto-0.0.11-doxyparse} está errado pois foi gerado antes
+da correção citada no parágrafo anterior, a
+figura~\ref{fig:ristretto-0.0.11-doxyparse-2} tem o grafo atualizado.
 
 \begin{figure}
 \center
-\includegraphics[scale=0.3]{imagens/ristretto-0_0_11-doxyparse-2}
+\includegraphics[scale=0.4]{imagens/ristretto-0_0_11-doxyparse-2}
 \caption{Grafo de colaboração do ristretto 0.0.11 atualizado}
 \label{fig:ristretto-0.0.11-doxyparse-2}
 \end{figure}
 
-Na figura~\ref{fig:ristretto-0.0.21} onde o GCC diz que o módulo {\it
-save\_dialog} é referenciado por vários outros analisando o código fonte do
-ristretto 0.0.21 não foi encontrada essas chamadas, então o Doxyparse está
-correto ao identificar que o {\it save\_dialog} é chamado apenas por {\it
-main\_window}. Mas sobre a chamada de {\it save\_dialog} para {\it
-thumbnail\_bar} está incorreta, não há esta chamada nos fontes do projeto. Mas
-este problema foi causado pelo mesmo problema já corrigido nos exemplos citados
-acima para as versões 0.0.1 e 0.0.11, veja na
-figura~\ref{fig:ristretto-0.0.21-doxyparse-2} o grafo atualizado.
+Na figura~\ref{fig:ristretto-0.0.21-gcc} o GCC diz que o módulo {\it
+save\_dialog} é referenciado por vários outros módulos mas no código fonte do
+{\it ristretto 0.0.21} não foi encontrada todas essas chamadas, então o
+Doxyparse está correto ao identificar que o {\it save\_dialog} é chamado apenas
+por {\it main\_window}. Mas a chamada de {\it save\_dialog} para {\it
+thumbnail\_bar} dado pelo Doxygen está incorreta, não há esta chamada nos
+fontes do projeto. Este problema foi corrigido pela mesma solução dos problemas
+dos parágrafos anteriores, a figura~\ref{fig:ristretto-0.0.21-doxyparse-2}
+mostra o grafo do {\it ristretto 0.0.21} atualizado.
 
 \begin{figure}
 \center
-\includegraphics[scale=0.3]{imagens/ristretto-0_0_21-doxyparse-2}
+\includegraphics[scale=0.4]{imagens/ristretto-0_0_21-doxyparse-2}
 \caption{Grafo de colaboração do ristretto 0.0.21 atualizado}
 \label{fig:ristretto-0.0.21-doxyparse-2}
 \end{figure}
 
-Além destas correções no egypt foi necessário corrigir no doxyparse a
-identificação de símbolos estáticos, nesta avaliação feita com o {\it
-ristretto} o doxyparse apresentou problemas com o uso do simbolo parent\_class,
-uma variável estática definida por todos os módulos do projeto. O doxyparse
-registra a declaração deste símbolo apenas na primeira vez que é encontrado e
-nas ocorrências de uso e chamada nos diversos módulos o doxyparse faz
-referência ao primeiro módulo onde o símbolo foi encontrado. Isto foi
+Além destas correções aplicadas no egypt foi necessário corrigir um problema no
+doxyparse referente a identificação de símbolos estáticos, neste estudo de caso
+o doxyparse apresentou inconsistências em relação ao uso do simbolo
+parent\_class, uma variável estática definida por todos os módulos do {\it
+ristretto}. O doxyparse registra a declaração deste símbolo apenas na primeira
+ocorrência dele, e nas demais ocorrências de uso e chamada nos diversos módulos o
+doxyparse faz referência ao primeiro módulo onde o símbolo foi encontrado.
+
+\begin{figure}
+\center
+\includegraphics[scale=0.3]{imagens/doxyparse-erro-parent-class}
+\caption{Grafo de colaboração de exemplo do ristretto}
+\label{fig:doxyparse-erro}
+\end{figure}
+
+Este problema é exemplificado pela figura~\ref{fig:doxyparse-erro}. Isto foi
 solucionado ignorando as chamadas aos símbolos estáticos fora do módulo sendo
 analisado, só se considera chamada a símbolos estáticos se eles estiverem no
 mesmo módulo que o símbolo.
@@ -774,18 +784,18 @@ picture\_viewer e thumbnail\_viewer.
 
 Os resultados obtidos foram satisfatórios e atingiram o objetivo inicial que
 foi possibilitar extração de dados sem necessidade de compilar o software em
-questão, além do novo extrator o egypt ganhou algumas melhorias e correção de
-bugs.
+questão, além do novo extrator o {\it egypt} ganhou algumas melhorias e
+correção de bugs.
 
-Além dos resultados práticos com a implementação a extração de informações do
-ristretto possibilitou uma visão geral da evolução do projeto e de seus níveis
-de acoplamento e coesão.
+Além dos resultados práticos obtidos com a implementação, o estudo de caso
+possibilitou ter uma visão geral da evolução do projeto {\it ristretto} e de
+seus níveis de acoplamento e coesão ao longo das versões do projeto.
 
 No anexo~\ref{ch:evolucao} é possível verificar a evolução da arquitetura do
 ristretto em cada versão, é possível notar que em alguns momentos a arquitetura
 do projeto sofre mudanças estruturais pelo surgimento de novos módulos, e em
-outros momentos a evolução de uma versão a outra permanece inalterada apenas
-com mudanças internas nos módulos onde o que se altera é apenas o número de
+outros momentos entre uma versão a outra permanece inalterada apenas com
+mudanças internas nos módulos onde o que se altera é apenas o número de
 colaboração entre os módulos existentes.
 
 \section{Trabalhos futuros}
