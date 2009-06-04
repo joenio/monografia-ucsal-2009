@@ -1,11 +1,12 @@
 # DOCUMENT VARIABLES
 
-NAME= anteprojeto monografia
+NAME= anteprojeto monografia slides
 TEXSRCS= header.tex
 anteprojeto_TEXSRCS= anteprojeto-content.tex
 monografia_TEXSRCS= monografia-content.tex monografia-apendices.tex
-BIBTEXSRCS= bibliografia.bib
-CLEAN_FILES+= *.sigla* *symbols* imagens/*~
+anteprojeto_BIBTEXSRCS= bibliografia.bib
+monografia_BIBTEXSRCS= bibliografia.bib
+CLEAN_FILES+= *.sigla* *symbols* imagens/*~ *.nav *.snm
 
 # PROJECT VARIABLES
 
