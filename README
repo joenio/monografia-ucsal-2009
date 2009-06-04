@@ -1,0 +1,38 @@
+INFORMAÇÕES
+===========
+
+Monografia de conclusão de curso em Bacharelado em Informática na Universidade
+Católica do Salvador.
+
+Título: Extração de Informações de Dependência entre Módulos de Programas C/C++
+Aluno: Joenio Costa
+Orientador: Antonio Terceiro
+Instituição: UCSal 
+
+Mais detalhes em:
+http://wiki.dcc.ufba.br/Aside/ProjetoFinalJoenioCosta
+
+COMPILANDO OS FONTES
+====================
+
+Esta monografia foi escrita em latex para compilar os fontes é necessários ter
+um ambiente latex básico, o projeto latex-mk e o pacote abnTeX instalados.
+
+Para compilar a monografia, o anteprojeto e os slides use os comandos abaixo:
+
+ $ make monografia.pdf
+ $ make anteprojeto.pdf MAKEIDX_FLAGS=
+ $ make slides.pdf MAKEIDX_FLAGS=
+
+Para compilar os slides é necessário ter o pacote beamer instalado.
+
+TODO
+====
+
+ * Encontrar um lugar na monografia para colocar: https://wiki.dcc.ufba.br/Aside/ProjetoFinalJoenioCosta
+ * Ler http://en.wikipedia.org/wiki/Statistical_hypothesis_testing
+
+CONTATO
+=======
+
+joenio EM gmail.com

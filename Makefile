@@ -13,6 +13,8 @@ CLEAN_FILES+= *.sigla* *symbols* imagens/*~ *.nav *.snm
 GZCAT= zcat
 USE_PDFLATEX= true # directly generate .pdf files from the .tex
 VIEWPDF= evince
+
+# to make anteprojeto and slides pass MAKEIDX_FLAGS= to make
 MAKEIDX_FLAGS= '-s tabela-siglas.ist -o monografia.sigla monografia.siglax'
 
 include /usr/share/latex-mk/latex.gmk
