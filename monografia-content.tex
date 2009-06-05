@@ -4,7 +4,7 @@ Arquitetura de software de um programa é a estrutura que define as propriedades
 externamente visíveis e o relacionamento entre os grandes componentes
 estruturais de um sistema \cite{engenhariaDeSoftwarePressman}, esta arquitetura
 pode estar ou não documentada em forma de diagramas, grafos, tabelas ou
-documentos.  Todo projeto de software possui uma arquitetura implícita, ter
+documentos. Todo projeto de software possui uma arquitetura implícita, ter
 esta arquitetura documentada é útil para extrair métricas de modularidade ou
 para estudar o impacto de possíveis alterações de um projeto
 \cite{mata26-terceiro-projeto-piloto}.
@@ -13,18 +13,19 @@ A arquitetura de grandes projetos de software raramente são documentados e
 quando são usualmente estão desatualizados
 \cite{sourceVersusObjectCodeExtraction}, ter a arquitetura documentada e
 atualizada é de suma importância para o acompanhamento do projeto além de
-servir como forma apoio para entrada de novos desenvolvedores.
+servir como forma de apoio para entrada de novos desenvolvedores.
 
 Existem hoje diversas ferramentas capazes de extrair do código fonte ou do
-código objeto a arquitetura de software de um sistema, entre as opções
-pesquisadas \cite{sourceVersusObjectCodeExtraction} a maioria faz uso do
-código objeto, ou seja, dependem da compilação do código fonte.
+código objeto a arquitetura de software de um sistema, durante a elaboração
+deste trabalho algumas ferramentas foram pesquisadas
+\cite{sourceVersusObjectCodeExtraction} e entre as opções encontradas a maioria
+faz uso do código objeto, ou seja, dependem da compilação do código fonte.
 
 Uma desvantagem em se utilizar código objeto é que fica impossível analisar
 projetos que não compilem mais, seja por falhas no código ou por possuir
-dependencias não satisfeitas, além de gerar perda de informação, uma evidência
-deste problema são as macros em projetos C/C++ que são descartados durante a
-compilação \cite{sourceVersusObjectCodeExtraction}.
+dependencias não satisfeitas, além de gerar perda de informação, como acontece
+com macros em projetos C/C++ que são descartadas durante a compilação
+\cite{sourceVersusObjectCodeExtraction}.
 
 Este trabalho baseia-se na implementação de uma ferramenta que possibilite a
 extração de informação de dependências entre módulos de programas C/C++ baseada
@@ -65,8 +66,8 @@ sistema é estruturado e como se interrelacionam os seus componentes.
 
 \end{itemize}
 
-Apesar de Pressman, aqui, destacar a importancia da arquitetura de software nas
-decisões iniciais do projeto, ela é de suma importancia durante todo o processo
+Apesar de Pressman, aqui, destacar a importância da arquitetura de software nas
+decisões iniciais do projeto, ela é de suma importância durante todo o processo
 de desenvolvimento de um projeto.
 
 Neste trabalho a documentação da arquitetura de software de um programa será
@@ -107,8 +108,8 @@ Falta de coesão em métodos (lack of cohesion in methods).
 \end{itemize}
 
 Este trabalho fundamenta-se nas métricas CBO e LCOM, que são indicadores de
-acoplamento e coesão e refletem diretamente em atributos de modularidade de um
-projeto de software.
+acoplamento e coesão e refletem diretamente na modularidade de um projeto de
+software.
 
 \subsection{Acoplamento}
 
@@ -158,9 +159,9 @@ atributos e o número de métodos que não compartilham atributos, se nenhum
 método compartilha atributos então $LCOM = 0$.
 
 A figura~\ref{fig:exemplo-lcom} demonstra a representação interna de um módulo,
-onde a variável {\it nome} é compartilhada entre dois métodos ({\it imprime} e
-{\it exporta}) e o método {\it aniversario} não compartilha nenhuma variável
-com outro método, então $LCOM = 2 - 1 = 1$.
+onde o atributo {\it nome} é compartilhado entre dois métodos ({\it imprime} e
+{\it exporta}) e o método {\it aniversario} não compartilha nenhum atributo com
+outro método, então $LCOM = 2 - 1 = 1$.
 
 \begin{figure}[h]
 \center
@@ -187,17 +188,20 @@ significantes incluindo a definição original são
 \end{itemize}
 
 Uma das criticas ao LCOM de \citeonline{aMetricsSuiteForOO} foi feita por
-\citeonline{aCritiqueOfCohesion} onde ele diz: ''LCOM não é um caminho válido
-para medir coesão de classes, sua definição é baseada em iterações entre método
-e dados, o que pode não ser um bom caminho para definir coesão no mundo da
-orientação a objetos. Além disso, para classes muito diferentes são dados
-valores de LCOM iguais''.
+\citeonline{aCritiqueOfCohesion} onde ele diz:
+
+\begin{citacao}
+LCOM não é um caminho válido para medir coesão de classes, sua definição é
+baseada em iterações entre método e dados, o que pode não ser um bom caminho
+para definir coesão no mundo da orientação a objetos. Além disso, para classes
+muito diferentes são dados valores de LCOM iguais. \cite{aCritiqueOfCohesion}
+\end{citacao}
 
 O cálculo de LCOM, de acordo com a definição original, é feito da seguinte
 forma: considere C1 uma classe com M1, M2, \ldots, Mn métodos e Ii o conjunto
-de atributos (variábeis de instancia) de C1 sendo usado pelo método Mi. Para
+de atributos (variáveis de instância) de C1 sendo usado pelo método Mi. Para
 cada método Mi de C1 deve existir um grupo de atributos Ii correspondente. LCOM
-é Número distinto de grupos formados pela intersecção dos 'n' conjuntos de Ii.
+é número distinto de grupos formados pela intersecção dos 'n' conjuntos de Ii.
 
 \begin{figure}[h]
 \center
@@ -206,16 +210,15 @@ cada método Mi de C1 deve existir um grupo de atributos Ii correspondente. LCOM
 \label{fig:exemplo-lcom1}
 \end{figure}
 
-Na classe da figura~\ref{fig:exemplo-lcom1}, existem 2 pares de
-métodos que não compartilham nenhuma variável ($<f, g>$ e $<f, h>$) e
-exatamente um par que compartilha a variável E ($<g, h>$). Portanto, $LCOM = 2
-- 1 = 1$.
+Na classe da figura~\ref{fig:exemplo-lcom1} existem 2 pares de métodos que não
+compartilham nenhuma variável ($<f, g>$ e $<f, h>$) e exatamente um par que
+compartilha a variável E ($<g, h>$). Portanto, $LCOM = 2 - 1 = 1$.
 
 \citeonline{measuringCouplingAndCohesion} fizeram estudos sobre
 LCOM e chegaram a conclusão que apesar do cálculo ser baseado numa idéia
 muito sensata ele traz algumas anomalias nos resultados, como exemplifica a
 figura~\ref{fig:exemplo-anomalia-lcom1}, onde os autores concluem que os 2
-casos são igualmente não-coesos e deveriam ter valores de LCOM iguais, mas
+casos são igualmente não coesivos e deveriam ter valores de LCOM iguais, mas
 o cálculo de LCOM traz resultados diferentes.
 
 \begin{figure}[h]
@@ -226,11 +229,16 @@ o cálculo de LCOM traz resultados diferentes.
 \end{figure}
 
 Eles então basearam-se na idéia de
-\citeonline{principalComponentAnalysisOfLCOM} para cálculo de LCOM que diz:
-''LCOM é o número de grupos de métodos locais distintos, onde cada grupo tem um
+\citeonline{principalComponentAnalysisOfLCOM} para propor um novo cálculo para
+LCOM:
+
+\begin{citacao}
+LCOM é o número de grupos de métodos locais distintos, onde cada grupo tem um
 ou mais métodos de classe locais, e ao menos 2 desses métodos acessam pelo
 menos um atributo de classe em comum; o número de atributos comuns pode variar
-de 0 à N (onde N é um inteiro maior que 0)''.
+de 0 à N (onde N é um inteiro maior que 0).
+\cite{principalComponentAnalysisOfLCOM}
+\end{citacao}
 
 Com esta definição, um valor $k > 1$ para $LCOM(X)$ sinaliza a possibilidade de
 dividir $X$ em $k$ módulos menores e mais coesos. Aplicando esta definição aos
@@ -263,12 +271,12 @@ ferramentas foram utilizadas como base para a sua implementação.
 \section{egypt} \label{sec:egypt}
 
 O egypt é um Software Livre desenvolvido por Andreas
-Gustafsson\footnote{http://www.gson.org/egypt} com o objetivo de gerar gráficos
+Gustafsson\footnote{http://www.gson.org/egypt} com o objetivo de gerar grafos
 de chamada entre funções de programas escritos em C, ele funciona lendo os
 arquivos intermediários gerados pelo GCC\sigla{GCC}{GNU C Compiler} e os
-converte num gráfico de chamada no formato usado pelo
+converte num grafo de colaboração no formato usado pelo
 Graphviz\footnote{http://www.graphviz.org}, um programa para visualização de
-gráficos.
+grafos.
 
 Em Janeiro de 2009 o egypt começou a ser restruturado por
 Antonio Terceiro o qual o tem mantido
@@ -359,13 +367,12 @@ oferece opções específicas como PDF e HTML. É necessário então adaptar o
 Doxygen para gerar uma saída num formato específico e apenas com as informações
 necessárias, para isto foi criado o
 doxyparse\footnote{http://gitorious.org/doxygen/}, um parser capaz de analisar
-códigos C/C++ e identificar onde é declarado e utilizado cada símbolo
-encontrado no código fonte.
+projetos escritos em C/C++ e identificar onde os símbolos são declarados e
+utilizados dentro do código fonte do projeto.
 
 Seguindo a interface {\it CodeOutputInterface} foi possível reaproveitar no
 doxyparse todo o poder que o Doxygen fornece e gerar a saída da forma desejada.
-Na figura~\ref{doxyparse-diagram} temos um diagrama representando esta
-implementação.
+A figura~\ref{doxyparse-diagram} apresenta um diagrama desta implementação.
 
 \begin{figure}[h]
 \center
@@ -382,10 +389,11 @@ saida em \LaTeX ou HTML, extrair tanta informação quanto possível do código
 fonte, extrair informação de colaboração entre módulos e não gerar mensagens de
 aviso.
 
-O doxyparse faz a análise dos fontes de um diretorio ou arquivo(s)
-passados como parâmetro via linha de comando e extrai destes fontes os símbolos
-encontrados e gera uma saída num formato específico que será lida pelo egypt, a
-figura~\ref{exemplo-saida-doxyparse} apresenta um exemplo desta saída.
+O doxyparse faz a análise dos fontes de um diretorio ou arquivo(s) passados
+como parâmetro via linha de comando e extrai destes fontes os símbolos
+encontrados e gera uma saída, exemplificada na
+figura~\ref{exemplo-saida-doxyparse}, que será lida pelo egypt.
+
 
 \begin{figure}[h]
 \begin{Verbatim}[frame=single,fontsize=\relsize{-2},fontfamily=courier]
@@ -407,7 +415,7 @@ formato do Graphviz que irá então gerar o grafo de colaboração entre os mód
 O atual extrator egypt entende apenas código objeto gerado pelo GCC e não é
 capaz de entender a saída da figura~\ref{exemplo-saida-doxyparse} gerada pelo
 doxyparse. Para isto é necessário refatorar a atual implementação do egypt para
-possibilitar a implementação de um novo extrator que entenda esta saída. Na
+possibilitar a implementação de um novo extrator. Na
 figura~\ref{egypt-diagram-extractor} está o desenho desta nova estrutura após a
 refatoração.
 
@@ -427,10 +435,10 @@ figura~\ref{egypt-diagram-extractor}:
 \item[Egypt::Extractor::Doxyparse] Novo extrator baseado na saída do doxyparse.
 \end{description}
 
-Após a refatoração demonstrada pela figura~\ref{egypt-diagram-extractor} o
-egypt pode extrair informações usando 2 métodos diferentes, usando o extrator
-GCC que faz a extração baseada nos arquivos intermediários do GCC ou usando o
-extrator Doxyparse que faz a análise utilizando a saída do doxyparse.
+Após a refatoração o egypt pode extrair informações usando 2 métodos
+diferentes, usando o extrator GCC que faz a extração baseada nos arquivos
+intermediários do GCC ou usando o extrator Doxyparse que faz a análise
+utilizando a saída do doxyparse.
 
 Segue abaixo um exemplo de execução do egypt usando cada um dos extratores:
 
@@ -447,16 +455,17 @@ original do egypt baseado em GCC.
 
 \section{Procedimento}
 
-Em \cite{structuralComplexityEvolution} foi feita uma análise do {\it
+Em \cite{structuralComplexityEvolution} foi feita uma análise, utilizando o
+extrator original do egypt, do projeto {\it
 ristretto}\footnote{http://goodies.xfce.org/projects/applications/ristretto},
 um Software Livre escrito em C para visualização de imagens no ambiente Desktop
-Xfce\footnote{http://www.xfce.org}, utilizando o extrator original do egypt, as
-informações geradas por esta análise serão utilizadas aqui para comparação com
-as informações extraídas pelo novo extrator baseado no doxyparse.
+Xfce\footnote{http://www.xfce.org}, as informações geradas por esta análise
+serão utilizadas aqui para comparação com as informações extraídas pelo novo
+extrator baseado no doxyparse.
 
-Além da comparação entre o extrator original e o novo extrator a própria saída
-gerada pelo doxyparse será avaliada em busca de inconsistências em relação a
-identificação dos símbolos encontrados no código fonte.
+Além da comparação entre o extrator original e o novo extrator do egypt a
+própria saída gerada pelo doxyparse será avaliada em busca de inconsistências
+em relação a identificação dos símbolos encontrados no código fonte.
 
 Por fim será feito resumo comparativo com as métricas de coesão e acomplamento
 calculadas pelo egypt usando cada um dos extratores com o objetivo de
@@ -464,7 +473,7 @@ interpretar as possíveis diferenças nos números encontrados por cada um.
 
 \section{Resultados}
 
-As diferenças encontradas entre os grafos de colaboração e a entre as métricas
+As diferenças encontradas entre os grafos de colaboração e entre as métricas
 de coesão e acoplamento serão apresentadas nas seções a seguir.
 
 \subsection{Grafos de colaboração}
@@ -520,26 +529,25 @@ ristretto}, respectivamente.
 \label{fig:ristretto-0.0.21}
 \end{figure}
 
-Avaliando cada uma das diferenças encontradas nos grafos temos o seguinte:
+Avaliando cada um dos grafos encontramos as seguintes diferenças:
 
 \begin{itemize}
 
-\item {\it ristretto 0.0.1} - Na figura~\ref{fig:ristretto-0.0.1-gcc} o
-extrator GCC encontra uma chamada do módulo {\it thumbnail\_viewer} para o módulo {\it
-picture\_viewer}, já na figura~\ref{fig:ristretto-0.0.1-doxyparse} o Doxyparse
-encontra uma chamada de {\it picture\_viewer} para {\it thumbnail\_viewer}.
+\item Na figura~\ref{fig:ristretto-0.0.1-gcc} o extrator GCC encontra uma
+chamada do módulo {\it thumbnail\_viewer} para o módulo {\it picture\_viewer},
+já na figura~\ref{fig:ristretto-0.0.1-doxyparse} o Doxyparse encontra uma
+chamada de {\it picture\_viewer} para {\it thumbnail\_viewer}.
 
-\item {\it ristretto 0.0.11} - Na figura~\ref{fig:ristretto-0.0.11-gcc} o GCC
-encontra uma chamada do módulo {\it main\_window} para o módulo {\it main}, já
-no Doxyparse não há nenhuma chamada para o módulo {\it main} como visto na
+\item Na figura~\ref{fig:ristretto-0.0.11-gcc} o GCC encontra uma chamada do
+módulo {\it main\_window} para o módulo {\it main}, já no Doxyparse não há
+nenhuma chamada para o módulo {\it main} como visto na
 figura~\ref{fig:ristretto-0.0.11-doxyparse}. 
 
-\item {\it ristretto 0.0.21} - Na figura~\ref{fig:ristretto-0.0.21} temos outra
-diferença interessante, o GCC informa que o módulo {\it save\_dialog} é chamado
-pelos módulos {\it main\_window}, {\it thumbnail}, {\it navigator}, {\it
-picture\_viewer} e {\it thumbnail\_bar}, já o Doxyparse na
-figura\ref{fig:ristretto-0.0.21-doxyparse} mostra apenas uma chamada de {\it
-main\_window} para {\it save\_dialog}.
+\item Na figura~\ref{fig:ristretto-0.0.21} temos outra diferença interessante,
+o GCC informa que o módulo {\it save\_dialog} é chamado pelos módulos {\it
+main\_window}, {\it thumbnail}, {\it navigator}, {\it picture\_viewer} e {\it
+thumbnail\_bar}, já o Doxyparse na figura\ref{fig:ristretto-0.0.21-doxyparse}
+mostra apenas uma chamada de {\it main\_window} para {\it save\_dialog}.
 
 \end{itemize}
 
@@ -595,11 +603,12 @@ as versões.
 
 \section{Discussão} \label{sec:discussao}
 
-A análise dos dados gerados pelo egypt para cada versão do ristretto com o foco
-na identificação das diferenças entre os dois extratores foi importante pois
-revelou que tanto o egypt quanto o doxyparse apresentam falhas que precisam ser
-corrigidas. Nesta seção veremos cada uma dessas falhas e esclarecer como foram
-corrigidas.
+A análise dos dados gerados pelo egypt usando cada um dos extratores para cada
+versão do {\it ristretto} foi importante pois revelou que existem divergencias
+entre os extratores e isto indica que algum dos extratores estão dando
+informações incorretas e é necessário investigar o que está causando essas
+diferenças. Nas seções a seguir cada uma das diferenças encontradas serão
+avaliadas e corrigidas quando necessário.
 
 \subsection{Grafos de colaboração}
 
@@ -656,9 +665,9 @@ mesmo nome, isto faz com que o egypt confunda o uso e chamada destes símbolos.
 
 A solução adotada para este problema foi armazenar o nome do módulo junto ao
 nome do símbolo, por exemplo ao invés de guardar apenas {\it parent\_class}
-guarda-se {\it main::parent\_class}. Na figura
-\ref{fig:ristretto-0.0.1-doxyparse-2} temos o grafo atualizado após esta
-correção.
+guarda-se {\it main::parent\_class}. A figura
+\ref{fig:ristretto-0.0.1-doxyparse-2} apresenta o grafo do {\it ristretto 0.0.1}
+atualizado após esta correção.
 
 \begin{figure}[h]
 \center
