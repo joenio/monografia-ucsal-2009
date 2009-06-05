@@ -1,5 +1,5 @@
-INFORMAÇÕES
-===========
+SOBRE
+=====
 
 Monografia de conclusão de curso em Bacharelado em Informática na Universidade
 Católica do Salvador.
@@ -12,8 +12,8 @@ Instituição: UCSal
 Mais detalhes em:
 http://wiki.dcc.ufba.br/Aside/ProjetoFinalJoenioCosta
 
-COMPILANDO OS FONTES
-====================
+COMPILANDO
+==========
 
 Esta monografia foi escrita em latex para compilar os fontes é necessários ter
 um ambiente latex básico, o projeto latex-mk e o pacote abnTeX instalados.
@@ -24,7 +24,7 @@ Para compilar a monografia, o anteprojeto e os slides use os comandos abaixo:
  $ make anteprojeto.pdf MAKEIDX_FLAGS=
  $ make slides.pdf MAKEIDX_FLAGS=
 
-Para compilar os slides é necessário ter o pacote beamer instalado.
+E para compilar os slides é necessário ter o pacote beamer instalado.
 
 TODO
 ====
@@ -35,4 +35,4 @@ TODO
 CONTATO
 =======
 
-joenio EM gmail.com
+joenio EM perl.org.br
