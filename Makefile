@@ -4,8 +4,7 @@ NAME= anteprojeto monografia slides
 TEXSRCS= header.tex
 anteprojeto_TEXSRCS= anteprojeto-content.tex
 monografia_TEXSRCS= monografia-content.tex monografia-apendices.tex
-anteprojeto_BIBTEXSRCS= bibliografia.bib
-monografia_BIBTEXSRCS= bibliografia.bib
+BIBTEXSRCS= bibliografia.bib
 CLEAN_FILES+= *.sigla* *symbols* imagens/*~ *.nav *.snm
 
 # PROJECT VARIABLES
