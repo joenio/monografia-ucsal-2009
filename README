@@ -1,8 +1,8 @@
 SOBRE
 =====
 
-Monografia de conclusão de curso em Bacharelado em Informática na Universidade
-Católica do Salvador.
+Monografia de graduação em Bacharelado em Informática na Universidade Católica
+do Salvador.
 
 Título: Extração de Informações de Dependência entre Módulos de Programas C/C++
 Aluno: Joenio Costa
@@ -24,7 +24,7 @@ Para compilar a monografia, o anteprojeto e os slides use os comandos abaixo:
  $ make anteprojeto.pdf MAKEIDX_FLAGS=
  $ make slides.pdf MAKEIDX_FLAGS=
 
-E para compilar os slides é necessário ter o pacote beamer instalado.
+Para compilar os slides é necessário ter o pacote beamer instalado.
 
 TODO
 ====

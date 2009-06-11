@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
+\usepackage{subfigure}
 \usetheme{Malmoe}
 
 \title[Universidade Católica do Salvador]{Extração de Informações de Dependência entre Módulos de Programas C/C++}
@@ -49,6 +50,12 @@ Coesão é a medida que define o quanto um módulo de um programa está focado e
 solucionar um único problema. Quanto maior a coesão menor o acoplamento
 \end{frame}
 
+\begin{frame}
+\frametitle{Coesão}
+\framesubtitle{métrica}
+LCOM4
+\end{frame}
+
 \subsection{Acoplamento}
 
 \begin{frame}
@@ -56,6 +63,12 @@ solucionar um único problema. Quanto maior a coesão menor o acoplamento
 \framesubtitle{definição}
 Acoplamento representa o nível de interdependências entre os módulos de um
 sistema. Quanto maior o acoplamento maior a complexidade.
+\end{frame}
+
+\begin{frame}
+\frametitle{Acoplamento}
+\framesubtitle{métrica}
+CBO
 \end{frame}
 
 \section{Implementação do Extrator}
@@ -104,7 +117,7 @@ sistema. Quanto maior o acoplamento maior a complexidade.
 
 \begin{frame}
 \frametitle{Doxygen}
-\framesubtitle{como funciona}
+\framesubtitle{como funciona\cite{doxygenInternals}}
  \begin{figure}[h]
  \center
  \includegraphics[scale=0.25]{imagens/doxygen-internals-flow}
@@ -127,35 +140,65 @@ sistema. Quanto maior o acoplamento maior a complexidade.
 \end{frame}
 
 \begin{frame}
-\frametitle{Implementação do Extrator}
+\frametitle{Implementação do Extrator\footnote{http://github.com/terceiro/egypt}}
 \framesubtitle{egypt + doxyparse}
- Doxygen é um sistema de documentação para C++, C, Java, Objective-C, Python,
- IDL, Fortran, VHDL, PHP e C\#.
-
-http://github.com/terceiro/egypt/
+ \begin{figure}[h]
+ \center
+ \includegraphics[scale=0.3]{imagens/egypt-diagram-extractor}
+ \label{egypt-diagram-extractor}
+ \end{figure}
 \end{frame}
 
 \section{Avaliação}
 
 \begin{frame}
 \frametitle{Avaliação}
- conteúdo do slide
+ Os dados gerados pelo novo extrator apresentam diferenças em relação ao
+ extrator original do egypt?
 \end{frame}
 
 \subsection{Procedimento}
 
 \begin{frame}
-\frametitle{Avaliação}
-\framesubtitle{Procedimento}
- conteúdo do slide
+\frametitle{Procedimento}
+\framesubtitle{caso de uso ristretto}
+ Os dados extraídos pelo extrator original foram comparados com os dados do
+ novo extrator para 21 versões do projeto ristretto.
 \end{frame}
 
 \subsection{Resultados}
 
 \begin{frame}
-\frametitle{Avaliação}
-\framesubtitle{Resultados}
- conteúdo do slide
+\frametitle{Resultados}
+\framesubtitle{grafo do ristretto 0.0.11}
+ \begin{figure}
+ \center
+ \subfigure[Doxyparse]{
+    \includegraphics[scale=0.25]{imagens/ristretto-0_0_11-doxyparse}
+    \label{fig:ristretto-0.0.11-doxyparse}
+ }
+ \qquad
+ \subfigure[GCC]{
+    \includegraphics[scale=0.25]{imagens/ristretto-0_0_11-gcc}
+    \label{fig:ristretto-0.0.11-gcc}
+ }
+ \label{fig:ristretto-0.0.11}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Resultados}
+\framesubtitle{o que são essas diferenças}
+\end{frame}
+
+\begin{frame}
+\frametitle{Resultados}
+\framesubtitle{grafo do ristretto 0.0.11 atualizado}
+ \begin{figure}
+ \center
+ \includegraphics[scale=0.3]{imagens/ristretto-0_0_11-doxyparse-2}
+ \label{fig:ristretto-0.0.11-doxyparse-2}
+ \end{figure}
 \end{frame}
 
 \section{Conclusão}
@@ -170,7 +213,12 @@ http://github.com/terceiro/egypt/
 \begin{frame}
 \frametitle{Conclusão}
 \framesubtitle{Trabalhos futuros}
- conteúdo do slide\cite{measuringCouplingAndCohesion}
+ \begin{itemize}
+ \item<1- >Testar egypt em outras linguagens de programação
+ \item<1- >Implementar novo extrator baseado em Natural Docs
+ \item<1- >Implementar no doxyparse detecção de chamada indireta
+ \item<1- >Armazenar símbolos externos ao projeto
+ \end{itemize}
 \end{frame}
 
 \section{}
