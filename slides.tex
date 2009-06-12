@@ -7,7 +7,7 @@
 \title[Universidade Católica do Salvador]{Extração de Informações de Dependência entre Módulos de Programas C/C++}
 \author[Joenio Costa]{Joenio Marques da Costa}
 \institute{UCSal - Universidade Católica do Salvador}
-\date{junho de 2009}
+\date{13 junho de 2009}
 \subject{alguma coisa}
 \logo{\includegraphics[scale=0.15]{imagens/brasao-ucsal-pb}}
 
@@ -19,67 +19,56 @@
  \tableofcontents
 \end{frame}
 
-\section{Introdução}
+\section{Objetivo}
 
 \begin{frame}
-\frametitle{Introdução}
-  \begin{itemize}
-  \item<1-> O que é arquitetura de software.
-  \item<1-> Porque documentar arquitetura de software.
-  \item<1-> Como documentar arquitetura de software.
-  \end{itemize}
+\frametitle{Objetivo}
+ Implementar uma ferramenta para extração de informações de dependências
+ entre módulos de programas escritos em C/C++ sem necessidade de compilação.
 \end{frame}
 
 \section{Conceitos}
 
+\subsection{Arquitetura de Software}
+
 \begin{frame}
-\frametitle{Conceitos}
-  \begin{itemize}
-  \item<1-> Coesão.
-  \item<1-> Acoplamento.
-  \item<1-> Atributos de modularidade.
-  \end{itemize}
+\frametitle{Arquitetura de Software}
+ Arquitetura de software de um programa é a estrutura que define as propriedades
+ externamente visíveis e o relacionamento entre os grandes componentes
+ estruturais de um sistema.
 \end{frame}
 
 \subsection{Coesão e Acoplamento}
 
 \begin{frame}
 \frametitle{Coesão e Acoplamento}
-\framesubtitle{definição}
-\begin{description}
-\item[Coesão]É a medida que define o quanto um módulo de um programa está
-focado em solucionar um único problema. Quanto maior a coesão menor o
-acoplamento
-\item[Acoplamento]Representa o nível de interdependências entre os módulos de
-um sistema. Quanto maior o acoplamento maior a complexidade.
-\end{description}
+\framesubtitle{atributos de modularidade}
+ \begin{description}
+ \item[Coesão]É a medida que define o quanto um módulo de um programa está
+ focado em solucionar um único problema. Quanto maior a coesão menor o
+ acoplamento
+ \item[Acoplamento]Representa o nível de interdependências entre os módulos de
+ um sistema. Quanto maior o acoplamento maior a complexidade.
+ \end{description}
 \end{frame}
 
 \subsection{Métricas}
 
 \begin{frame}
 \frametitle{Métricas}
-\framesubtitle{atributos de modularidade}
-  \begin{description}
-  \item[CBO] Acoplamento entre as classes de objetos\newline (coupling between objects classes)
-  \item[LCOM] Falta de coesão em métodos\newline (lack of cohesion in methods)
-  \end{description}
+\framesubtitle{coesão e acoplamento}
+ \begin{description}
+ \item[LCOM] Falta de coesão em métodos\newline (lack of cohesion in methods)
+ \item[CBO] Acoplamento entre as classes de objetos\newline (coupling between objects classes)
+ \end{description}
 \end{frame}
 
 \section{Implementação do Extrator}
 
-\begin{frame}
-\frametitle{Implementação do Extrator}
- O extrator foi implementado como uma extensão para o
- egypt\footnote{http://www.gson.org/egypt} utilizando o
- Doxygen\footnote{http://www.doxygen.org} como base.
-\end{frame}
-
 \subsection{egypt}
 
 \begin{frame}
-\frametitle{egypt}
-\framesubtitle{definição e funcionamento}
+\frametitle{egypt\footnote{http://www.gson.org/egypt}}
  O egypt é um Software Livre desenvolvido com o objetivo de gerar grafos de
  chamada entre funções de programas escritos em C/C++.
  \begin{figure}[h]
@@ -92,8 +81,8 @@ um sistema. Quanto maior o acoplamento maior a complexidade.
 \subsection{Doxygen}
 
 \begin{frame}
-\frametitle{Doxygen}
-\framesubtitle{sistema de documentação multi-linguagem}
+\frametitle{Doxygen\footnote{http://www.doxygen.org}}
+\framesubtitle{sistema de documentação}
  Possui um parser para cada linguagem suportada.
  \begin{figure}[h]
  \center
@@ -119,7 +108,7 @@ um sistema. Quanto maior o acoplamento maior a complexidade.
 \begin{frame}
 \frametitle{egypt + Doxygen}
 \framesubtitle{Egypt::Exractor::Doxyparse\footnote{http://github.com/terceiro/egypt}}
- Extrator do egypt baseado no doxyparse.
+ Um extrator para o egypt baseado no doxyparse.
  \begin{figure}[h]
  \center
  \includegraphics[scale=0.3]{imagens/egypt-diagram-extractor}
@@ -129,12 +118,6 @@ um sistema. Quanto maior o acoplamento maior a complexidade.
 
 \section{Avaliação}
 
-\begin{frame}
-\frametitle{Avaliação}
- Os dados gerados pelo novo extrator apresentam diferenças em relação ao
- extrator original do egypt?
-\end{frame}
-
 \subsection{Procedimento}
 
 \begin{frame}
@@ -143,7 +126,6 @@ um sistema. Quanto maior o acoplamento maior a complexidade.
 \begin{itemize}
  \item ristretto é um Software Livre escrito em C para visualização de imagens no
  ambiente Desktop Xfce\footnote{http://www.xfce.org}.
-
  \item 21 versões do projeto foram analisadas utilizando o novo extrator do egypt,
  os resultados foram comparados aos dados obtidos pelo extrator original.
 \end{itemize}
@@ -157,8 +139,8 @@ um sistema. Quanto maior o acoplamento maior a complexidade.
  \begin{figure}
  \center
  \subfigure[Doxyparse]{
-    \includegraphics[scale=0.25]{imagens/ristretto-0_0_11-doxyparse}
-    \label{fig:ristretto-0.0.11-doxyparse}
+  \includegraphics[scale=0.25]{imagens/ristretto-0_0_11-doxyparse}
+  \label{fig:ristretto-0.0.11-doxyparse}
  }
  \qquad
  \subfigure[GCC]{
@@ -172,6 +154,11 @@ um sistema. Quanto maior o acoplamento maior a complexidade.
 \begin{frame}
 \frametitle{Resultados}
 \framesubtitle{o que são essas diferenças}
+ \begin{itemize}
+ \item egypt confunde o uso de símbolos com mesmo nome
+ \item doxyparse não avalia bem os símbolos estáticos
+ \item egypt erra o cálculo de CBO (acoplamento)
+ \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -179,8 +166,14 @@ um sistema. Quanto maior o acoplamento maior a complexidade.
 \framesubtitle{grafo do ristretto 0.0.11 atualizado}
  \begin{figure}
  \center
- \includegraphics[scale=0.3]{imagens/ristretto-0_0_11-doxyparse-2}
- \label{fig:ristretto-0.0.11-doxyparse-2}
+ \subfigure[Doxyparse antes]{
+    \includegraphics[scale=0.25]{imagens/ristretto-0_0_11-doxyparse}
+ }
+ \qquad
+ \subfigure[Doxyparse depois]{
+    \includegraphics[scale=0.25]{imagens/ristretto-0_0_11-doxyparse-2}
+ }
+ \label{fig:ristretto-0.0.11-antes-depois}
  \end{figure}
 \end{frame}
 
@@ -188,19 +181,19 @@ um sistema. Quanto maior o acoplamento maior a complexidade.
 
 \begin{frame}
 \frametitle{Conclusão}
- conteúdo do slide
+ O objetivo inicial foi atingido, implementar uma ferramenta para extração de
+ informação de dependência entre módulos de programas escritos em C/C++.
 \end{frame}
 
 \subsection{Trabalhos futuros}
 
 \begin{frame}
-\frametitle{Conclusão}
-\framesubtitle{Trabalhos futuros}
+\frametitle{Trabalhos futuros}
  \begin{itemize}
- \item<1- >Testar egypt em outras linguagens de programação
- \item<1- >Implementar novo extrator baseado em Natural Docs
- \item<1- >Implementar no doxyparse detecção de chamada indireta
- \item<1- >Armazenar símbolos externos ao projeto
+ \item Testar egypt em outras linguagens de programação
+ \item Implementar novo extrator baseado em Natural Docs\footnote{http://www.naturaldocs.org}
+ \item Implementar no doxyparse detecção de chamada indireta
+ \item Armazenar símbolos externos ao projeto
  \end{itemize}
 \end{frame}
 
