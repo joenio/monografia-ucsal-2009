@@ -41,34 +41,29 @@
   \end{itemize}
 \end{frame}
 
-\subsection{Coesão}
+\subsection{Coesão e Acoplamento}
 
 \begin{frame}
-\frametitle{Coesão}
+\frametitle{Coesão e Acoplamento}
 \framesubtitle{definição}
-Coesão é a medida que define o quanto um módulo de um programa está focado em
-solucionar um único problema. Quanto maior a coesão menor o acoplamento
+\begin{description}
+\item[Coesão]É a medida que define o quanto um módulo de um programa está
+focado em solucionar um único problema. Quanto maior a coesão menor o
+acoplamento
+\item[Acoplamento]Representa o nível de interdependências entre os módulos de
+um sistema. Quanto maior o acoplamento maior a complexidade.
+\end{description}
 \end{frame}
 
-\begin{frame}
-\frametitle{Coesão}
-\framesubtitle{métrica}
-LCOM4
-\end{frame}
-
-\subsection{Acoplamento}
+\subsection{Métricas}
 
 \begin{frame}
-\frametitle{Acoplamento}
-\framesubtitle{definição}
-Acoplamento representa o nível de interdependências entre os módulos de um
-sistema. Quanto maior o acoplamento maior a complexidade.
-\end{frame}
-
-\begin{frame}
-\frametitle{Acoplamento}
-\framesubtitle{métrica}
-CBO
+\frametitle{Métricas}
+\framesubtitle{atributos de modularidade}
+  \begin{description}
+  \item[CBO] Acoplamento entre as classes de objetos\newline (coupling between objects classes)
+  \item[LCOM] Falta de coesão em métodos\newline (lack of cohesion in methods)
+  \end{description}
 \end{frame}
 
 \section{Implementação do Extrator}
@@ -84,14 +79,9 @@ CBO
 
 \begin{frame}
 \frametitle{egypt}
-\framesubtitle{o que é}
+\framesubtitle{definição e funcionamento}
  O egypt é um Software Livre desenvolvido com o objetivo de gerar grafos de
  chamada entre funções de programas escritos em C/C++.
-\end{frame}
-
-\begin{frame}
-\frametitle{egypt}
-\framesubtitle{como funciona}
  \begin{figure}[h]
  \center
  \includegraphics[scale=0.3]{imagens/egypt-fluxogram}
@@ -103,21 +93,8 @@ CBO
 
 \begin{frame}
 \frametitle{Doxygen}
-\framesubtitle{o que é}
- Doxygen é um sistema de documentação para C++, C, Java, Objective-C, Python,
- IDL, Fortran, VHDL, PHP e C\#.
-\end{frame}
-
-\begin{frame}
-\frametitle{Doxygen}
-\framesubtitle{o que pode fazer}
- O Doxygen possui um parser para cada linguagem suportada, assim ele consegue extrair
- informações de hierarquia e colaboração entre os módulos do projeto.
-\end{frame}
-
-\begin{frame}
-\frametitle{Doxygen}
-\framesubtitle{como funciona\cite{doxygenInternals}}
+\framesubtitle{sistema de documentação multi-linguagem}
+ Possui um parser para cada linguagem suportada.
  \begin{figure}[h]
  \center
  \includegraphics[scale=0.25]{imagens/doxygen-internals-flow}
@@ -125,10 +102,10 @@ CBO
  \end{figure}
 \end{frame}
 
-\subsection{Implementação do Extrator}
+\subsection{egypt + Doxygen}
 
 \begin{frame}
-\frametitle{Implementação do Extrator}
+\frametitle{egypt + Doxygen}
 \framesubtitle{doxyparse\footnote{http://gitorious.org/projects/doxygen}}
  Um parser capaz de analisar projetos escritos em C/C++ e identificar onde os
  símbolos são declarados e utilizados dentro do do projeto.
@@ -140,8 +117,9 @@ CBO
 \end{frame}
 
 \begin{frame}
-\frametitle{Implementação do Extrator\footnote{http://github.com/terceiro/egypt}}
-\framesubtitle{egypt + doxyparse}
+\frametitle{egypt + Doxygen}
+\framesubtitle{Egypt::Exractor::Doxyparse\footnote{http://github.com/terceiro/egypt}}
+ Extrator do egypt baseado no doxyparse.
  \begin{figure}[h]
  \center
  \includegraphics[scale=0.3]{imagens/egypt-diagram-extractor}
@@ -162,8 +140,13 @@ CBO
 \begin{frame}
 \frametitle{Procedimento}
 \framesubtitle{caso de uso ristretto}
- Os dados extraídos pelo extrator original foram comparados com os dados do
- novo extrator para 21 versões do projeto ristretto.
+\begin{itemize}
+ \item ristretto é um Software Livre escrito em C para visualização de imagens no
+ ambiente Desktop Xfce\footnote{http://www.xfce.org}.
+
+ \item 21 versões do projeto foram analisadas utilizando o novo extrator do egypt,
+ os resultados foram comparados aos dados obtidos pelo extrator original.
+\end{itemize}
 \end{frame}
 
 \subsection{Resultados}
@@ -221,11 +204,4 @@ CBO
  \end{itemize}
 \end{frame}
 
-\section{}
-
-\begin{frame}
-\frametitle{Referências}
-\bibliographystyle{abbrv}
-\bibliography{bibliografia}{}
-\end{frame}
 \end{document}
