@@ -28,6 +28,8 @@ dependencias não satisfeitas, além de gerar perda de informação, como aconte
 com macros em projetos C/C++ que são descartadas durante a compilação
 \cite{sourceVersusObjectCodeExtraction}.
 
+% <Osvaldo> Deixar este paragrafo acima mais motivador/justificativa
+
 Este trabalho baseia-se na implementação de uma ferramenta que possibilite a
 extração de informação de dependências entre módulos de programas C/C++ baseada
 em código fonte.
@@ -37,7 +39,8 @@ são abordados conceitos básicos de arquitetura de software e atributos de
 modularidade como acoplamento e coesão; no capítulo~\ref{ch:implementacao} será
 demonstrado como a ferramenta foi implementada; no capítulo~\ref{ch:avaliacao}
 os resultados obtidos pela ferramenta são avaliados com um estudo de caso; o
-capítulo~\ref{ch:conclusao} apresenta as conclusões e trabalhos futuros.
+capítulo~\ref{ch:conclusao} apresenta as conclusões e sugestões para trabalhos
+futuros.
 
 \chapter{Conceitos} \label{ch:conceitos}
 
@@ -75,6 +78,9 @@ Neste trabalho a documentação da arquitetura de software de um programa será
 utilizada com o objetivo de calcular métricas que possibilitem avaliar a
 qualidade do sistema em relação aos seus atributos de modularidade.
 
+% <Osvaldo> Mais exemplos de arquitetura de software
+%           mais modelos de arq.
+
 \section{Atributos de Modularidade}
 
 A medição é um elemento fundamental para qualquer processo de engenharia
@@ -108,10 +114,14 @@ Falta de coesão em métodos (lack of cohesion in methods).
 
 \end{itemize}
 
+% <Osvaldo> Falar mais sobre essas métricas
+
 Este trabalho fundamenta-se nas métricas CBO e LCOM, que são
 indicadores, respectivamente, de
 acoplamento e coesão, e refletem alguns aspectos da modularidade de um projeto de
 software.
+
+% <Osvaldo> Fundamentar mais a escolha
 
 \subsection{Acoplamento}
 
@@ -188,6 +198,8 @@ significantes incluindo a definição original são
 \item A redefinição do LCOM de Li e Henry por \citeonline{measuringCouplingAndCohesion}; e
 \item A redefinição da proposta original pelos próprios Chidamber e Kemerer.
 \end{itemize}
+
+% <Osvaldo> Quais são as modificações dos itens acima?
 
 Uma das criticas ao LCOM de \citeonline{aMetricsSuiteForOO} foi feita por
 \citeonline{aCritiqueOfCohesion} onde ele diz:
@@ -284,13 +296,13 @@ grafos.
 
 Em Janeiro de 2009 o egypt começou a ser restruturado por
 Antonio Terceiro o qual o tem mantido
-em\footnote{http://github.com/terceiro/egypt}. As principais mudanças sofridas
+em~\footnote{http://github.com/terceiro/egypt}. As principais mudanças sofridas
 pelo egypt deste então foram \cite{structuralComplexityEvolution}:
 
 \begin{itemize}
 \item Detecção de uso de variáveis, para identificar que função usa qual
 variável.
-\item Opção para agrupar chamada e uso de variaveis por módulo, com isto é
+\item Opção para agrupar chamada e uso de variáveis por módulo. Com isto é
 possível ter uma visão de dependência entre módulos.
 \item Refatoração do script egypt em um design orientado a objetos, para
 permitir diferentes módulos de extração e relatório.
@@ -334,9 +346,9 @@ nesta capacidade de extrair informações de hierarquia e colaboração que o
 Doxygen foi escolhido como base para implementação do extrator.
 
 O Doxygen é Software Livre e está disponível sob a GPL\sigla{GPL}{GNU Public
-License}v2 em
-\footnote{https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk}. Junto ao
-código fonte deste programa existe um pequeno exemplo chamado doxyapp que
+License}v2
+em~\footnote{https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk}. Junto
+ao código fonte deste programa existe um pequeno exemplo chamado doxyapp que
 implementa uma ferramenta para análise de código fonte bem próximo as
 necessidades deste projeto e foi utilizado como base inicial para a
 implementação.
@@ -346,7 +358,7 @@ Interface} (Interface de Programação de Aplicativos) do Doxygen é importante
 destacar as seguintes:
 
 \begin{description}
-\item[Doxygen] Provê um namespace para varáveis e funções globais usadas pelo doxygen
+\item[Doxygen] Provê um namespace para variáveis e funções globais usadas pelo doxygen
 \item[CodeOutputInterface] Interface de saída de trecho de código para os parsers
 \item[MemberDef] Definição de um membro ou símbolo de classe
 \item[FileDef] Definição de um arquivo
@@ -361,6 +373,8 @@ arquivos fontes são processados pelo Doxygen internamente.
 \caption{Fluxograma interno do doxygen\cite{doxygenInternals}}
 \label{fig:doxygen-internals-flow}
 \end{figure}
+
+% <Osvaldo> Explicar a figura
 
 \section{Implementação do Extrator usando a API do Doxygen}
 
@@ -455,6 +469,8 @@ Segue abaixo um exemplo de execução do egypt usando cada um dos extratores:
 %         Separar o que estava pronto do que foi feito por mim
 % Sobre os resultados: Seria possível produzir os grafos manualmente?
 % qual o tamanho do ristretto (SLOC) ele é mto grande?
+
+% <Osvaldo> Deixar claro qual a sua produção
 
 \chapter{Avaliação} \label{ch:avaliacao}
 
@@ -806,7 +822,7 @@ métricas atualizadas.
 Os resultados obtidos foram satisfatórios e atingiram o objetivo inicial que
 foi possibilitar extração de informação de dependência entre módulos de
 programas C/C++ sem necessidade de compilar o software em questão, além de um
-novo extrator o {\it egypt} ganhou algumas melhorias e correção de erros.
+novo extrator o {\it egypt} ganhou correção de erro no cálculo da métrica CBO.
 
 Além dos resultados práticos obtidos com a implementação, o estudo de caso
 possibilitou ter uma visão geral da evolução do projeto {\it ristretto} e de
