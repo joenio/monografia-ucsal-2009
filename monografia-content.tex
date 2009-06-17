@@ -2,16 +2,17 @@
 
 Arquitetura de software de um programa é a estrutura que define as propriedades
 externamente visíveis e o relacionamento entre os grandes componentes
-estruturais de um sistema \cite{engenhariaDeSoftwarePressman}, esta arquitetura
+estruturais de um sistema \cite{engenhariaDeSoftwarePressman}. Esta arquitetura
 pode estar ou não documentada em forma de diagramas, grafos, tabelas ou
-documentos. Todo projeto de software possui uma arquitetura implícita, ter
+documentos. Todo software possui uma arquitetura, ainda que esta não
+esteja documentada. Ter
 esta arquitetura documentada é útil para extrair métricas de modularidade ou
 para estudar o impacto de possíveis alterações de um projeto
 \cite{mata26-terceiro-projeto-piloto}.
 
 A arquitetura de grandes projetos de software raramente são documentados e
 quando são usualmente estão desatualizados
-\cite{sourceVersusObjectCodeExtraction}, ter a arquitetura documentada e
+\cite{sourceVersusObjectCodeExtraction}. Ter a arquitetura documentada e
 atualizada é de suma importância para o acompanhamento do projeto além de
 servir como forma de apoio para entrada de novos desenvolvedores.
 
@@ -31,11 +32,11 @@ Este trabalho baseia-se na implementação de uma ferramenta que possibilite a
 extração de informação de dependências entre módulos de programas C/C++ baseada
 em código fonte.
 
-Este trabalho está organizado da seguinte forma. No capítulo~\ref{ch:conceitos}
+Este trabalho está organizado da seguinte forma: no capítulo~\ref{ch:conceitos}
 são abordados conceitos básicos de arquitetura de software e atributos de
-modularidade como acoplamento e coesão. No capítulo~\ref{ch:implementacao} será
-demonstrado como a ferramenta foi implementada. No capítulo~\ref{ch:avaliacao}
-os resultados obtidos pela ferramenta são avaliados com um estudo de caso. O
+modularidade como acoplamento e coesão; no capítulo~\ref{ch:implementacao} será
+demonstrado como a ferramenta foi implementada; no capítulo~\ref{ch:avaliacao}
+os resultados obtidos pela ferramenta são avaliados com um estudo de caso; o
 capítulo~\ref{ch:conclusao} apresenta as conclusões e trabalhos futuros.
 
 \chapter{Conceitos} \label{ch:conceitos}
@@ -83,7 +84,7 @@ sistema\cite{OntheModular}.
 
 Um dos conjuntos de métricas de software OO\sigla{OO}{Orientação a Objetos}
 mais amplamente referenciado foi proposto por Chidamber e Kemerer
-\cite{engenhariaDeSoftwarePressman}, eles propuseram seis métricas:
+\cite{engenhariaDeSoftwarePressman}. Eles propuseram seis métricas:
 
 \begin{itemize}
 
@@ -107,13 +108,14 @@ Falta de coesão em métodos (lack of cohesion in methods).
 
 \end{itemize}
 
-Este trabalho fundamenta-se nas métricas CBO e LCOM, que são indicadores de
-acoplamento e coesão e refletem diretamente na modularidade de um projeto de
+Este trabalho fundamenta-se nas métricas CBO e LCOM, que são
+indicadores, respectivamente, de
+acoplamento e coesão, e refletem alguns aspectos da modularidade de um projeto de
 software.
 
 \subsection{Acoplamento}
 
-Acoplamento é a medida qualitativa de conexões entre os componentes de um
+Acoplamento é a medida de conexões entre os componentes de um
 sistema, ele representa o nível de interdependências entre os módulos de um
 sistema, quanto maior o acoplamento maior a complexidade.
 
@@ -206,7 +208,7 @@ cada método Mi de C1 deve existir um grupo de atributos Ii correspondente. LCOM
 \begin{figure}[h]
 \center
 \includegraphics[scale=0.4]{imagens/exemplo-lcom1-hitz-e-montazeri}
-\caption{Exemplo LCOM \cite{measuringCouplingAndCohesion}}
+\caption{Exemplo: LCOM \cite{measuringCouplingAndCohesion}}
 \label{fig:exemplo-lcom1}
 \end{figure}
 
@@ -224,7 +226,7 @@ o cálculo de LCOM traz resultados diferentes.
 \begin{figure}[h]
 \center
 \includegraphics[scale=0.4]{imagens/exemplo-anomalia-lcom1-hitz-e-montazeri}
-\caption{Exemplo anomalia LCOM \cite{measuringCouplingAndCohesion}}
+\caption{Exemplo de anomalia no uso da mátrica LCOM \cite{measuringCouplingAndCohesion}}
 \label{fig:exemplo-anomalia-lcom1}
 \end{figure}
 
@@ -323,15 +325,15 @@ C, Java, Objective-C, Python, IDL\sigla{IDL}{Interface Definition Language},
 Fortran, VHDL\sigla{VHDL}{VHSIC (Very High Speed Integrated Circuit) Hardware
 Description Language}, PHP e C\#. Com ele é possível gerar documentação em
 HTML\sigla{HTML}{HyperText Markup Language}, RTF\sigla{RTF}{Rich Text Format},
-PostScript, PDF\sigla{PDF}{Portable Document Format}, \LaTeX\ e man pages, ele
-além de extrair a documentação existente no código fonte, também extrai
+PostScript, PDF\sigla{PDF}{Portable Document Format}, \LaTeX\ e man pages.
+Além de extrair a documentação existente no código fonte, o Doxygen também extrai
 informações de hierarquia e colaboração entre os módulos do projeto. É baseado
 nesta capacidade de extrair informações de hierarquia e colaboração que o
 Doxygen foi escolhido como base para implementação do extrator.
 
 O Doxygen é Software Livre e está disponível sob a GPL\sigla{GPL}{GNU Public
 License}v2 em
-\footnote{https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk}, junto ao
+\footnote{https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk}. Junto ao
 código fonte deste programa existe um pequeno exemplo chamado doxyapp que
 implementa uma ferramenta para análise de código fonte bem próximo as
 necessidades deste projeto e foi utilizado como base inicial para a
@@ -390,9 +392,9 @@ fonte, extrair informação de colaboração entre módulos e não gerar mensage
 aviso.
 
 O doxyparse faz a análise dos fontes de um diretorio ou arquivo(s) passados
-como parâmetro via linha de comando e extrai destes fontes os símbolos
-encontrados e gera uma saída, exemplificada na
-figura~\ref{exemplo-saida-doxyparse}, que será lida pelo egypt.
+como parâmetro via linha de comando, extrai destes fontes os símbolos
+encontrados e gera uma saída (exemplificada na
+figura~\ref{exemplo-saida-doxyparse}) que será lida pelo egypt.
 
 \begin{figure}[h]
 \begin{Verbatim}[frame=single,fontsize=\relsize{-2},fontfamily=courier]
@@ -458,7 +460,7 @@ Em \cite{structuralComplexityEvolution} foi feita uma análise, utilizando o
 extrator original do egypt, do projeto {\it
 ristretto}\footnote{http://goodies.xfce.org/projects/applications/ristretto},
 um Software Livre escrito em C para visualização de imagens no ambiente Desktop
-Xfce\footnote{http://www.xfce.org}, as informações geradas por esta análise
+Xfce\footnote{http://www.xfce.org}. As informações geradas por esta análise
 serão utilizadas aqui para comparação com as informações extraídas pelo novo
 extrator baseado no doxyparse.
 
@@ -604,7 +606,7 @@ as versões.
 
 A análise dos dados gerados pelo egypt usando cada um dos extratores para cada
 versão do {\it ristretto} foi importante pois revelou que existem divergencias
-entre os extratores e isto indica que algum dos extratores estão dando
+entre os extratores. Isto indica que algum dos extratores está dando
 informações incorretas e é necessário investigar o que está causando essas
 diferenças. Nas seções a seguir cada uma das diferenças encontradas serão
 avaliadas e corrigidas quando necessário.
@@ -773,7 +775,7 @@ acoplamento de um dado módulo é o número de outros módulos com os quais ele
 colabora, esta informação está incorreta.
 
 Avaliando o módulo do egypt responsável pelo cálculo de métricas verificou-se
-que o cálculo de acoplamento esta errado, pois considera métodos externos
+que o cálculo de acoplamento estava incorreto, pois considerava métodos externos
 como chamadas a métodos da biblioteca GTK (GIMP Tool Kit)\sigla{GTK}{GIMP Tool
 Kit}. O Doxyparse não foi afetado por este erro pois a chamada a
 métodos externos são desconsiderados pelo doxyparse.
@@ -813,21 +815,21 @@ colaboração entre os módulos existentes.
 
 \begin{description}
 
-\item[Testar egypt em outras linguagens de programação]
+\item[Testar egypt em outras linguagens de programação.]
 O Doxygen suporta várias linguagens de programação além de C/C++. Testar o
 extrator Doxyparse em projetos escritos nessas linguagens e verificar se o
 egypt e o doxyparse funcionam bem.
 
-\item[Implementar novo extrator baseado em Natural Docs]
+\item[Implementar novo extrator baseado em Natural Docs.]
 O Natural Docs\footnote{http://www.naturaldocs.org/} é uma ferramenta
 semelhante ao Doxygen implementada em Perl com suporte a algumas linguagens não
 suportadas pelo Doxygen como Perl, Ruby e ActionScript.
 
-\item[Implementar no doxyparse detecção de chamada indireta]
+\item[Implementar no doxyparse detecção de chamada indireta.]
 O doxyparse identifica chamadas indiretas mas não as diferencia de chamadas
 diretas.
 
-\item[Armazenar símbolos externos ao projeto]
+\item[Armazenar símbolos externos ao projeto.]
 Os símbolos externos encontrados pelo doxyparse são completamente descartados,
 é importante ter estas referencias para calcular outros tipos de métricas.
 
