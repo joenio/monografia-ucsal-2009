@@ -28,8 +28,6 @@ dependencias não satisfeitas, além de gerar perda de informação, como aconte
 com macros em projetos C/C++ que são descartadas durante a compilação
 \cite{sourceVersusObjectCodeExtraction}.
 
-% <Osvaldo> Deixar este paragrafo acima mais motivador/justificativa
-
 Este trabalho baseia-se na implementação de uma ferramenta que possibilite a
 extração de informação de dependências entre módulos de programas C/C++ baseada
 em código fonte.
@@ -114,14 +112,10 @@ Falta de coesão em métodos (lack of cohesion in methods).
 
 \end{itemize}
 
-% <Osvaldo> Falar mais sobre essas métricas
-
 Este trabalho fundamenta-se nas métricas CBO e LCOM, que são
 indicadores, respectivamente, de
 acoplamento e coesão, e refletem alguns aspectos da modularidade de um projeto de
 software.
-
-% <Osvaldo> Fundamentar mais a escolha
 
 \subsection{Acoplamento}
 
@@ -198,8 +192,6 @@ significantes incluindo a definição original são
 \item A redefinição do LCOM de Li e Henry por \citeonline{measuringCouplingAndCohesion}; e
 \item A redefinição da proposta original pelos próprios Chidamber e Kemerer.
 \end{itemize}
-
-% <Osvaldo> Quais são as modificações dos itens acima?
 
 Uma das criticas ao LCOM de \citeonline{aMetricsSuiteForOO} foi feita por
 \citeonline{aCritiqueOfCohesion} onde ele diz:
@@ -373,8 +365,6 @@ arquivos fontes são processados pelo Doxygen internamente.
 \caption{Fluxograma interno do doxygen\cite{doxygenInternals}}
 \label{fig:doxygen-internals-flow}
 \end{figure}
-
-% <Osvaldo> Explicar a figura
 
 \section{Implementação do Extrator usando a API do Doxygen}
 
