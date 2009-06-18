@@ -442,25 +442,30 @@ figura~\ref{egypt-diagram-extractor}:
 \item[Egypt::Extractor::Doxyparse] Novo extrator baseado na saída do doxyparse.
 \end{description}
 
-Após a refatoração o egypt pode extrair informações usando 2 métodos
+Após a refatoração o {\it egypt} pode extrair informações usando 2 métodos
 diferentes, usando o extrator GCC que faz a extração baseada nos arquivos
-intermediários do GCC ou usando o extrator Doxyparse que faz a análise
-utilizando a saída do doxyparse.
+intermediários do GCC ou usando o extrator {\it Doxyparse} que faz a análise
+utilizando a saída do {\it doxyparse}.
 
-Segue abaixo um exemplo de execução do egypt usando cada um dos extratores:
+Segue abaixo um exemplo de execução do {\it egypt} usando cada um dos extratores:
 
 \begin{Verbatim}[frame=single,fontsize=\relsize{-2},fontfamily=courier]
  $ egypt --extractor Doxyparse <arquivos>
  $ egypt --extractor GCC <arquivos>
 \end{Verbatim}
 
-% <Neiva> Não ficou claro o que você fez exatamente.
-%         Exemplificar com trechos de código que eu fiz
-%         Separar o que estava pronto do que foi feito por mim
-% Sobre os resultados: Seria possível produzir os grafos manualmente?
-% qual o tamanho do ristretto (SLOC) ele é mto grande?
+\begin{figure}[h]
+\center
+\includegraphics[scale=0.5]{imagens/diagrama-doxyparse-egypt}
+\caption{Relacionamento entre o egypt e doxyparse}
+\label{diagrama-doxyparse-egypt}
+\end{figure}
 
-% <Osvaldo> Deixar claro qual a sua produção
+A implementação do novo extrator para o {\it egypt} consistiu na criação de uma
+nova ferramenta chamada {\it doxyparse} e na implementação do extrator em si
+chamado {\it Egypt::Extractor::Doxyparse}. A
+figura~\ref{diagrama-doxyparse-egypt} apresenta um diagrama com o
+relacionamento entre essas duas ferramentas.
 
 \chapter{Avaliação} \label{ch:avaliacao}
 

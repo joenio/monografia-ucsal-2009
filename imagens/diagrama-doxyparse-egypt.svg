@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="diagrama-doxyparse-egypt.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Send"
+       style="overflow:visible;">
+      <path
+         id="path3193"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.2) rotate(180) translate(6,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         id="path3199"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.24"
+     inkscape:cx="335.8871"
+     inkscape:cy="879.61685"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1276"
+     inkscape:window-height="758"
+     inkscape:window-x="0"
+     inkscape:window-y="19" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1;fill:#eeeeec;fill-opacity:1;stroke:none;stroke-width:0.49999997;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6043"
+       width="487.90323"
+       height="263.70966"
+       x="128.2258"
+       y="569.74927"
+       rx="0"
+       ry="0"
+       inkscape:export-filename="/home/joenio/diagrama-doxyparse-egypt.png"
+       inkscape:export-xdpi="92.230003"
+       inkscape:export-ydpi="92.230003" />
+    <rect
+       ry="0"
+       rx="0"
+       y="329.39447"
+       x="128.2258"
+       height="265.32257"
+       width="487.90323"
+       id="rect6041"
+       style="opacity:1;fill:#d3d7cf;fill-opacity:1;stroke:none;stroke-width:0.49999997;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/joenio/diagrama-doxyparse-egypt.png"
+       inkscape:export-xdpi="92.230003"
+       inkscape:export-ydpi="92.230003" />
+    <rect
+       style="opacity:1;fill:#babdb6;fill-opacity:1;stroke:none;stroke-width:0.49999997;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6039"
+       width="487.90323"
+       height="237.09677"
+       x="128.2258"
+       y="145.91055"
+       rx="0"
+       ry="0"
+       inkscape:export-filename="/home/joenio/diagrama-doxyparse-egypt.png"
+       inkscape:export-xdpi="92.230003"
+       inkscape:export-ydpi="92.230003" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path2383"
+       sodipodi:cx="215.71428"
+       sodipodi:cy="579.50507"
+       sodipodi:rx="90"
+       sodipodi:ry="90"
+       d="M 305.71428,579.50507 A 90,90 0 1 1 125.71428,579.50507 A 90,90 0 1 1 305.71428,579.50507 z"
+       inkscape:export-filename="/home/joenio/diagrama-doxyparse-egypt.png"
+       inkscape:export-xdpi="92.230003"
+       inkscape:export-ydpi="92.230003"
+       transform="translate(155.64516,-299.19355)" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="286.12897"
+       y="283.4375"
+       id="text2385"
+       inkscape:export-filename="/home/joenio/diagrama-doxyparse-egypt.png"
+       inkscape:export-xdpi="92.230003"
+       inkscape:export-ydpi="92.230003"><tspan
+         sodipodi:role="line"
+         id="tspan2387"
+         x="286.12897"
+         y="283.4375">Egypt::Extractor::Doxyparse</tspan></text>
+    <path
+       d="M 305.71428,579.50507 A 90,90 0 1 1 125.71428,579.50507 A 90,90 0 1 1 305.71428,579.50507 z"
+       sodipodi:ry="90"
+       sodipodi:rx="90"
+       sodipodi:cy="579.50507"
+       sodipodi:cx="215.71428"
+       id="path2389"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:type="arc"
+       transform="translate(155.64516,-89.193547)"
+       inkscape:export-filename="/home/joenio/diagrama-doxyparse-egypt.png"
+       inkscape:export-xdpi="92.230003"
+       inkscape:export-ydpi="92.230003" />
+    <text
+       id="text2391"
+       y="493.4375"
+       x="340.17584"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/home/joenio/diagrama-doxyparse-egypt.png"
+       inkscape:export-xdpi="92.230003"
+       inkscape:export-ydpi="92.230003"><tspan
+         y="493.4375"
+         x="340.17584"
+         id="tspan2393"
+         sodipodi:role="line">doxyparse</tspan></text>
+    <path
+       transform="translate(155.64516,120.80645)"
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path2395"
+       sodipodi:cx="215.71428"
+       sodipodi:cy="579.50507"
+       sodipodi:rx="90"
+       sodipodi:ry="90"
+       d="M 305.71428,579.50507 A 90,90 0 1 1 125.71428,579.50507 A 90,90 0 1 1 305.71428,579.50507 z"
+       inkscape:export-filename="/home/joenio/diagrama-doxyparse-egypt.png"
+       inkscape:export-xdpi="92.230003"
+       inkscape:export-ydpi="92.230003" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="332.98639"
+       y="703.43744"
+       id="text2397"
+       inkscape:export-filename="/home/joenio/diagrama-doxyparse-egypt.png"
+       inkscape:export-xdpi="92.230003"
+       inkscape:export-ydpi="92.230003"><tspan
+         sodipodi:role="line"
+         id="tspan2399"
+         x="332.98639"
+         y="703.43744">Código fonte</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-opacity:1"
+       d="M 371.35944,370.56152 L 371.35944,400.06152"
+       id="path2401"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#path2383"
+       inkscape:connection-end="#path2389"
+       inkscape:export-filename="/home/joenio/diagrama-doxyparse-egypt.png"
+       inkscape:export-xdpi="92.230003"
+       inkscape:export-ydpi="92.230003" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow2Lend);stroke-opacity:1"
+       d="M 371.35944,580.56152 L 371.35944,610.06152"
+       id="path2403"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#path2389"
+       inkscape:connection-end="#path2395"
+       inkscape:export-filename="/home/joenio/diagrama-doxyparse-egypt.png"
+       inkscape:export-xdpi="92.230003"
+       inkscape:export-ydpi="92.230003" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="453.12903"
+       y="368.16864"
+       id="text6045"
+       inkscape:export-filename="/home/joenio/diagrama-doxyparse-egypt.png"
+       inkscape:export-xdpi="92.230003"
+       inkscape:export-ydpi="92.230003"><tspan
+         sodipodi:role="line"
+         id="tspan6047"
+         x="453.12903"
+         y="368.16864">Egypt</tspan></text>
+  </g>
+</svg>
